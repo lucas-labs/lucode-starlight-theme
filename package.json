@@ -1,0 +1,17 @@
+{
+    "name": "lucode-starlight",
+    "description": "Lucode's theme for Starlight (the Astro native documentation site generator)",
+    "module": "index.ts",
+    "type": "module",
+    "workspaces": [
+        "packages/*",
+        "docs/"
+    ],
+    "scripts": {
+        "docs": "bun run --filter lucode-starlight-docs dev"
+    },
+    "devDependencies": {
+        "@antfu/eslint-config": "^8.2.0",
+        "astro": "^6.1.9"
+    }
+}
