@@ -1,4 +1,5 @@
 import { z } from 'astro/zod';
+import { navLinkSchema } from './core/config/schemas';
 
 export const heroLayoutSchema = z
     .enum(['centered', 'centered-top', 'split-left', 'split-right', 'banner'])
@@ -6,6 +7,8 @@ export const heroLayoutSchema = z
     .describe(
         'The layout of the hero section. "centered" places the image below the text, "centered-top" places it above, "split-left" places text left and image right, "split-right" places text right and image left.'
     );
+
+export type HeroLayout = z.infer<typeof heroLayoutSchema>;
 
 export const ExtendDocsSchema = z.object({
     links: z
@@ -17,6 +20,7 @@ export const ExtendDocsSchema = z.object({
     hero: z
         .object({
             layout: heroLayoutSchema,
+            announcementLink: navLinkSchema.optional(),
         })
         .optional(),
 });

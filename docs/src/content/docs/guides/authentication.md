@@ -50,7 +50,7 @@ lucode({
 });
 ```
 
-## Page-Level Access Control
+## Page-Level Access Control `code`
 
 Restrict individual pages or directories by adding an `access` field to frontmatter:
 

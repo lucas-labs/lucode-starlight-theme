@@ -20,14 +20,14 @@ const { toc } = Astro.locals.starlightRoute;
 
 <style>
     .container-main {
-        padding-top: 0.5rem;
-        padding-bottom: 1.5rem;
+        padding-top: calc(var(--spacing) * 2);
+        padding-bottom: calc(var(--spacing) * 6);
         position: relative;
     }
 
     @media (min-width: 1024px) {
         .container-main {
-            padding-left: 2rem;
+            padding-left: calc(var(--spacing) * 8);
         }
     }
 
@@ -36,8 +36,8 @@ const { toc } = Astro.locals.starlightRoute;
             grid-template-columns: 1fr 240px;
             display: grid;
             gap: 2.5rem;
-            padding-top: 2rem;
-            padding-bottom: 2rem;
+            padding-top: calc(var(--spacing) * 8);
+            padding-bottom: calc(var(--spacing) * 8);
         }
     }
 
@@ -46,8 +46,8 @@ const { toc } = Astro.locals.starlightRoute;
         min-width: 0;
         width: 100%;
         margin-inline: auto;
-        padding-inline: 1rem;
-        padding-top: 1rem;
+        padding-inline: calc(var(--spacing) * 4);
+        padding-top: calc(var(--spacing) * 4);
     }
 
     @media (min-width: 768px) {

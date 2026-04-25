@@ -102,7 +102,7 @@ const { hasSidebar } = Astro.locals.starlightRoute;
             }
 
             &:is(:where(body):has(.docs-nav)) {
-                padding-bottom: 5rem;
+                padding-bottom: calc(var(--spacing) * 20);
 
                 @media (min-width: 640px) {
                     padding-bottom: 0;

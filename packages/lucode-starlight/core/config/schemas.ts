@@ -9,7 +9,7 @@ const linkHTMLAttributesSchema = z.record(
 
 const LinkItemHTMLAttributesSchema = () => linkHTMLAttributesSchema.default({});
 
-const navLinkSchema = z.object({
+export const navLinkSchema = z.object({
     /**
      * An optional badge to display next to the topic label.
      *

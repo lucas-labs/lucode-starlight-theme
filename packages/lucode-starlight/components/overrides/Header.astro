@@ -40,8 +40,9 @@ const shouldRenderSearch =
 <style>
     .site-title-wrapper {
         display: none;
-        margin-right: 1rem;
+        margin-right: calc(var(--spacing) * 4);
     }
+
     @media (min-width: 768px) {
         .site-title-wrapper {
             display: flex;
@@ -75,8 +76,8 @@ const shouldRenderSearch =
 
     .header-nav > div:has(> :not(script)) + div:has(> :not(script)) {
         position: relative;
-        margin-left: 0.25rem;
-        padding-left: 0.75rem;
+        margin-left: calc(var(--spacing) * 1);
+        padding-left: calc(var(--spacing) * 3);
     }
 
     .header-nav > div:has(> :not(script)) + div:has(> :not(script))::before {
