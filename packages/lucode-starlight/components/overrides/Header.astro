@@ -14,12 +14,12 @@ const shouldRenderSearch =
     config.pagefind || config.components.Search !== '@astrojs/starlight/components/Search.astro';
 ---
 
+<MobileMenuToggle />
+
 <div class="site-title-wrapper">
     <SiteTitle />
     <NavBar />
 </div>
-
-<MobileMenuToggle />
 
 <div class="header-right">
     {shouldRenderSearch && <Search />}
@@ -66,5 +66,27 @@ const shouldRenderSearch =
         gap: 0.125rem;
         align-items: center;
         display: flex;
+    }
+
+    .header-nav > div:has(> :not(script)) {
+        display: flex;
+        align-items: center;
+    }
+
+    .header-nav > div:has(> :not(script)) + div:has(> :not(script)) {
+        position: relative;
+        margin-left: 0.25rem;
+        padding-left: 0.75rem;
+    }
+
+    .header-nav > div:has(> :not(script)) + div:has(> :not(script))::before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 0;
+        width: 1px;
+        height: 1rem;
+        background-color: color-mix(in oklab, var(--border) 85%, transparent);
+        transform: translateY(-50%);
     }
 </style>

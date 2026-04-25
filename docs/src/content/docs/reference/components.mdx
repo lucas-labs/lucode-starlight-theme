@@ -1,0 +1,88 @@
+---
+title: Components Reference
+description: Documentation for all built-in UI components and their props.
+---
+
+## LinkButton
+
+A styled anchor element for navigation actions and call-to-action links.
+
+import { LinkButton } from 'lucode-starlight/components';
+
+<LinkButton href="/guides/getting-started" variant="primary">
+  Get Started
+</LinkButton>
+
+```ts
+---
+import { LinkButton } from 'lucode-starlight/components';
+---
+
+<LinkButton href="/guides/getting-started" variant="primary">
+  Get Started
+</LinkButton>
+```
+
+**Props:**
+
+- `href` (`string`) — The destination URL
+- `variant` (`"primary" | "secondary" | "outline"`) — Visual style variant
+- `size` (`"sm" | "md" | "lg"`) — Button size (default: `"md"`)
+- `external` (`boolean`) — Open in a new tab with `rel="noopener"`
+
+## ContainerSection
+
+A layout wrapper that constrains content to a maximum width and adds consistent padding.
+
+```ts
+---
+import { ContainerSection } from 'lucode-starlight/components';
+---
+
+<ContainerSection>
+  <h2>Section Title</h2>
+  <p>Content goes here within a centered container.</p>
+</ContainerSection>
+```
+
+**Props:**
+
+- `as` (`string`) — HTML element to render (default: `"section"`)
+- `width` (`"narrow" | "default" | "wide"`) — Container width preset
+- `padding` (`boolean`) — Whether to apply vertical padding (default: `true`)
+
+## Hero
+
+A prominent banner section typically used on landing pages.
+
+```ts
+---
+import { Hero } from 'lucode-starlight/components';
+---
+
+<Hero
+  title="Build better docs"
+  tagline="A modern documentation theme for Astro"
+  actions={[
+    { label: 'Get Started', href: '/guides/getting-started', variant: 'primary' },
+    { label: 'View on GitHub', href: 'https://github.com', variant: 'outline' },
+  ]}
+/>
+```
+
+**Props:**
+
+- `title` (`string`) — The main heading text
+- `tagline` (`string`) — A supporting subtitle
+- `image` (`string | ImageMetadata`) — Optional hero image
+- `actions` (`HeroAction[]`) — List of call-to-action buttons
+
+## TableOfContents
+
+Renders an interactive table of contents from the current page headings.
+
+**Props:**
+
+- `minDepth` (`number`) — Minimum heading level to include (default: `2`)
+- `maxDepth` (`number`) — Maximum heading level to include (default: `3`)
+- `sticky` (`boolean`) — Whether the TOC sticks to the viewport on scroll

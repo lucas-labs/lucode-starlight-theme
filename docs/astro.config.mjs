@@ -2,25 +2,34 @@
 import { defineConfig } from 'astro/config';
 import starlight from '@astrojs/starlight';
 import lucode from 'lucode-starlight';
-import tailwindcss from '@tailwindcss/vite';
 
 // https://astro.build/config
 export default defineConfig({
     integrations: [
         starlight({
             title: 'My Docs',
+            logo: {
+                src: './src/assets/logo.svg',
+                alt: 'Lucode logo',
+                replacesTitle: true,
+            },
             customCss: ['./src/styles/global.css'],
-            plugins: [lucode()],
+            plugins: [
+                lucode({
+                    navLinks: [
+                        { label: 'Docs', link: '/guides/getting-started/' },
+                        { label: 'Components', link: '/reference/components/' },
+                        { label: 'Themes', link: '/guides/theming/' },
+                    ],
+                }),
+            ],
             social: [
                 { icon: 'github', label: 'GitHub', href: 'https://github.com/withastro/starlight' },
             ],
             sidebar: [
                 {
                     label: 'Guides',
-                    items: [
-                        // Each item here is one entry in the navigation menu.
-                        { label: 'Example Guide', slug: 'guides/example' },
-                    ],
+                    autogenerate: { directory: 'guides' },
                 },
                 {
                     label: 'Reference',
@@ -31,6 +40,6 @@ export default defineConfig({
     ],
 
     vite: {
-        plugins: [tailwindcss()],
+        plugins: [],
     },
 });

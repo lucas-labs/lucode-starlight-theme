@@ -1,44 +1,48 @@
 ---
-title: Welcome to Starlight
-description: Get started building your docs site with Starlight.
+title: Build your Design System
+description: A beautiful documentation theme for Astro Starlight, inspired by shadcn/ui.
 template: splash
 hero:
-  tagline: Congrats on setting up a new Starlight project!
-  image:
-    file: ../../assets/houston.webp
+  tagline: A set of beautifully designed components that you can customize, extend, and build on. Start here then make it your own. Open Source. Open Code.
   actions:
-    - text: Example Guide
-      link: /guides/example/
+    - text: Get Started
+      link: /guides/getting-started/
       icon: right-arrow
-    - text: Read the Starlight docs
-      link: https://starlight.astro.build
-      icon: external
+    - text: View Components
+      link: /reference/components/
       variant: minimal
 ---
 
 import { Card, CardGrid } from '@astrojs/starlight/components';
-import { ContainerSection } from 'lucode-starlight/components'
-
+import { ContainerSection } from 'lucode-starlight/components';
 
 <ContainerSection>
-## Next steps
+## Features
 
-<CardGrid stagger>
-	<Card title="Update content" icon="pencil">
-		Edit `src/content/docs/index.mdx` to see this page change.
-	</Card>
-	<Card title="Change page layout" icon="document">
-		Delete `template: splash` in `src/content/docs/index.mdx` to display a
-		sidebar on this page.
-	</Card>
-	<Card title="Add new content" icon="add-document">
-		Add Markdown or MDX files to `src/content/docs` to create new pages.
-	</Card>
-	<Card title="Configure your site" icon="setting">
-		Edit your `sidebar` and other config in `astro.config.mjs`.
-	</Card>
-	<Card title="Read the docs" icon="open-book">
-		Learn more in [the Starlight Docs](https://starlight.astro.build/).
-	</Card>
+<CardGrid>
+  <Card title="Accessible" icon="heart">
+    Built with accessibility in mind. All components follow WAI-ARIA guidelines and support keyboard navigation.
+  </Card>
+  <Card title="Customizable" icon="setting">
+    Every component is designed to be customized. Use CSS variables to match your brand and design system.
+  </Card>
+  <Card title="Dark Mode" icon="moon">
+    First-class dark mode support with seamless theme switching and system preference detection.
+  </Card>
+  <Card title="Open Source" icon="github">
+    Free and open source. Use it in personal and commercial projects. No attribution required.
+  </Card>
 </CardGrid>
+</ContainerSection>
+
+<ContainerSection>
+## Hero Layout Variants
+
+Explore the different hero layout options available in this theme:
+
+- [Centered (default)](/hero-centered/) — Image below the title and tagline
+- [Centered Top](/hero-centered-top/) — Image above the title and tagline
+- [Split Left](/hero-split-left/) — Text on the left, image on the right
+- [Split Right](/hero-split-right/) — Image on the left, text on the right
+- [Banner](/hero-banner/) — Title left, description right, full-width image below
 </ContainerSection>

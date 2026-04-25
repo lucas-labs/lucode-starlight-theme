@@ -13,9 +13,8 @@ import TableOfContents from './TableOfContents.astro';
 <style>
     div {
         padding-top: 1rem;
-        height: calc(100vh - 3.5rem);
-        margin-top: -1.5rem;
-        top: 5rem;
+        max-height: calc(100vh - var(--header-height) - 1px);
+        top: calc(var(--header-height) + 1px);
         position: sticky;
     }
 </style>

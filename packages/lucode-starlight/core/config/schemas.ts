@@ -32,7 +32,7 @@ const navLinkSchema = z.object({
      */
     link: z.string(),
     /** HTML attributes to add to the link item. */
-    attrs: LinkItemHTMLAttributesSchema(),
+    attrs: LinkItemHTMLAttributesSchema().optional(),
 });
 
 export const LucodeStarlightConfigSchema = z.object({

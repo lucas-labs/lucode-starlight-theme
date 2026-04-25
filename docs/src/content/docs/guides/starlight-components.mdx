@@ -1,0 +1,198 @@
+---
+title: Starlight Components
+description: A single page to preview how every built-in Starlight component looks with the lucode theme.
+---
+
+import {
+    Aside,
+    Badge,
+    Card,
+    CardGrid,
+    Code,
+    FileTree,
+    Icon,
+    LinkButton,
+    LinkCard,
+    Steps,
+    TabItem,
+    Tabs,
+} from '@astrojs/starlight/components';
+
+export const themeSnippet = `:root[data-theme='dark'] {
+  --background: oklch(14.5% 0 0);
+  --foreground: oklch(98.5% 0 0);
+  --accent: oklch(26.9% 0 0);
+}`;
+
+# Starlight Components
+
+Use this page to inspect the full component surface against the custom theme without jumping between docs pages.
+
+## Cards and Card Grids
+
+<CardGrid>
+    <Card title="Documentation" icon="open-book">
+        Cards are useful for grouping short blocks of related content in a compact layout.
+    </Card>
+    <Card title="Theme Tokens" icon="setting">
+        This card shows how titles, icons, spacing, and borders render inside the current theme.
+    </Card>
+    <Card title="Search" icon="magnifier">
+        Use this grid to quickly spot issues with typography, hover states, or card shadows.
+    </Card>
+</CardGrid>
+
+## Link Cards
+
+<CardGrid>
+    <LinkCard
+        title="Getting Started"
+        href="/guides/getting-started/"
+        description="Walk through installation, setup, and the first content page."
+    />
+    <LinkCard
+        title="Theming"
+        href="/guides/theming/"
+        description="Inspect how CSS variables and component overrides shape the final look."
+    />
+    <LinkCard
+        title="Components Reference"
+        href="/reference/components/"
+        description="Review lucode-specific components next to the built-in Starlight surface."
+    />
+</CardGrid>
+
+## Asides
+
+<Aside>
+    The default aside is useful for secondary context that should stay visible but not dominate the
+    page.
+</Aside>
+
+<Aside type="tip" title="Theme QA" icon="star">
+    Keep a page like this around while building a theme. It makes regressions obvious across
+    spacing, colors, and states.
+</Aside>
+
+<Aside type="caution" title="Hover states matter">
+    Subtle differences between default, hover, and active states are easy to miss unless they are
+    shown together.
+</Aside>
+
+<Aside type="danger">
+    Avoid shipping a theme after only checking headings and code blocks. The long tail of components
+    is where mismatches hide.
+</Aside>
+
+## Badges
+
+- <Badge text="Default" />
+- <Badge text="Note" variant="note" />
+- <Badge text="Success" variant="success" />
+- <Badge text="Tip" variant="tip" />
+- <Badge text="Caution" variant="caution" />
+- <Badge text="Danger" variant="danger" />
+- <Badge text="Small" size="small" />
+- <Badge text="Medium" size="medium" />
+- <Badge text="Large" size="large" />
+
+## Code
+
+<Code code={themeSnippet} lang="css" title="theme.css" mark={['--accent', '--foreground']} />
+
+## File Tree
+
+<FileTree>
+    - docs
+        - src
+            - content
+                - docs
+                    - guides
+                        - **starlight-components.mdx** this showcase page
+                        - theming.md
+            - assets/
+        - public/
+        - astro.config.mjs
+    - packages
+        - lucode-starlight
+            - components
+                - overrides/
+                - custom/
+</FileTree>
+
+## Icons
+
+<p>
+    <Icon name="starlight" label="Starlight logo" />{' '}
+    <Icon name="star" color="goldenrod" size="1.25rem" />{' '}
+    <Icon name="rocket" color="var(--foreground)" size="1.25rem" />{' '}
+    <Icon name="moon" color="var(--muted-foreground)" size="1.25rem" />{' '}
+    <Icon name="right-arrow" color="var(--foreground)" size="1.25rem" />
+</p>
+
+## Link Buttons
+
+<LinkButton href="/guides/getting-started/">Get Started</LinkButton>
+<LinkButton href="/guides/theming/" variant="secondary">
+    Theme Guide
+</LinkButton>
+<LinkButton href="/reference/components/" variant="minimal" icon="right-arrow">
+    Components Reference
+</LinkButton>
+<LinkButton
+    href="https://starlight.astro.build/components/using-components/"
+    variant="secondary"
+    icon="external"
+    iconPlacement="start"
+>
+    Official Component Docs
+</LinkButton>
+
+## Steps
+
+<Steps>
+1. ### Open the preview page
+
+    Open this page after changing theme variables or component overrides.
+
+2. ### Compare component states
+
+    Check cards, asides, badges, code, tabs, and link buttons for spacing or contrast regressions.
+
+3. ### Verify navigation polish
+
+    Review the sidebar hover state, active item treatment, and bottom pagination links before
+    shipping.
+
+4. ### Ship the theme
+
+    Publish once every built-in component still feels like part of the same design system.
+</Steps>
+
+## Tabs
+
+<Tabs syncKey="platform">
+    <TabItem label="bun">
+        ```bash
+        bun install
+        bun run dev
+        ```
+    </TabItem>
+    <TabItem label="pnpm">
+        ```bash
+        pnpm install
+        pnpm dev
+        ```
+    </TabItem>
+</Tabs>
+
+<Tabs syncKey="platform">
+    <TabItem label="bun">
+        The bun tab stays selected here too, which makes it useful for comparing equivalent setup
+        instructions.
+    </TabItem>
+    <TabItem label="pnpm">
+        Synced tabs help keep repeated examples aligned when a page covers multiple package
+        managers.
+    </TabItem>
+</Tabs>

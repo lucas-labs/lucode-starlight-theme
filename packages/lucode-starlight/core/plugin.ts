@@ -2,9 +2,13 @@ import type { StarlightPlugin } from '@astrojs/starlight/types';
 import { override, COMPONENT_OVERRIDES } from './config/override';
 import { expressiveCode } from './config/expresive-code';
 import { vitePlugin } from './config/vite';
-import { LucodeStarlightConfigSchema, type LucodeStarlightConfig } from './config/schemas';
+import {
+    LucodeStarlightConfigSchema,
+    type LucodeStarlightConfig,
+    type LucodeStarlightUserConfig,
+} from './config/schemas';
 
-const parseConfig = (userConfig?: LucodeStarlightConfig): LucodeStarlightConfig => {
+const parseConfig = (userConfig?: LucodeStarlightUserConfig): LucodeStarlightConfig => {
     const parsedConfig = LucodeStarlightConfigSchema.safeParse(userConfig ?? {});
 
     if (!parsedConfig.success) {
@@ -16,7 +20,7 @@ const parseConfig = (userConfig?: LucodeStarlightConfig): LucodeStarlightConfig 
     return parsedConfig.data;
 };
 
-const plugin = (userConfig?: LucodeStarlightConfig): StarlightPlugin =>
+const plugin = (userConfig?: LucodeStarlightUserConfig): StarlightPlugin =>
     ({
         name: 'lucode-starlight',
         hooks: {

@@ -3,15 +3,17 @@ import userConfig from 'virtual:lucode-starlight-config';
 import { getTranslation } from './NavBar.astro';
 import { getRelativeLocaleUrl } from 'astro:i18n';
 const { sidebar } = Astro.locals.starlightRoute;
+
+const currentPath = Astro.url.pathname;
 ---
 
 <div popover="auto" id="drawer">
     <button class="sheet-overlay" popovertarget="drawer" popovertargetaction="hide"></button>
     <div class="content">
         <div class="header">
-            <button class="drag-icon" popovertarget="drawer" popovertargetaction="hide"
-                ><span></span></button
-            >
+            <button class="drag-icon" popovertarget="drawer" popovertargetaction="hide">
+                <span></span>
+            </button>
         </div>
         <div class="body">
             <div class="links-nav">
@@ -49,7 +51,11 @@ const { sidebar } = Astro.locals.starlightRoute;
                                     {entry.entries.map(
                                         (link) =>
                                             link.type === 'link' && (
-                                                <a href={link.href} {...link.attrs}>
+                                                <a
+                                                    href={link.href}
+                                                    {...link.attrs}
+                                                    data-active={currentPath === link.href}
+                                                >
                                                     {link.label}
                                                 </a>
                                             )
@@ -69,6 +75,7 @@ const { sidebar } = Astro.locals.starlightRoute;
     }
 
     [popover] {
+        padding: 0;
         position: fixed;
         top: 0;
         left: 0;
@@ -84,10 +91,12 @@ const { sidebar } = Astro.locals.starlightRoute;
         z-index: 1000;
         background: transparent;
         border: none;
+        overflow: hidden;
     }
 
     [popover]::backdrop {
-        background: rgba(0, 0, 0, 0.8);
+        background: color-mix(in oklab, black 80%, transparent);
+        backdrop-filter: blur(2px);
     }
 
     [popover]:popover-open {
@@ -115,7 +124,7 @@ const { sidebar } = Astro.locals.starlightRoute;
         position: relative;
         background: var(--background);
         max-height: 100vh;
-        height: 50vh;
+        height: 70vh;
         max-width: 1150px;
         transform: translateY(100%);
         border-radius: 12px 12px 0 0;
@@ -129,10 +138,10 @@ const { sidebar } = Astro.locals.starlightRoute;
     }
 
     .header .drag-icon span {
-        height: 0.1rem;
+        height: calc(var(--spacing) * 1);
         width: 100px;
         display: block;
-        background-color: var(--muted);
+        background-color: color-mix(in oklab, var(--foreground) 20%, transparent);
         border-radius: 9999px;
         margin-top: 1rem;
     }
@@ -171,6 +180,10 @@ const { sidebar } = Astro.locals.starlightRoute;
         display: flex;
         flex-direction: column;
         gap: 0.5rem;
+
+        &:last-child {
+            margin-bottom: calc(var(--spacing) * 4);
+        }
     }
 
     .entry-title {
@@ -179,9 +192,14 @@ const { sidebar } = Astro.locals.starlightRoute;
 
     .container-sidebar-entry a {
         font-size: 1rem;
-        line-height: 1.5rem;
+        line-height: 1.2rem;
         color: var(--muted-foreground);
         text-decoration: inherit;
+
+        &[data-active='true'] {
+            color: var(--foreground);
+            font-weight: 500;
+        }
     }
 
     .badge {
@@ -200,3 +218,15 @@ const { sidebar } = Astro.locals.starlightRoute;
         color: #000000;
     }
 </style>
+
+<script>
+    const drawer = document.getElementById('drawer');
+    if (drawer) {
+        drawer.addEventListener('toggle', (e) => {
+            const event = e as ToggleEvent;
+            const isOpen = event.newState === 'open';
+            document.documentElement.style.overflow = isOpen ? 'hidden' : '';
+            document.body.style.overflow = isOpen ? 'hidden' : '';
+        });
+    }
+</script>

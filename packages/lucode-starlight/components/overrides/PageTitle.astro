@@ -5,31 +5,9 @@ const {
     entry: { data },
 } = Astro.locals.starlightRoute;
 
-const { title, template, description } = data;
+const { title, description } = data;
 const links = (data as { links?: { doc?: string; api?: string } }).links || {};
 ---
-
-{
-    template === 'doc' && (
-        <div class="breadcrumb">
-            <div class="truncate">Docs</div>
-            <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-            >
-                <path d="m9 18 6-6-6-6" />
-            </svg>
-            <div class="text-foreground">{title}</div>
-        </div>
-    )
-}
 
 <h1 id={PAGE_TITLE_ID}>{title}</h1>
 {description && <p>{description}</p>}
@@ -114,14 +92,15 @@ const links = (data as { links?: { doc?: string; api?: string } }).links || {};
         line-height: 2.25rem;
         scroll-margin: 5rem;
         margin: 0;
+        color: var(--foreground);
     }
 
     p {
         margin: 0;
         margin-top: 0.5rem;
         color: var(--muted-foreground);
-        font-size: 1rem;
-        line-height: 1.5rem;
+        font-size: 1.125rem;
+        line-height: 1.75rem;
         text-wrap: balance;
     }
 
