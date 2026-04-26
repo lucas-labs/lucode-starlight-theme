@@ -10,8 +10,8 @@ import '@astrojs/starlight/style/markdown.css';
 
 <style>
     .markdown-wrapper {
+        --foreground: var(--markdown-foreground, var(--foreground));
+
         color: var(--foreground);
-        font-size: 1rem;
-        line-height: 1.75;
     }
 </style>
