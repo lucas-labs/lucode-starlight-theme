@@ -2,14 +2,15 @@
 import type { HTMLAttributes } from 'astro/types';
 
 interface Props extends Omit<HTMLAttributes<'a'>, 'href'> {
-    href: string | URL;
+    href: string | URL | null | undefined;
     variant?: 'primary' | 'secondary' | 'minimal';
+    size?: '2xs' | 'xs' | 'sm' | 'md' | 'lg';
 }
 
-const { variant = 'primary', ...attrs } = Astro.props;
+const { variant = 'primary', size = 'md', ...attrs } = Astro.props;
 ---
 
-<a class:list={variant} {...attrs}>
+<a class:list={variant} data-size={size} {...attrs}>
     <slot />
 </a>
 
@@ -20,19 +21,47 @@ const { variant = 'primary', ...attrs } = Astro.props;
         transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
         transition-duration: 0.15s;
         color: var(--primary-foreground);
-        font-weight: 500;
-        font-size: 0.875rem;
-        line-height: 1.25rem;
-        padding-left: calc(var(--spacing) * 4);
-        padding-right: calc(var(--spacing) * 4);
-        border-radius: calc(var(--radius) - 2px);
         white-space: nowrap;
         gap: 0.5rem;
         justify-content: center;
         align-items: center;
-        height: 2.25rem;
         display: inline-flex;
         text-decoration: inherit;
+
+        height: var(--button-height, calc(var(--spacing) * 8));
+        font-weight: var(--button-font-weight, 500);
+        font-size: var(--button-font-size, 0.875rem);
+        line-height: var(--button-line-height, 1rem);
+        padding-left: var(--button-padding-l, var(--button-padding-x, calc(var(--spacing) * 2.5)));
+        padding-right: var(--button-padding-r, var(--button-padding-x, calc(var(--spacing) * 2.5)));
+        border-radius: var(--button-radius, var(--radius));
+
+        &[data-size='2xs'] {
+            --button-height: calc(var(--spacing) * 5.5);
+            --button-padding-l: calc(var(--spacing) * 2);
+            --button-padding-r: var(--spacing);
+            --button-font-size: 0.75rem;
+            --border-radius: 100%;
+        }
+
+        &[data-size='xs'] {
+            --button-radius: calc(var(--radius) - 2px);
+            --button-height: calc(var(--spacing) * 6);
+            --button-padding-x: calc(var(--spacing) * 2);
+            --button-font-size: 0.75rem;
+        }
+
+        &[data-size='sm'] {
+            --button-height: calc(var(--spacing) * 7);
+            --button-padding-x: calc(var(--spacing) * 2.5);
+            --button-font-size: 0.8rem;
+        }
+
+        &[data-size='lg'] {
+            --button-height: calc(var(--spacing) * 8.5);
+            --button-padding-x: calc(var(--spacing) * 2.5);
+            --button-font-size: 0.875rem;
+        }
     }
 
     .primary {
