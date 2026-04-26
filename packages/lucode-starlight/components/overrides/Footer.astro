@@ -1,5 +1,8 @@
 ---
 import Default from '@astrojs/starlight/components/Footer.astro';
+import EditLink from 'virtual:starlight/components/EditLink';
+import LastUpdated from 'virtual:starlight/components/LastUpdated';
+import Pagination from 'virtual:starlight/components/Pagination';
 import config from 'virtual:starlight/user-config';
 
 const {
@@ -10,6 +13,9 @@ const {
         data: { template },
     },
 } = Astro.locals.starlightRoute;
+
+const { lastUpdated: showLastUpdated, editLink } = config;
+const showEditLink = editLink?.baseUrl ? true : false;
 
 const showFooterInSplash =
     template === 'splash' &&
@@ -28,11 +34,36 @@ const showFooterInSplash =
 
 {!showFooterInSplash && template === 'splash' && <div class="padding-negative" />}
 
-{template === 'doc' && <Default />}
+<!-- footer -->
+{
+    template === 'doc' && (
+        <footer>
+            {(showEditLink || showLastUpdated) && (
+                <div data-slot="doc-footer-meta">
+                    <LastUpdated />
+                    <EditLink />
+                </div>
+            )}
+
+            <Pagination />
+        </footer>
+    )
+}
 
 <style>
     .padding-negative {
         margin-bottom: -3vh;
+    }
+
+    [data-slot='doc-footer-meta'] {
+        display: flex;
+        gap: calc(var(--spacing) * 4);
+        align-items: center;
+        justify-content: end;
+        font-size: 0.875em;
+        color: var(--muted-foreground);
+        margin-top: calc(var(--spacing) * 8);
+        opacity: 0.75;
     }
 </style>
 
