@@ -6,7 +6,7 @@
     <br />
     An Astro Starlight theme inspired by <code>shadcn/ui</code>.
     <br />
-    <a href="">Preview/docs</a> · <a href="https://www.npmjs.com/package/lucode-starlight">Npm</a>
+    <a href="https://lucas-labs.github.io/lucode-starlight-theme">Preview/docs</a> · <a href="https://www.npmjs.com/package/lucode-starlight">Npm</a>
 </p>
 
 <br />
@@ -151,7 +151,7 @@ import { ContainerSection, LinkButton } from 'lucode-starlight/components';
 <ContainerSection width="lg">
   <h2>Build better docs</h2>
   <p>Use Lucode sections on splash pages and custom MDX content.</p>
-  <LinkButton href="/guides/getting-started/">Get started</LinkButton>
+  <LinkButton href="/lucode-starlight-theme/guides/getting-started/">Get started</LinkButton>
 </ContainerSection>
 ```
 

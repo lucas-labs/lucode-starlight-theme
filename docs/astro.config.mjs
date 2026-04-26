@@ -5,6 +5,9 @@ import lucode from 'lucode-starlight';
 
 // https://astro.build/config
 export default defineConfig({
+    site: 'https://lucas-labs.github.io',
+    base: '/lucode-starlight-theme',
+
     integrations: [
         starlight({
             title: 'Lucode Starlight',

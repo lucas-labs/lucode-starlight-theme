@@ -121,7 +121,7 @@ bun run docs
 
 ## Next Steps
 
-- Read [Configuration](/guides/configuration/) for plugin options and recommended Starlight settings.
-- Read [Customize the Theme](/guides/theming/) for CSS tokens and component override strategy.
-- Visit [Starlight Components](/showcase/starlight-components/) to inspect the full component surface.
-- Browse [Splash Pages](/showcase/splash-pages/) to choose a landing-page layout.
+- Read [Configuration](/lucode-starlight-theme/guides/configuration/) for plugin options and recommended Starlight settings.
+- Read [Customize the Theme](/lucode-starlight-theme/guides/theming/) for CSS tokens and component override strategy.
+- Visit [Starlight Components](/lucode-starlight-theme/showcase/starlight-components/) to inspect the full component surface.
+- Browse [Splash Pages](/lucode-starlight-theme/showcase/splash-pages/) to choose a landing-page layout.

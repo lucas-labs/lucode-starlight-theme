@@ -100,7 +100,7 @@ The theme refines Starlight's default Markdown typography, but it does not force
 }
 ```
 
-Use the [Typography](/showcase/typography/) page to review headings, paragraphs, links, tables, lists, images, keyboard shortcuts, and code after changing fonts.
+Use the [Typography](/lucode-starlight-theme/showcase/typography/) page to review headings, paragraphs, links, tables, lists, images, keyboard shortcuts, and code after changing fonts.
 
 ## Adjust Component Surfaces
 
@@ -141,4 +141,4 @@ hero:
 ---
 ```
 
-Use [Splash Pages](/showcase/splash-pages/) to compare each layout in context.
+Use [Splash Pages](/lucode-starlight-theme/showcase/splash-pages/) to compare each layout in context.
