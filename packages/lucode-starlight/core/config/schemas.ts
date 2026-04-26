@@ -9,7 +9,7 @@ const linkHTMLAttributesSchema = z.record(
 
 const LinkItemHTMLAttributesSchema = () => linkHTMLAttributesSchema.default({});
 
-export const navLinkSchema = z.object({
+export const linkSchema = z.object({
     /**
      * An optional badge to display next to the topic label.
      *
@@ -35,8 +35,10 @@ export const navLinkSchema = z.object({
     attrs: LinkItemHTMLAttributesSchema().optional(),
 });
 
+export type Link = z.infer<typeof linkSchema>;
+
 export const LucodeStarlightConfigSchema = z.object({
-    navLinks: z.array(navLinkSchema).optional(),
+    navLinks: z.array(linkSchema).optional(),
     footerText: z
         .string()
         .optional()

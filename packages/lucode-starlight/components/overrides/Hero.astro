@@ -1,14 +1,18 @@
 ---
+import { Icon } from '@astrojs/starlight/components';
 import { Image } from 'astro:assets';
-import LinkButton from '../custom/LinkButton.astro';
-import ContainerSection from '../custom/ContainerSection.astro';
 import { PAGE_TITLE_ID } from '../../core/config/constants';
+import type { HeroLayout } from '../../schema';
+import ContainerSection from '../custom/ContainerSection.astro';
+import LinkButton from '../custom/LinkButton.astro';
 
 const { data } = Astro.locals.starlightRoute.entry;
-const { title = data.title, tagline, image, actions = [] } = data.hero || {};
-const heroLayout = ((data.hero as any)?.layout as string) ?? 'centered';
-const isBanner = heroLayout === 'banner';
+const { title = data.title, tagline: heroTagline, image, actions = [] } = data.hero || {};
+const heroLayout = ((data.hero as any)?.layout as HeroLayout) ?? 'centered';
+const announcement =
+    ((data.hero as any)?.announcement as { text: string; link: string }) ?? undefined;
 const hasImage = !!image;
+const tagline = heroTagline || data.description;
 
 const imageAttrs = {
     loading: 'eager' as const,
@@ -21,6 +25,7 @@ const imageAttrs = {
 let darkImage: ImageMetadata | undefined;
 let lightImage: ImageMetadata | undefined;
 let rawHtml: string | undefined;
+
 if (image) {
     if ('file' in image) {
         darkImage = image.file;
@@ -34,10 +39,9 @@ if (image) {
 ---
 
 <ContainerSection>
-    <div class="hero" data-hero-layout={heroLayout} data-has-image={hasImage ? '' : undefined}>
-        {/* centered-top: image first */}
+    <div class="hero" data-layout={heroLayout} data-has-image={hasImage ? '' : undefined}>
         {
-            heroLayout === 'centered-top' && hasImage && (
+            hasImage && (
                 <div class="hero-image">
                     {darkImage && (
                         <Image
@@ -53,61 +57,26 @@ if (image) {
                 </div>
             )
         }
-        {/* split-right: image on left (before text) */}
-        {
-            heroLayout === 'split-right' && hasImage && (
-                <div class="hero-image">
-                    {darkImage && (
-                        <Image
-                            src={darkImage}
-                            {...imageAttrs}
-                            class:list={{ 'light:sl-hidden': Boolean(lightImage) }}
-                        />
-                    )}
-                    {lightImage && (
-                        <Image src={lightImage} {...imageAttrs} class="dark:sl-hidden" />
-                    )}
-                    {rawHtml && <div class="hero-html sl-flex" set:html={rawHtml} />}
-                </div>
-            )
-        }
-        {/* banner: title left, description+actions right */}
-        {
-            isBanner ? (
-                <div class="hero-banner-row">
-                    <h1 class="title" id={PAGE_TITLE_ID} data-page-title set:html={title} />
-                    <div class="hero-banner-right">
-                        {tagline && <div class="tagline" set:html={tagline} />}
-                        {actions.length > 0 && (
-                            <div class="actions">
-                                {actions.map(
-                                    ({
-                                        attrs: { class: className, ...attrs } = {},
-                                        icon,
-                                        link: href,
-                                        text,
-                                        variant,
-                                    }) => (
-                                        <LinkButton
-                                            {href}
-                                            {variant}
-                                            class:list={[className]}
-                                            {...attrs}
-                                        >
-                                            {text}
-                                            {icon?.html && <Fragment set:html={icon.html} />}
-                                        </LinkButton>
-                                    )
-                                )}
-                            </div>
-                        )}
-                    </div>
-                </div>
-            ) : (
-                <div class="hero-text">
-                    <h1 class="title" id={PAGE_TITLE_ID} data-page-title set:html={title} />
-                    {tagline && <div class="tagline" set:html={tagline} />}
-                    {actions.length > 0 && (
+
+        <div class="hero-info">
+            <div class="hero-title-container">
+                {
+                    announcement && (
+                        <LinkButton href={announcement.link} variant="secondary" size="2xs">
+                            {announcement.text}
+                            <Icon name="right-arrow" size="16px" />
+                        </LinkButton>
+                    )
+                }
+
+                <h1 id={PAGE_TITLE_ID} data-page-title set:html={title} />
+            </div>
+
+            <div class="hero-content-container">
+                {tagline && <div class="tagline" set:html={tagline} />}
+
+                {
+                    actions.length > 0 && (
                         <div class="actions">
                             {actions.map(
                                 ({
@@ -129,71 +98,189 @@ if (image) {
                                 )
                             )}
                         </div>
-                    )}
-                </div>
-            )
-        }
-        {/* split-left: image on right (after text) */}
-        {
-            heroLayout === 'split-left' && hasImage && (
-                <div class="hero-image">
-                    {darkImage && (
-                        <Image
-                            src={darkImage}
-                            {...imageAttrs}
-                            class:list={{ 'light:sl-hidden': Boolean(lightImage) }}
-                        />
-                    )}
-                    {lightImage && (
-                        <Image src={lightImage} {...imageAttrs} class="dark:sl-hidden" />
-                    )}
-                    {rawHtml && <div class="hero-html sl-flex" set:html={rawHtml} />}
-                </div>
-            )
-        }
-        {/* centered + banner: image below text */}
-        {
-            (heroLayout === 'centered' || isBanner) && hasImage && (
-                <div class="hero-image">
-                    {darkImage && (
-                        <Image
-                            src={darkImage}
-                            {...imageAttrs}
-                            class:list={{ 'light:sl-hidden': Boolean(lightImage) }}
-                        />
-                    )}
-                    {lightImage && (
-                        <Image src={lightImage} {...imageAttrs} class="dark:sl-hidden" />
-                    )}
-                    {rawHtml && <div class="hero-html sl-flex" set:html={rawHtml} />}
-                </div>
-            )
-        }
+                    )
+                }
+            </div>
+        </div>
     </div>
 </ContainerSection>
 
 <style>
-    /* Base hero */
     .hero {
-        padding-top: 4rem;
-        padding-bottom: 4rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding-block: calc(var(--spacing) * 20);
+        gap: calc(var(--spacing) * 12);
+    }
+
+    .hero-image {
+        max-width: 100%;
+        width: 100%;
+    }
+
+    .hero-image img {
+        width: 100%;
+        height: auto;
+        aspect-ratio: attr(width) / attr(height);
+        border-radius: var(--radius);
+    }
+
+    .hero-info {
+        display: flex;
+        text-align: center;
+        align-items: center;
+        flex-direction: column;
+        gap: calc(var(--spacing) * 2);
+
+        @media (min-width: 768px) {
+            gap: calc(var(--spacing) * 4);
+        }
+    }
+
+    .hero-title-container {
+        display: flex;
+        flex-direction: column;
+        gap: calc(var(--spacing) * 2);
+        align-items: center;
+
+        h1 {
+            font-size: 1.875rem;
+            font-weight: 600;
+            line-height: 1.1;
+            text-wrap-style: balance;
+            letter-spacing: -0.05em;
+        }
+
+        @media (min-width: 768px) {
+            gap: calc(var(--spacing) * 4);
+
+            h1 {
+                font-size: 3rem;
+            }
+        }
+    }
+
+    .hero-content-container {
+        display: flex;
+        flex-direction: column;
+        gap: calc(var(--spacing) * 2);
+
+        .tagline {
+            max-width: 56rem;
+            font-size: 1.125rem;
+            text-wrap: balance;
+            line-height: 1.75rem;
+        }
+
+        .actions {
+            display: flex;
+            justify-content: center;
+            padding-top: calc(var(--spacing) * 2);
+            gap: calc(var(--spacing) * 2);
+        }
+
+        @media (min-width: 768px) {
+            gap: calc(var(--spacing) * 4);
+        }
+    }
+
+    /* layouts */
+
+    .hero[data-layout='centered-top'],
+    .hero[data-layout='banner'] {
+        flex-direction: column-reverse;
+        gap: calc(var(--spacing) * 20);
+        padding-block-end: calc(var(--spacing) * 8);
+    }
+
+    .hero[data-layout='banner'] {
+        @media (min-width: 1024px) {
+            .hero-info {
+                width: 100%;
+                flex-direction: row;
+                gap: calc(var(--spacing) * 16);
+
+                .hero-title-container {
+                    flex: 1;
+                    align-items: flex-start;
+                    text-align: left;
+
+                    h1 {
+                        text-wrap-style: pretty;
+                    }
+                }
+
+                .hero-content-container {
+                    flex: 1;
+                    align-items: flex-start;
+                    align-self: flex-end;
+                    text-align: left;
+
+                    .tagline {
+                        text-wrap-style: pretty;
+                    }
+                }
+            }
+        }
+    }
+
+    .hero[data-layout='split-left'],
+    .hero[data-layout='split-right'] {
+        flex-direction: column;
+
+        .hero-image {
+            order: 0;
+        }
+
+        @media (min-width: 1024px) {
+            flex-direction: row;
+            gap: calc(var(--spacing) * 16);
+
+            .hero-info {
+                align-items: flex-start;
+
+                .hero-title-container {
+                    align-items: flex-start;
+                    text-align: left;
+                }
+
+                .hero-content-container {
+                    align-items: flex-start;
+                    text-align: left;
+                }
+            }
+        }
+    }
+
+    .hero[data-layout='split-left'] {
+        .hero-image {
+            order: 1;
+        }
+    }
+
+    /* Base hero */
+    /* .hero {
+        padding-top: calc(var(--spacing) * 4);
+        padding-bottom: calc(var(--spacing) * 4);
         display: flex;
         align-items: center;
         flex-direction: column;
-        gap: 2rem;
+        gap: calc(var(--spacing) * 8);
         text-align: center;
     }
 
     @media (min-width: 768px) {
         .hero {
-            padding-top: 5rem;
-            padding-bottom: 5rem;
+            padding-top: calc(var(--spacing) * 20);
+            padding-bottom: calc(var(--spacing) * 20);
         }
     }
     @media (min-width: 1024px) {
         .hero {
-            padding-top: 6rem;
-            padding-bottom: 6rem;
+            padding-top: calc(var(--spacing) * 24);
+            padding-bottom: calc(var(--spacing) * 24);
         }
     }
 
@@ -243,19 +330,17 @@ if (image) {
     }
 
     .actions {
-        padding-top: 0.125rem;
+        padding-top: calc(var(--spacing) * 0.5);
         display: flex;
         align-items: center;
         gap: 0.5rem;
     }
 
-    /* Centered layouts: center actions */
     .hero[data-hero-layout='centered'] .actions,
     .hero[data-hero-layout='centered-top'] .actions {
         justify-content: center;
     }
 
-    /* Split layouts */
     .hero[data-hero-layout='split-left'],
     .hero[data-hero-layout='split-right'] {
         max-width: 60rem;
@@ -293,7 +378,6 @@ if (image) {
         }
     }
 
-    /* Banner layout */
     .hero[data-hero-layout='banner'] {
         max-width: 60rem;
         margin-inline: auto;
@@ -345,5 +429,5 @@ if (image) {
         width: 100%;
         height: auto;
         object-fit: cover;
-    }
+    } */
 </style>

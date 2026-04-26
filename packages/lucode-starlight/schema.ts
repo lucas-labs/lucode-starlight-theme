@@ -1,5 +1,4 @@
 import { z } from 'astro/zod';
-import { navLinkSchema } from './core/config/schemas';
 
 export const heroLayoutSchema = z
     .enum(['centered', 'centered-top', 'split-left', 'split-right', 'banner'])
@@ -20,7 +19,12 @@ export const ExtendDocsSchema = z.object({
     hero: z
         .object({
             layout: heroLayoutSchema,
-            announcementLink: navLinkSchema.optional(),
+            announcement: z
+                .object({
+                    text: z.string(),
+                    link: z.string(),
+                })
+                .optional(),
         })
         .optional(),
 });
