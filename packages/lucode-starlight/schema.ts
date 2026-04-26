@@ -10,12 +10,6 @@ export const heroLayoutSchema = z
 export type HeroLayout = z.infer<typeof heroLayoutSchema>;
 
 export const ExtendDocsSchema = z.object({
-    links: z
-        .object({
-            doc: z.string().optional(),
-            api: z.string().optional(),
-        })
-        .optional(),
     hero: z
         .object({
             layout: heroLayoutSchema,
