@@ -1,88 +1,108 @@
 ---
-title: Components Reference
-description: Documentation for all built-in UI components and their props.
+title: Theme Components
+description: Reference for the user-facing components exported by lucode-starlight.
 ---
+
+import { Card, CardGrid } from '@astrojs/starlight/components';
+import { ContainerSection, LinkButton } from 'lucode-starlight/components';
+
+The theme exports a small component surface for docs authors. Most UI comes from Starlight component overrides installed by the plugin.
+
+## Imports
+
+```astro
+---
+import { ContainerSection, LinkButton } from 'lucode-starlight/components';
+---
+```
 
 ## LinkButton
 
-A styled anchor element for navigation actions and call-to-action links.
+A compact anchor styled like the theme's buttons. Use it for calls to action inside custom MDX sections.
 
-import { LinkButton } from 'lucode-starlight/components';
-
-<LinkButton href="/guides/getting-started" variant="primary">
+<LinkButton href="/guides/getting-started/" variant="primary">
   Get Started
 </LinkButton>
+{' '}
+<LinkButton href="/guides/theming/" variant="secondary">
+  Customize
+</LinkButton>
+{' '}
+<LinkButton href="/showcase/starlight-components/" variant="minimal">
+  Showcase
+</LinkButton>
 
-```ts
+```astro
 ---
 import { LinkButton } from 'lucode-starlight/components';
 ---
 
-<LinkButton href="/guides/getting-started" variant="primary">
+<LinkButton href="/guides/getting-started/" variant="primary" size="md">
   Get Started
 </LinkButton>
 ```
 
-**Props:**
-
-- `href` (`string`) — The destination URL
-- `variant` (`"primary" | "secondary" | "outline"`) — Visual style variant
-- `size` (`"sm" | "md" | "lg"`) — Button size (default: `"md"`)
-- `external` (`boolean`) — Open in a new tab with `rel="noopener"`
+| Prop | Type | Default | Notes |
+| --- | --- | --- | --- |
+| `href` | `string`, `URL`, `null`, or `undefined` | Required | Passed to the underlying anchor. |
+| `variant` | `'primary'`, `'secondary'`, or `'minimal'` | `'primary'` | Controls color and hover treatment. |
+| `size` | `'2xs'`, `'xs'`, `'sm'`, `'md'`, or `'lg'` | `'md'` | Controls height, font size, and padding. |
+| Other anchor attributes | Astro `HTMLAttributes<'a'>` | - | `target`, `rel`, `aria-*`, `class`, and similar attributes are forwarded. |
 
 ## ContainerSection
 
-A layout wrapper that constrains content to a maximum width and adds consistent padding.
+A layout wrapper that constrains content and adds responsive horizontal padding. It is useful on splash pages where you want full-width page sections that still align to the theme container.
 
-```ts
+<ContainerSection width="md">
+  <CardGrid>
+    <Card title="Inside a section" icon="open-book">
+      This card grid is wrapped in a medium-width ContainerSection.
+    </Card>
+    <Card title="Responsive padding" icon="setting">
+      The section increases inline padding across mobile, tablet, and desktop breakpoints.
+    </Card>
+  </CardGrid>
+</ContainerSection>
+
+```astro
 ---
 import { ContainerSection } from 'lucode-starlight/components';
 ---
 
-<ContainerSection>
+<ContainerSection width="lg">
   <h2>Section Title</h2>
   <p>Content goes here within a centered container.</p>
 </ContainerSection>
 ```
 
-**Props:**
+| Prop | Type | Default | Max width |
+| --- | --- | --- | --- |
+| `width` | `'sm'`, `'md'`, `'lg'`, or `'xl'` | `'lg'` | `640px`, `768px`, `1024px`, or `1280px` |
 
-- `as` (`string`) — HTML element to render (default: `"section"`)
-- `width` (`"narrow" | "default" | "wide"`) — Container width preset
-- `padding` (`boolean`) — Whether to apply vertical padding (default: `true`)
+## Starlight Overrides
 
-## Hero
+The plugin also provides component overrides for:
 
-A prominent banner section typically used on landing pages.
+- `ThemeSelect`
+- `PageFrame`
+- `Header`
+- `SiteTitle`
+- `Sidebar`
+- `TwoColumnContent`
+- `ContentPanel`
+- `PageTitle`
+- `MarkdownContent`
+- `Hero`
+- `Footer`
+- `SocialIcons`
+- `Pagination`
+- `Search`
+- `TableOfContents`
+- `PageSidebar`
 
-```ts
----
-import { Hero } from 'lucode-starlight/components';
----
+You do not import these directly for normal use. Add the plugin and Starlight renders them for you.
 
-<Hero
-  title="Build better docs"
-  tagline="A modern documentation theme for Astro"
-  actions={[
-    { label: 'Get Started', href: '/guides/getting-started', variant: 'primary' },
-    { label: 'View on GitHub', href: 'https://github.com', variant: 'outline' },
-  ]}
-/>
-```
+## Related Pages
 
-**Props:**
-
-- `title` (`string`) — The main heading text
-- `tagline` (`string`) — A supporting subtitle
-- `image` (`string | ImageMetadata`) — Optional hero image
-- `actions` (`HeroAction[]`) — List of call-to-action buttons
-
-## TableOfContents
-
-Renders an interactive table of contents from the current page headings.
-
-**Props:**
-
-- `minDepth` (`number`) — Minimum heading level to include (default: `2`)
-- `maxDepth` (`number`) — Maximum heading level to include (default: `3`)
-- `sticky` (`boolean`) — Whether the TOC sticks to the viewport on scroll
+- [Configuration](/guides/configuration/) explains how overrides are registered.
+- [Starlight Components](/showcase/starlight-components/) previews the built-in Starlight components after Lucode styling.

@@ -1,164 +1,127 @@
 ---
 title: Getting Started
-description: Learn how to set up your first project from scratch and get up and running in minutes.
+description: Install Lucode Starlight in an Astro Starlight project and enable the theme plugin.
 ---
 
 ## Prerequisites
 
-Before you begin, make sure you have the following tools installed on your system:
+Lucode Starlight is a theme plugin for existing Starlight sites. You need:
 
-- **Node.js** version 18.0 or higher
-- **npm**, **yarn**, or **pnpm** as your package manager
-- A code editor such as VS Code with the recommended extensions
+- Astro with `@astrojs/starlight`.
+- `@astrojs/starlight` version `0.38.3` or newer.
+- A package manager. This repository uses Bun, but the theme works with npm, pnpm, yarn, or Bun.
 
-You can verify your Node.js installation by running:
-
-```bash
-node --version
-npm --version
-```
-
-## Creating a New Project
-
-The fastest way to get started is by using our project scaffolding tool. Open your terminal and run the following command:
+If you are starting from nothing, create a Starlight site first:
 
 ```bash
-npm create lucode-app@latest my-project
+npm create astro@latest -- --template starlight
 ```
 
-You'll be prompted with a few options:
+## Install the Theme
 
-- **Template**: Choose between a blank starter, blog, or documentation site
-- **TypeScript**: Enable or disable TypeScript support
-- **Package manager**: Select your preferred package manager
-
-Once the scaffolding is complete, navigate into your project directory:
+Install the package in the Starlight app:
 
 ```bash
-cd my-project
-npm install
+npm install lucode-starlight
 ```
 
-## Project Structure
-
-After initialization, your project will have the following structure:
-
-```
-my-project/
-├── src/
-│   ├── content/
-│   │   └── docs/
-│   ├── assets/
-│   └── styles/
-├── public/
-├── astro.config.mjs
-├── package.json
-└── tsconfig.json
-```
-
-- `src/content/` — Where your Markdown and MDX content lives
-- `src/assets/` — Images, fonts, and other static assets processed at build time
-- `public/` — Files served directly without processing
-- `astro.config.mjs` — Your main configuration file
-
-## Running the Development Server
-
-Start the local development server to preview your site:
+Or with Bun:
 
 ```bash
-npm run dev
+bun add lucode-starlight
 ```
 
-This will start a local server at `http://localhost:4321`. The server supports hot module replacement, so changes to your content and components will be reflected instantly in the browser.
+## Add the Plugin
 
-You can customize the port and host if needed:
+Import the plugin and add it to Starlight's `plugins` array.
 
-```ts
+```js
 // astro.config.mjs
 import { defineConfig } from 'astro/config';
-
-export default defineConfig({
-  server: {
-    port: 3000,
-    host: true,
-  },
-});
-```
-
-## Adding Your First Page
-
-Create a new Markdown file inside the `src/content/docs/` directory:
-
-```bash
-touch src/content/docs/my-first-page.md
-```
-
-Add some frontmatter and content:
-
-```md
----
-title: My First Page
-description: A brief introduction to the project.
----
-
-## Welcome
-
-This is your first documentation page. You can write content using
-standard Markdown syntax, including **bold**, *italics*, and `code`.
-```
-
-The page will automatically appear in the sidebar navigation based on your file structure.
-
-## Configuring Navigation
-
-The sidebar is generated automatically from your file system, but you can customize it in your configuration:
-
-```ts
-// astro.config.mjs
-import { defineConfig } from 'astro/config';
+import starlight from '@astrojs/starlight';
 import lucode from 'lucode-starlight';
 
 export default defineConfig({
   integrations: [
-    lucode({
-      sidebar: [
-        { label: 'Home', link: '/' },
-        {
-          label: 'Guides',
-          autogenerate: { directory: 'guides' },
-        },
-        {
-          label: 'Reference',
-          items: [
-            { label: 'API', link: '/reference/api' },
-            { label: 'CLI', link: '/reference/cli' },
+    starlight({
+      title: 'My Docs',
+      plugins: [
+        lucode({
+          navLinks: [
+            { label: 'Docs', link: '/guides/getting-started/' },
+            { label: 'API', link: '/reference/plugin-api/' },
           ],
-        },
+        }),
       ],
     }),
   ],
 });
 ```
 
-## Building for Production
+Lucode Starlight automatically adds its component overrides, CSS layers, theme tokens, base styles, and Expressive Code configuration.
 
-When you're ready to deploy, create an optimized production build:
+## Extend the Docs Schema
 
-```bash
-npm run build
+The theme adds frontmatter for splash hero layouts and announcement links. Extend Starlight's docs schema to use those fields with type checking.
+
+```ts
+// src/content.config.ts
+import { defineCollection } from 'astro:content';
+import { docsLoader } from '@astrojs/starlight/loaders';
+import { docsSchema } from '@astrojs/starlight/schema';
+import { ExtendDocsSchema } from 'lucode-starlight/schema';
+
+export const collections = {
+  docs: defineCollection({
+    loader: docsLoader(),
+    schema: docsSchema({ extend: ExtendDocsSchema }),
+  }),
+};
 ```
 
-The output will be placed in the `dist/` directory. You can preview the production build locally before deploying:
+## Create a Splash Homepage
+
+Use Starlight's `template: splash` and Lucode's `hero.layout` field on any docs page.
+
+```md
+---
+title: My Product Docs
+description: Product documentation for teams that ship.
+template: splash
+hero:
+  layout: split-left
+  announcement:
+    text: New docs theme
+    link: /guides/getting-started/
+  actions:
+    - text: Start building
+      link: /guides/getting-started/
+      icon: right-arrow
+    - text: View components
+      link: /showcase/starlight-components/
+      variant: minimal
+---
+```
+
+Available layouts are `centered`, `centered-top`, `split-left`, `split-right`, and `banner`.
+
+## Run the Site
+
+Start Astro normally:
 
 ```bash
-npm run preview
+npm run dev
+```
+
+In this monorepo, run the docs app with:
+
+```bash
+bun run docs
 ```
 
 ## Next Steps
 
-Now that you have a working project, explore the following guides to learn more:
-
-- [Installation](/guides/installation) — Advanced installation options and environment setup
-- [Configuration](/guides/configuration) — Customize every aspect of your site
-- [Theming](/guides/theming) — Adjust colors, fonts, and layout to match your brand
-- [Deployment](/guides/deployment) — Ship your site to production
+- Read [Configuration](/guides/configuration/) for plugin options and recommended Starlight settings.
+- Read [Customize the Theme](/guides/theming/) for CSS tokens and component override strategy.
+- Visit [Starlight Components](/showcase/starlight-components/) to inspect the full component surface.
+- Browse [Splash Pages](/showcase/splash-pages/) to choose a landing-page layout.

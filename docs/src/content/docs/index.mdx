@@ -1,18 +1,18 @@
 ---
-title: The Foundation for your Design System
-description: A beautiful documentation theme for Astro Starlight, inspired by shadcn/ui.
+title: Lucode Starlight
+description: A clean, component-driven theme for Astro Starlight, inspired by shadcn/ui and designed for product documentation.
 template: splash
 hero:
-  tagline: A set of beautifully designed components that you can customize, extend, and build on. Start here then make it your own. Open Source. Open Code.
+  tagline: Give Starlight a sharper product-docs interface with polished navigation, restrained typography, splash pages, and carefully tuned built-in components.
   announcement:
-    text: Introducing Lucode Starlight Theme
-    link: /guides/starlight-components/
+    text: Built for Astro Starlight 0.38+
+    link: /guides/getting-started/
   actions:
-    - text: Get Started
+    - text: Install the Theme
       link: /guides/getting-started/
       icon: right-arrow
-    - text: View Components
-      link: /reference/components/
+    - text: Explore the Showcase
+      link: /showcase/starlight-components/
       variant: minimal
 ---
 
@@ -20,32 +20,55 @@ import { Card, CardGrid } from '@astrojs/starlight/components';
 import { ContainerSection } from 'lucode-starlight/components';
 
 <ContainerSection>
-## Features
+
+## What the Theme Changes
 
 <CardGrid>
-  <Card title="Accessible" icon="heart">
-    Built with accessibility in mind. All components follow WAI-ARIA guidelines and support keyboard navigation.
+  <Card title="Starlight-native" icon="starlight">
+    Lucode Starlight is a Starlight plugin. Keep the content collections, sidebar config, search, i18n, and MDX workflow you already know.
   </Card>
-  <Card title="Customizable" icon="setting">
-    Every component is designed to be customized. Use CSS variables to match your brand and design system.
+  <Card title="Opinionated UI" icon="setting">
+    Header, sidebar, footer, search, hero, page frame, pagination, and markdown rendering are replaced with a tighter design system.
   </Card>
-  <Card title="Dark Mode" icon="moon">
-    First-class dark mode support with seamless theme switching and system preference detection.
+  <Card title="Token-based theming" icon="setting">
+    Colors, spacing, radii, container width, and component surfaces are driven by CSS custom properties that you can override per site.
   </Card>
-  <Card title="Open Source" icon="github">
-    Free and open source. Use it in personal and commercial projects. No attribution required.
+  <Card title="Splash pages" icon="rocket">
+    Use Starlight's splash template with Lucode hero layouts for landing pages, product pages, and docs entry points.
   </Card>
 </CardGrid>
+
 </ContainerSection>
 
 <ContainerSection>
-## Hero Layout Variants
 
-Explore the different hero layout options available in this theme:
+## Attribution
 
-- [Centered (default)](/hero-centered/) — Image below the title and tagline
-- [Centered Top](/hero-centered-top/) — Image above the title and tagline
-- [Split Left](/hero-split-left/) — Text on the left, image on the right
-- [Split Right](/hero-split-right/) — Image on the left, text on the right
-- [Banner](/hero-banner/) — Title left, description right, full-width image below
+Lucode Starlight recreates the design of [shadcn/ui's documentation site](https://ui.shadcn.com/). The package also uses [adrian-ub/starlight-theme-black](https://github.com/adrian-ub/starlight-theme-black) as a base, which brought an earlier shadcn/ui-inspired design to Astro Starlight.
+
+This project is not affiliated with shadcn/ui or starlight-theme-black.
+
+</ContainerSection>
+
+<ContainerSection>
+
+## Documentation Map
+
+This site is the theme manual and the theme preview at the same time. Start with installation, then use the showcase pages as visual QA while you customize tokens and author content.
+
+<CardGrid>
+  <Card title="Install and configure" icon="rocket">
+    Follow the plugin setup, content schema extension, and recommended Starlight options in [Getting Started](/guides/getting-started/).
+  </Card>
+  <Card title="Customize the interface" icon="setting">
+    Learn which plugin options and CSS tokens are available in [Configuration](/guides/configuration/) and [Customize the Theme](/guides/theming/).
+  </Card>
+  <Card title="Inspect every state" icon="magnifier">
+    Compare cards, asides, tabs, badges, code blocks, file trees, and buttons in [Starlight Components](/showcase/starlight-components/).
+  </Card>
+  <Card title="Pick a landing layout" icon="open-book">
+    Browse the live hero layouts in [Splash Pages](/showcase/splash-pages/) before choosing one for your docs homepage.
+  </Card>
+</CardGrid>
+
 </ContainerSection>

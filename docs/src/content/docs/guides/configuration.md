@@ -1,80 +1,131 @@
 ---
 title: Configuration
-description: A complete overview of all configuration options available for customizing your site.
+description: Configure the Lucode Starlight plugin, Starlight options, and docs content schema.
 ---
 
-## Configuration File
+Lucode Starlight is configured inside the Starlight integration. The plugin handles theme wiring; your site still owns regular Starlight options like `title`, `logo`, `sidebar`, `social`, and `customCss`.
 
-All configuration lives in your `astro.config.mjs` file. The integration accepts an options object where you can control site metadata, navigation, and behavior.
+## Minimal Config
 
-```ts
+```js
+// astro.config.mjs
 import { defineConfig } from 'astro/config';
+import starlight from '@astrojs/starlight';
 import lucode from 'lucode-starlight';
 
 export default defineConfig({
   integrations: [
-    lucode({
+    starlight({
       title: 'My Docs',
-      description: 'Documentation for my project',
-      logo: './src/assets/logo.svg',
-      defaultLocale: 'en',
+      plugins: [lucode()],
     }),
   ],
 });
 ```
 
-## Site Metadata
+## Plugin Options
 
-Control how your site appears in search engines and browser tabs:
+Pass options to `lucode()` when you want custom top navigation or footer text.
 
-- `title` — The site title shown in the header and browser tab
-- `description` — A short description used in meta tags
-- `logo` — Path to a logo image displayed in the navigation bar
-- `favicon` — Path to a custom favicon file
-
-## Social Links
-
-Add links to your social profiles and repository:
-
-```ts
+```js
 lucode({
-  social: {
-    github: 'https://github.com/your-org/your-repo',
-    discord: 'https://discord.gg/your-server',
-    twitter: 'https://twitter.com/your-handle',
-  },
+  navLinks: [
+    { label: 'Docs', link: '/guides/getting-started/' },
+    { label: 'Showcase', link: '/showcase/starlight-components/' },
+    { label: 'GitHub', link: 'https://github.com/lucas-labs/lucode-starlight-theme' },
+  ],
+  footerText:
+    'Built with [Lucode Starlight](https://github.com/lucas-labs/lucode-starlight-theme).',
 });
 ```
 
-## Internationalization
+`navLinks` renders links in the custom header. Each item supports:
 
-Enable multi-language support by defining your locales:
+| Option | Type | Notes |
+| --- | --- | --- |
+| `label` | `string` or locale map | The visible link label. |
+| `link` | `string` | Internal path or external URL. |
+| `badge` | `string` | Optional badge text beside the label. |
+| `attrs` | HTML attributes | Extra attributes passed to the anchor. |
 
-```ts
-lucode({
-  defaultLocale: 'en',
-  locales: {
-    en: { label: 'English' },
-    es: { label: 'Español' },
-    ja: { label: '日本語' },
+`footerText` accepts Markdown. The default credits shadcn/ui for the documentation theme inspiration, starlight-theme-black as the Astro Starlight base, and lucas-labs for this package.
+
+## Recommended Starlight Config
+
+Most sites should configure the usual Starlight surface next to the plugin:
+
+```js
+starlight({
+  title: 'Acme Docs',
+  logo: {
+    src: './src/assets/logo.svg',
+    alt: 'Acme logo',
+    replacesTitle: true,
   },
+  customCss: ['./src/styles/global.css'],
+  social: [
+    { icon: 'github', label: 'GitHub', href: 'https://github.com/acme/docs' },
+  ],
+  plugins: [
+    lucode({
+      navLinks: [
+        { label: 'Docs', link: '/guides/getting-started/' },
+        { label: 'Reference', link: '/reference/plugin-api/' },
+      ],
+    }),
+  ],
+  sidebar: [
+    {
+      label: 'Guides',
+      autogenerate: { directory: 'guides' },
+    },
+    {
+      label: 'Reference',
+      autogenerate: { directory: 'reference' },
+    },
+  ],
 });
 ```
 
-Each locale requires a matching content directory under `src/content/docs/`.
+## Content Schema
 
-## Environment Variables
+Add `ExtendDocsSchema` if you want the extra splash hero frontmatter used by this theme:
 
-Some settings can be overridden with environment variables for flexibility across deployment environments:
+```ts
+// src/content.config.ts
+import { defineCollection } from 'astro:content';
+import { docsLoader } from '@astrojs/starlight/loaders';
+import { docsSchema } from '@astrojs/starlight/schema';
+import { ExtendDocsSchema } from 'lucode-starlight/schema';
 
-- `SITE_URL` — Override the canonical site URL
-- `BASE_PATH` — Set a base path prefix for all routes
-- `ENABLE_DRAFTS` — Show draft pages in development mode
+export const collections = {
+  docs: defineCollection({
+    loader: docsLoader(),
+    schema: docsSchema({ extend: ExtendDocsSchema }),
+  }),
+};
+```
 
-Create a `.env` file in your project root:
+## What the Plugin Wires Up
 
-```bash
-SITE_URL=https://docs.example.com
-BASE_PATH=/docs
-ENABLE_DRAFTS=true
+During Starlight config setup, Lucode Starlight:
+
+- Registers Lucode component overrides for the Starlight page frame, header, sidebar, hero, footer, search, table of contents, and markdown content.
+- Appends `lucode-starlight/styles/layers`, `lucode-starlight/styles/theme`, and `lucode-starlight/styles/base` to `customCss`.
+- Applies the package Expressive Code configuration.
+- Adds an Astro integration with the Vite plugin that receives the parsed `navLinks` and `footerText` config.
+
+If you already override one of the same Starlight components, the plugin leaves your override in place and logs a warning with the fallback component path.
+
+## Component Overrides
+
+You can still override Starlight components yourself. When you do, import or re-render the Lucode component you want to keep.
+
+```js
+starlight({
+  components: {
+    Header: './src/components/Header.astro',
+  },
+  plugins: [lucode()],
+});
 ```

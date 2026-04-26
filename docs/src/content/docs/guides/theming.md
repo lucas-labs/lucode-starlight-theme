@@ -1,80 +1,144 @@
 ---
-title: Theming
-description: Customize the look and feel of your site with theme tokens, colors, and typography.
+title: Customize the Theme
+description: Override Lucode Starlight tokens and extend the visual system without forking the package.
 ---
 
-## Theme Overview
+Lucode Starlight keeps most visual decisions in CSS custom properties. Override them from your app-level stylesheet, usually `src/styles/global.css`, and include that file in Starlight's `customCss`.
 
-The theming system is built on CSS custom properties, making it easy to adjust colors, spacing, and typography without touching component code.
+## Add a Site Stylesheet
 
-All theme tokens are defined in a central stylesheet and can be overridden in your project's `global.css`.
-
-## Color Palette
-
-Override the default color palette by setting custom properties in your stylesheet:
-
-```css
-/* src/styles/global.css */
-:root {
-  --color-primary: #6366f1;
-  --color-primary-light: #818cf8;
-  --color-primary-dark: #4f46e5;
-  --color-background: #ffffff;
-  --color-surface: #f8fafc;
-  --color-text: #1e293b;
-}
-```
-
-Dark mode colors are scoped under the `[data-theme="dark"]` selector:
-
-```css
-[data-theme='dark'] {
-  --color-background: #0f172a;
-  --color-surface: #1e293b;
-  --color-text: #e2e8f0;
-}
-```
-
-## Typography
-
-Customize fonts by importing your preferred typeface and updating the font tokens:
-
-```css
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
-
-:root {
-  --font-body: 'Inter', system-ui, sans-serif;
-  --font-heading: 'Inter', system-ui, sans-serif;
-  --font-mono: 'JetBrains Mono', monospace;
-}
-```
-
-Available typography tokens include:
-
-- `--font-body` — Body text font family
-- `--font-heading` — Heading font family
-- `--font-mono` — Code block and inline code font
-- `--font-size-base` — Base font size (default: `1rem`)
-- `--line-height-body` — Line height for body content
-
-## Custom Components
-
-You can override any built-in component by placing a file with the same name in your project's component directory:
-
-```ts
+```js
 // astro.config.mjs
-lucode({
-  components: {
-    Header: './src/components/CustomHeader.astro',
-    Footer: './src/components/CustomFooter.astro',
-  },
+starlight({
+  customCss: ['./src/styles/global.css'],
+  plugins: [lucode()],
 });
 ```
 
-## Layout Options
+The theme appends its own CSS after your custom CSS. Use cascade layers and matching selectors when you intentionally want to override Lucode tokens:
 
-Control the page layout width and sidebar behavior through configuration:
+```css
+/* src/styles/global.css */
+@layer lucode {
+  :root {
+    --radius: 0.5rem;
+    --sidebar-width: 17rem;
+    --container-max-width: 1440px;
+  }
+}
+```
 
-- `contentWidth` — Maximum width of the main content area (default: `48rem`)
-- `sidebarWidth` — Width of the sidebar panel (default: `18rem`)
-- `tocPosition` — Position of the table of contents: `"right"`, `"left"`, or `"hidden"`
+## Core Tokens
+
+| Token | Purpose |
+| --- | --- |
+| `--spacing` | Base spacing unit used by the layout and custom components. |
+| `--radius` | Shared radius for buttons, asides, tabs, and cards. |
+| `--header-height` | Sticky header height. |
+| `--sidebar-width` | Desktop sidebar width. |
+| `--container-max-width` | Maximum width for the top-level page container. |
+| `--foreground` | Primary text and high-contrast UI color. |
+| `--background` | Main page background. |
+| `--primary` | Primary button background. |
+| `--secondary` | Secondary surfaces and quiet controls. |
+| `--muted` | Low-emphasis backgrounds. |
+| `--muted-foreground` | Secondary text. |
+| `--accent` | Hover and active backgrounds. |
+| `--border` | Borders and separators. |
+| `--code-background` | Code blocks, cards, tabs, and file trees. |
+
+## Color Modes
+
+Define light and dark values separately with Starlight's `data-theme` attribute.
+
+```css
+@layer lucode {
+  :root[data-theme='light'] {
+    --foreground: oklch(18% 0.015 250);
+    --background: oklch(99% 0.003 250);
+    --primary: oklch(24% 0.03 250);
+    --primary-foreground: white;
+    --border: oklch(88% 0.01 250);
+  }
+
+  :root[data-theme='dark'] {
+    --foreground: oklch(97% 0.005 250);
+    --background: oklch(14% 0.015 250);
+    --primary: oklch(97% 0.005 250);
+    --primary-foreground: oklch(14% 0.015 250);
+    --border: oklch(28% 0.015 250);
+  }
+}
+```
+
+## Starlight Color Mapping
+
+Lucode maps Starlight's built-in colors to its own tokens:
+
+```css
+--sl-color-bg: var(--background);
+--sl-color-text: var(--foreground);
+--sl-color-text-accent: var(--foreground);
+--sl-color-accent: var(--border);
+--sl-color-accent-high: var(--foreground);
+--sl-color-gray-1: var(--gray-1);
+--sl-color-gray-7: var(--gray-7);
+```
+
+This means Starlight components, Markdown content, badges, asides, and custom theme chrome stay visually aligned when you update Lucode tokens.
+
+## Typography
+
+The theme refines Starlight's default Markdown typography, but it does not force a font import. Set fonts globally from your app CSS:
+
+```css
+@layer lucode {
+  :root {
+    --sl-font: Inter, ui-sans-serif, system-ui, sans-serif;
+    --sl-font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, monospace;
+  }
+}
+```
+
+Use the [Typography](/showcase/typography/) page to review headings, paragraphs, links, tables, lists, images, keyboard shortcuts, and code after changing fonts.
+
+## Adjust Component Surfaces
+
+Cards, tabs, file trees, code blocks, and asides use `--code-background` as their shared surface. For a lighter docs interface, keep it close to the page background:
+
+```css
+@layer lucode {
+  :root[data-theme='light'] {
+    --code-background: oklch(98% 0.006 250);
+  }
+
+  :root[data-theme='dark'] {
+    --code-background: oklch(18% 0.01 250);
+  }
+}
+```
+
+For a more panelled interface, increase contrast between `--background`, `--secondary`, and `--code-background`.
+
+## Customize Splash Pages
+
+Splash pages are regular Starlight docs pages with `template: splash`. Lucode adds a `hero.layout` field:
+
+```md
+---
+title: Developer Portal
+description: API docs, examples, and integration guides.
+template: splash
+hero:
+  layout: banner
+  announcement:
+    text: Version 2.0 is ready
+    link: /guides/migration/
+  actions:
+    - text: Get started
+      link: /guides/getting-started/
+      icon: right-arrow
+---
+```
+
+Use [Splash Pages](/showcase/splash-pages/) to compare each layout in context.
