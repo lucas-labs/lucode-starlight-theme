@@ -6,7 +6,7 @@
     <br />
     An Astro Starlight theme inspired by <code>shadcn/ui</code>.
     <br />
-    <a href="">Preview/docs</a> · <a href="https://www.npmjs.com/package/lucode-starlight">Npm</a>
+    <a href="https://lucas-labs.github.io/lucode-starlight-theme">Preview/docs</a> · <a href="https://www.npmjs.com/package/lucode-starlight">Npm</a>
 </p>
 
 <br />
