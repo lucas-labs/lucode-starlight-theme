@@ -1,10 +1,11 @@
 {
     "name": "lucode-starlight",
-    "version": "0.0.1",
+    "version": "0.1.0",
     "type": "module",
     "description": "Lucode's theme for Starlight (the Astro native documentation site generator)",
     "author": "lucas-labs",
     "license": "MIT",
+    "readme": "README.md",
     "funding": "https://github.com/sponsors/lucas-labs",
     "homepage": "https://github.com/lucas-labs/lucode-starlight-theme",
     "repository": {
