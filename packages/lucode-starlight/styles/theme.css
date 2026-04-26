@@ -62,5 +62,6 @@
         --accent: var(--gray-7);
         --secondary: var(--gray-7);
         --muted-foreground: var(--gray-4);
+        --popover-background: var(--background);
     }
 }

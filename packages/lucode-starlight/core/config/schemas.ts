@@ -39,11 +39,17 @@ export type Link = z.infer<typeof linkSchema>;
 
 export const LucodeStarlightConfigSchema = z.object({
     navLinks: z.array(linkSchema).optional(),
+    docs: z
+        .object({
+            includeAiUtilities: z.boolean().optional().default(true),
+        })
+        .optional()
+        .default({ includeAiUtilities: true }),
     footerText: z
         .string()
         .optional()
         .default(
-            'Built & designed by [shadcn](https://twitter.com/shadcn). Ported to Astro Starlight by [lucas-labs](https://github.com/lucas-labs). The source code is available on [GitHub](https://github.com/lucas-labs/lucode-starlight-theme).'
+            'Inspired by the [shadcn/ui](https://ui.shadcn.com/) documentation theme and based on [starlight-theme-black](https://github.com/adrian-ub/starlight-theme-black). Ported to Astro Starlight by [lucas-labs](https://github.com/lucas-labs).'
         ),
 });
 
