@@ -17,6 +17,7 @@ import {
     TabItem,
     Tabs,
 } from '@astrojs/starlight/components';
+import { Dropdown } from 'lucode-starlight/components';
 
 export const themeSnippet = `@layer lucode {
   :root[data-theme='dark'] {
@@ -149,6 +150,24 @@ Use this page as a regression checklist when changing tokens or component overri
 >
     Official Component Docs
 </LinkButton>
+
+## Dropdown
+
+<Dropdown.Root>
+    <Dropdown.Trigger variant="secondary">Open menu</Dropdown.Trigger>
+    <Dropdown.Content align="start">
+        <Dropdown.Label>Theme docs</Dropdown.Label>
+        <Dropdown.Item as="a" href="/lucode-starlight-theme/guides/getting-started/">
+            Getting Started
+        </Dropdown.Item>
+        <Dropdown.Item as="a" href="/lucode-starlight-theme/reference/components/">
+            Component Reference
+            <Dropdown.Shortcut>Docs</Dropdown.Shortcut>
+        </Dropdown.Item>
+        <Dropdown.Separator />
+        <Dropdown.Item disabled>Disabled action</Dropdown.Item>
+    </Dropdown.Content>
+</Dropdown.Root>
 
 ## Steps
 

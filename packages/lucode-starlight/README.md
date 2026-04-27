@@ -145,7 +145,7 @@ Import user-facing components from `lucode-starlight/components`:
 
 ```astro
 ---
-import { ContainerSection, LinkButton } from 'lucode-starlight/components';
+import { ContainerSection, Dropdown, LinkButton } from 'lucode-starlight/components';
 ---
 
 <ContainerSection width="lg">
@@ -153,6 +153,20 @@ import { ContainerSection, LinkButton } from 'lucode-starlight/components';
   <p>Use Lucode sections on splash pages and custom MDX content.</p>
   <LinkButton href="/lucode-starlight-theme/guides/getting-started/">Get started</LinkButton>
 </ContainerSection>
+
+<Dropdown.Root>
+  <Dropdown.Trigger variant="secondary">Theme actions</Dropdown.Trigger>
+  <Dropdown.Content align="start">
+    <Dropdown.Label>Documentation</Dropdown.Label>
+    <Dropdown.Item as="a" href="/guides/getting-started/">
+      Getting Started
+    </Dropdown.Item>
+    <Dropdown.Item as="a" href="/guides/theming/">
+      Customize Theme
+      <Dropdown.Shortcut>CSS</Dropdown.Shortcut>
+    </Dropdown.Item>
+  </Dropdown.Content>
+</Dropdown.Root>
 ```
 
 ### `LinkButton`
@@ -169,6 +183,18 @@ Props:
 Props:
 
 - `width`: `sm`, `md`, `lg`, or `xl`.
+
+### `Dropdown`
+
+Compound menu component exported as `Dropdown.Root`, `Dropdown.Trigger`, `Dropdown.Content`, `Dropdown.Item`, `Dropdown.Label`, `Dropdown.Separator`, and `Dropdown.Shortcut`.
+
+Useful props:
+
+- `Dropdown.Root`: `openOnHover`, `closeDelay`.
+- `Dropdown.Trigger`: `asChild`, `variant`, `size`.
+- `Dropdown.Content`: `side`, `align`, `sideOffset`, `animationDuration`.
+- `Dropdown.Item`: `as`, `inset`, `disabled`.
+- `Dropdown.Label`: `inset`.
 
 ## Styling
 
