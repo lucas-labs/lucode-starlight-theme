@@ -1,11 +1,11 @@
 @layer lucode {
     /* theme */
     :root {
-        --tracking-tight: -.025em;
-        --tracking-tighter: -.05em;
+        --tracking-tight: -0.025em;
+        --tracking-tighter: -0.05em;
         --tracking-normal: 0em;
-        --tracking-wide: .025em;
-        --tracking-wider: .05em;
+        --tracking-wide: 0.025em;
+        --tracking-wider: 0.05em;
         --spacing: 0.25rem;
         --radius: 0.625rem;
         --header-height: calc(var(--spacing) * 14);
@@ -189,6 +189,16 @@
         margin-top: calc(var(--spacing) * 12);
     }
 
+    .sl-markdown-content a[data-slot='button'] {
+        margin-top: var(--sl-content-gap-y);
+    }
+
+    .sl-markdown-content
+        a[data-slot='button']
+        + :not(a, strong, em, del, span, input, code, br, :where(.not-content *)) {
+        margin-top: var(--sl-content-gap-y);
+    }
+
     .sl-markdown-content .sl-heading-wrapper.level-h1 {
         --sl-anchor-icon-size: 1.125rem;
         --sl-anchor-icon-space: calc(var(--sl-anchor-icon-size) + var(--sl-anchor-icon-gap));
@@ -237,7 +247,7 @@
         .expressive-code[data-theme='dark']
         .ec-line
         :where(span[style^='--']:not([class])) {
-            font-size: 0.933em;
+        font-size: 0.933em;
     }
 
     /* kbd styles */
