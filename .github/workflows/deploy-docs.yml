@@ -6,6 +6,8 @@ on:
     paths:
       - docs/**
       - .github/workflows/deploy-docs.yml
+      # changes in the theme also require a docs rebuild, because the docs use the theme
+      - packages/lucode-starlight/**
   workflow_dispatch:
 
 permissions:

@@ -1,14 +1,10 @@
 ---
-import Default from '@astrojs/starlight/components/Footer.astro';
 import EditLink from 'virtual:starlight/components/EditLink';
 import LastUpdated from 'virtual:starlight/components/LastUpdated';
 import Pagination from 'virtual:starlight/components/Pagination';
 import config from 'virtual:starlight/user-config';
 
 const {
-    pagination,
-    editUrl,
-    lastUpdated,
     entry: {
         data: { template },
     },
@@ -16,26 +12,9 @@ const {
 
 const { lastUpdated: showLastUpdated, editLink } = config;
 const showEditLink = editLink?.baseUrl ? true : false;
-
-const showFooterInSplash =
-    template === 'splash' &&
-    !!(editUrl || lastUpdated || pagination.next || pagination.prev || config.credits);
 ---
 
-{
-    showFooterInSplash && (
-        <div class="container-wrapper">
-            <div class="container">
-                <Default />
-            </div>
-        </div>
-    )
-}
-
-{!showFooterInSplash && template === 'splash' && <div class="padding-negative" />}
-
-<!-- footer -->
-{
+<!-- footer -->{
     template === 'doc' && (
         <footer>
             {(showEditLink || showLastUpdated) && (
