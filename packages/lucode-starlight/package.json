@@ -1,6 +1,6 @@
 {
     "name": "lucode-starlight",
-    "version": "0.1.1",
+    "version": "0.1.2",
     "type": "module",
     "description": "Lucode's theme for Starlight (the Astro native documentation site generator)",
     "author": "lucas-labs",
