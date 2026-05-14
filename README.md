@@ -11,6 +11,10 @@
 
 <br />
 
+<p align="center">
+<img width="1600" height="900" alt="image" src="https://github.com/user-attachments/assets/e5b26cbb-cd44-494e-8d15-f9c44a5c0d04" />
+</p>
+
 # Lucode Starlight Theme
 
 [shadcn/ui](https://ui.shadcn.com/) inspired Starlight theme.
