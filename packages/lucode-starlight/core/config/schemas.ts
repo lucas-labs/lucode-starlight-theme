@@ -41,7 +41,7 @@ export const LucodeStarlightConfigSchema = z.object({
     navLinks: z.array(linkSchema).optional(),
     docs: z
         .object({
-            includeAiUtilities: z.boolean().optional().default(true),
+            includeAiUtilities: z.boolean().optional().default(false),
         })
         .optional()
         .default({ includeAiUtilities: true }),
