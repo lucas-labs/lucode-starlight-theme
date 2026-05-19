@@ -3,6 +3,8 @@ title: Getting Started
 description: Install Lucode Starlight in an Astro Starlight project and enable the theme plugin.
 ---
 
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+
 ## Prerequisites
 
 Lucode Starlight is a theme plugin for existing Starlight sites. You need:
@@ -13,23 +15,81 @@ Lucode Starlight is a theme plugin for existing Starlight sites. You need:
 
 If you are starting from nothing, create a Starlight site first:
 
+<Tabs syncKey="pkg">
+
+<TabItem label="npm">
+
 ```bash
 npm create astro@latest -- --template starlight
 ```
+
+</TabItem>
+
+<TabItem label="pnpm">
+
+```bash
+pnpm create astro@latest -- --template starlight
+```
+
+</TabItem>
+
+<TabItem label="yarn">
+
+```bash
+yarn create astro -- --template starlight
+```
+
+</TabItem>
+
+<TabItem label="bun">
+
+```bash
+bun create astro@latest -- --template starlight
+```
+
+</TabItem>
+
+</Tabs>
 
 ## Install the Theme
 
 Install the package in the Starlight app:
 
+<Tabs syncKey="pkg">
+
+<TabItem label="npm">
+
 ```bash
 npm install lucode-starlight
 ```
 
-Or with Bun:
+</TabItem>
+
+<TabItem label="pnpm">
+
+```bash
+pnpm add lucode-starlight
+```
+
+</TabItem>
+
+<TabItem label="yarn">
+
+```bash
+yarn add lucode-starlight
+```
+
+</TabItem>
+
+<TabItem label="bun">
 
 ```bash
 bun add lucode-starlight
 ```
+
+</TabItem>
+
+</Tabs>
 
 ## Add the Plugin
 
@@ -109,15 +169,41 @@ Available layouts are `centered`, `centered-top`, `split-left`, `split-right`, a
 
 Start Astro normally:
 
+<Tabs syncKey="pkg">
+
+<TabItem label="npm">
+
 ```bash
 npm run dev
 ```
 
-In this monorepo, run the docs app with:
+</TabItem>
+
+<TabItem label="pnpm">
 
 ```bash
-bun run docs
+pnpm run dev
 ```
+
+</TabItem>
+
+<TabItem label="yarn">
+
+```bash
+yarn run dev
+```
+
+</TabItem>
+
+<TabItem label="bun">
+
+```bash
+bun run dev
+```
+
+</TabItem>
+
+</Tabs>
 
 ## Next Steps
 
