@@ -48,6 +48,10 @@ jobs:
           DOCS_BASE_PATH: /lucode-starlight-theme/${{ env.PREVIEW_PATH }}
         run: bun run docs:build
 
+      - name: Add Pages marker
+        shell: bash
+        run: touch docs/dist/.nojekyll
+
       - name: Publish preview docs
         uses: JamesIves/github-pages-deploy-action@v4
         with:
