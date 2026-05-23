@@ -1,11 +1,8 @@
 name: Publish package to npm
 
 on:
-  push:
-    branches: [master]
-    paths:
-      - packages/lucode-starlight/**
-      - .github/workflows/publish-package.yml
+  release:
+    types: [published]
   workflow_dispatch:
 
 permissions:
@@ -23,6 +20,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v6
+        with:
+          ref: ${{ github.event_name == 'release' && github.event.release.tag_name || github.ref_name }}
 
       - name: Setup Node.js
         uses: actions/setup-node@v6
