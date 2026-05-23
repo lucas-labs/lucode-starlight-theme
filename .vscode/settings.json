@@ -5,5 +5,9 @@
         ".gitignore": true,
         ".prettier*": true
     },
-    "explorer.fileNesting.enabled": true
+    "explorer.fileNesting.enabled": true,
+    "chat.tools.terminal.autoApprove": {
+        "bun": true,
+        "bunx": true
+    }
 }

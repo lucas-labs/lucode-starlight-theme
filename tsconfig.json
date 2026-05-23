@@ -5,5 +5,5 @@
         "checkJs": true
     },
     "include": ["docs/.astro/types.d.ts", "**/*"],
-    "exclude": ["**/dist/**", "**/__coverage__/**", "**/build/**"]
+    "exclude": ["**/dist/**", "**/__coverage__/**", "**/build/**", "**/coverage/**"]
 }

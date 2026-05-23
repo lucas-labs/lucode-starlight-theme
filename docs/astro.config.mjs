@@ -4,9 +4,11 @@ import starlight from '@astrojs/starlight';
 import lucode from 'lucode-starlight';
 
 // https://astro.build/config
+const docsBasePath = process.env.DOCS_BASE_PATH ?? '/lucode-starlight-theme';
+
 export default defineConfig({
     site: 'https://lucas-labs.github.io',
-    base: '/lucode-starlight-theme',
+    base: docsBasePath,
 
     integrations: [
         starlight({

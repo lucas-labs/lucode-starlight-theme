@@ -1,49 +1,56 @@
-name: Deploy docs to GitHub Pages
+name: Deploy release docs to GitHub Pages
 
 on:
-  push:
-    branches: [master]
-    paths:
-      - docs/**
-      - .github/workflows/deploy-docs.yml
-      # changes in the theme also require a docs rebuild, because the docs use the theme
-      - packages/lucode-starlight/**
+  release:
+    types: [published]
   workflow_dispatch:
+    inputs:
+      ref:
+        description: Git ref to deploy (tag or branch)
+        required: false
+        default: master
 
 permissions:
-  contents: read
-  pages: write
-  id-token: write
+  contents: write
 
 concurrency:
-  group: pages
+  group: docs-production
   cancel-in-progress: false
 
 jobs:
-  build:
-    name: Build docs
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v6
-
-      - name: Build and upload Astro site
-        uses: withastro/action@v6
-        with:
-          path: .
-          node-version: 24
-          package-manager: bun
-          build-cmd: bun run docs:build
-          out-dir: docs/dist
-
   deploy:
-    name: Deploy docs
-    needs: build
+    name: Deploy latest release docs
     runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
     steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v5
+      - name: Checkout release tag
+        uses: actions/checkout@v6
+        with:
+          ref: ${{ github.event.release.tag_name || inputs.ref || github.ref_name }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: 24
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+
+      - name: Install dependencies
+        run: bun install --frozen-lockfile
+
+      - name: Build release docs
+        env:
+          DOCS_BASE_PATH: /lucode-starlight-theme
+        run: bun run docs:build
+
+      - name: Publish release docs
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          branch: gh-pages
+          folder: docs/dist
+          clean: true
+          clean-exclude: |
+            previews
+          force: false
+          git-config-name: github-actions[bot]
+          git-config-email: 41898282+github-actions[bot]@users.noreply.github.com
