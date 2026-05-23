@@ -20,3 +20,6 @@ bun-debug.log*
 
 # macOS-specific files
 .DS_Store
+
+# scripts
+scripts/
