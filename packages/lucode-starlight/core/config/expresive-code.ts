@@ -1,8 +1,21 @@
-import {
-    createInlineSvgUrl,
-    type StarlightExpressiveCodeOptions,
-} from '@astrojs/starlight/expressive-code';
+import type { StarlightExpressiveCodeOptions } from '@astrojs/starlight/expressive-code';
 import type { StarlightUserConfig } from '@astrojs/starlight/types';
+
+const createInlineSvgUrl = (svgContents: string): string => {
+    const inlineSvg = svgContents.replace(
+        /^(\s*<svg)\s+([^>]+)\s*(\/?>)/,
+        (_match, tagStart: string, attributes: string, tagEnd: string) => {
+            const sanitizedAttributes = attributes.replaceAll(
+                /(?:width|height)\s*=\s*(?:(["'])[^"']*\1|\d+)\s*/g,
+                ''
+            );
+
+            return `${tagStart} ${sanitizedAttributes.trim()}${tagEnd}`;
+        }
+    );
+
+    return `url("data:image/svg+xml,${encodeURIComponent(inlineSvg)}")`;
+};
 
 export const expressiveCode = (
     config: StarlightUserConfig

@@ -25,6 +25,9 @@ export default defineConfig({
             lastUpdated: true,
             plugins: [
                 lucode({
+                    docs: {
+                        includeAiUtilities: true,
+                    },
                     navLinks: [
                         { label: 'Docs', link: '/guides/getting-started/' },
                         { label: 'Showcase', link: '/showcase/starlight-components/' },
