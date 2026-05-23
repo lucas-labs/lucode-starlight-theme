@@ -11,10 +11,14 @@
     "scripts": {
         "docs": "bun run --filter lucode-starlight-docs dev",
         "dev": "bun run --filter lucode-starlight-docs dev",
-        "docs:build": "bun run --filter lucode-starlight-docs build"
+        "docs:build": "bun run --filter lucode-starlight-docs build",
+        "test": "vitest run --coverage"
     },
     "devDependencies": {
         "@antfu/eslint-config": "^8.2.0",
-        "astro": "^6.1.9"
+        "@vitest/coverage-v8": "^4.1.7",
+        "astro": "^6.1.9",
+        "jsdom": "^29.1.1",
+        "vitest": "^4.1.7"
     }
 }
