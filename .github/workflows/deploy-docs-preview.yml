@@ -64,7 +64,7 @@ jobs:
           git-config-email: 41898282+github-actions[bot]@users.noreply.github.com
 
       - name: Comment preview URL
-        uses: actions/github-script@v8
+        uses: actions/github-script@v9
         env:
           PREVIEW_URL: ${{ env.PREVIEW_URL }}
         with:
