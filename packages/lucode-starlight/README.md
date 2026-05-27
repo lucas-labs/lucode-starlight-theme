@@ -45,12 +45,12 @@ import starlight from '@astrojs/starlight';
 import lucode from 'lucode-starlight';
 
 export default defineConfig({
-  integrations: [
-    starlight({
-      title: 'My Docs',
-      plugins: [lucode()],
-    }),
-  ],
+    integrations: [
+        starlight({
+            title: 'My Docs',
+            plugins: [lucode()],
+        }),
+    ],
 });
 ```
 
@@ -74,10 +74,10 @@ import { docsSchema } from '@astrojs/starlight/schema';
 import { ExtendDocsSchema } from 'lucode-starlight/schema';
 
 export const collections = {
-  docs: defineCollection({
-    loader: docsLoader(),
-    schema: docsSchema({ extend: ExtendDocsSchema }),
-  }),
+    docs: defineCollection({
+        loader: docsLoader(),
+        schema: docsSchema({ extend: ExtendDocsSchema }),
+    }),
 };
 ```
 
@@ -85,15 +85,15 @@ export const collections = {
 
 ```ts
 type LucodeStarlightUserConfig = {
-  navLinks?: Link[];
-  footerText?: string;
+    navLinks?: Link[];
+    footerText?: string;
 };
 
 type Link = {
-  label: string | Record<string, string>;
-  link: string;
-  badge?: string;
-  attrs?: Record<string, string | number | boolean | undefined>;
+    label: string | Record<string, string>;
+    link: string;
+    badge?: string;
+    attrs?: Record<string, string | number | boolean | undefined>;
 };
 ```
 
@@ -101,12 +101,12 @@ Example:
 
 ```js
 lucode({
-  navLinks: [
-    { label: 'Docs', link: '/guides/getting-started/' },
-    { label: 'GitHub', link: 'https://github.com/lucas-labs/lucode-starlight-theme' },
-  ],
-  footerText:
-    'Built with [Lucode Starlight](https://github.com/lucas-labs/lucode-starlight-theme).',
+    navLinks: [
+        { label: 'Docs', link: '/guides/getting-started/' },
+        { label: 'GitHub', link: 'https://github.com/lucas-labs/lucode-starlight-theme' },
+    ],
+    footerText:
+        'Built with [Lucode Starlight](https://github.com/lucas-labs/lucode-starlight-theme).',
 });
 ```
 
@@ -120,14 +120,14 @@ title: Developer Portal
 description: API docs, examples, and integration guides.
 template: splash
 hero:
-  layout: split-left
-  announcement:
-    text: Version 2.0 is ready
-    link: /guides/getting-started/
-  actions:
-    - text: Get started
-      link: /guides/getting-started/
-      icon: right-arrow
+    layout: split-left
+    announcement:
+        text: Version 2.0 is ready
+        link: /guides/getting-started/
+    actions:
+        - text: Get started
+          link: /guides/getting-started/
+          icon: right-arrow
 ---
 ```
 
@@ -202,9 +202,9 @@ Override theme tokens from your app CSS:
 
 ```css
 :root {
-  --radius: 0.5rem;
-  --sidebar-width: 17rem;
-  --container-max-width: 1440px;
+    --radius: 0.5rem;
+    --sidebar-width: 17rem;
+    --container-max-width: 1440px;
 }
 ```
 

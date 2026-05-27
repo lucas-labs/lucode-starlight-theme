@@ -13,7 +13,7 @@ Use the default export inside Starlight's `plugins` array:
 
 ```js
 starlight({
-  plugins: [lucode()],
+    plugins: [lucode()],
 });
 ```
 
@@ -21,8 +21,8 @@ starlight({
 
 ```ts
 type LucodeStarlightUserConfig = {
-  navLinks?: Link[];
-  footerText?: string;
+    navLinks?: Link[];
+    footerText?: string;
 };
 ```
 
@@ -32,24 +32,24 @@ Header navigation links rendered by the theme.
 
 ```ts
 type Link = {
-  label: string | Record<string, string>;
-  link: string;
-  badge?: string;
-  attrs?: Record<string, string | number | boolean | undefined>;
+    label: string | Record<string, string>;
+    link: string;
+    badge?: string;
+    attrs?: Record<string, string | number | boolean | undefined>;
 };
 ```
 
 ```js
 lucode({
-  navLinks: [
-    { label: 'Docs', link: '/guides/getting-started/' },
-    { label: 'API', link: '/reference/plugin-api/' },
-    {
-      label: 'GitHub',
-      link: 'https://github.com/lucas-labs/lucode-starlight-theme',
-      attrs: { target: '_blank', rel: 'noreferrer' },
-    },
-  ],
+    navLinks: [
+        { label: 'Docs', link: '/guides/getting-started/' },
+        { label: 'API', link: '/reference/plugin-api/' },
+        {
+            label: 'GitHub',
+            link: 'https://github.com/lucas-labs/lucode-starlight-theme',
+            attrs: { target: '_blank', rel: 'noreferrer' },
+        },
+    ],
 });
 ```
 
@@ -59,8 +59,8 @@ Markdown rendered in the footer text slot.
 
 ```js
 lucode({
-  footerText:
-    'Built with [Lucode Starlight](https://github.com/lucas-labs/lucode-starlight-theme).',
+    footerText:
+        'Built with [Lucode Starlight](https://github.com/lucas-labs/lucode-starlight-theme).',
 });
 ```
 
@@ -80,17 +80,17 @@ The extension adds:
 
 ```ts
 type LucodeDocsFrontmatter = {
-  links?: {
-    doc?: string;
-    api?: string;
-  };
-  hero?: {
-    layout?: 'centered' | 'centered-top' | 'split-left' | 'split-right' | 'banner';
-    announcement?: {
-      text: string;
-      link: string;
+    links?: {
+        doc?: string;
+        api?: string;
     };
-  };
+    hero?: {
+        layout?: 'centered' | 'centered-top' | 'split-left' | 'split-right' | 'banner';
+        announcement?: {
+            text: string;
+            link: string;
+        };
+    };
 };
 ```
 

@@ -1,24 +1,26 @@
 {
     "name": "lucode-starlight",
-    "description": "Lucode's theme for Starlight (the Astro native documentation site generator)",
     "module": "index.ts",
-    "type": "module",
+    "description": "Lucode's theme for Starlight (the Astro native documentation site generator)",
     "license": "MIT",
-    "workspaces": [
-        "packages/*",
-        "docs/"
-    ],
     "scripts": {
         "docs": "bun run --filter lucode-starlight-docs dev",
         "dev": "bun run --filter lucode-starlight-docs dev",
         "docs:build": "bun run --filter lucode-starlight-docs build",
-        "test": "vitest run --coverage"
+        "test": "vitest run --coverage",
+        "format": "prettier --write ."
     },
+    "type": "module",
+    "workspaces": [
+        "packages/*",
+        "docs/"
+    ],
     "devDependencies": {
         "@antfu/eslint-config": "^9.0.0",
         "@vitest/coverage-v8": "^4.1.7",
         "astro": "^6.1.9",
         "jsdom": "^29.1.1",
+        "prettier": "^3.8.3",
         "vitest": "^4.1.7"
     }
 }

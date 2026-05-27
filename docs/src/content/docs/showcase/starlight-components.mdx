@@ -32,7 +32,8 @@ Use this page as a regression checklist when changing tokens or component overri
 
 <CardGrid>
     <Card title="Docs navigation" icon="open-book">
-        Cards use compact type, quiet surfaces, and icon backgrounds that rotate through the Starlight accent palette.
+        Cards use compact type, quiet surfaces, and icon backgrounds that rotate through the
+        Starlight accent palette.
     </Card>
     <Card title="Theme tokens" icon="setting">
         Cards, code blocks, tabs, and file trees share the `--code-background` surface token.
@@ -65,19 +66,23 @@ Use this page as a regression checklist when changing tokens or component overri
 ## Asides
 
 <Aside>
-    Default asides work well for neutral notes that should be visible without becoming the visual center of the page.
+    Default asides work well for neutral notes that should be visible without becoming the visual
+    center of the page.
 </Aside>
 
 <Aside type="tip" title="Theme QA" icon="star">
-    Keep this page open while adjusting tokens. The fastest way to catch a mismatch is to see every state together.
+    Keep this page open while adjusting tokens. The fastest way to catch a mismatch is to see every
+    state together.
 </Aside>
 
 <Aside type="caution" title="Contrast check">
-    Review light and dark mode after changing `--foreground`, `--muted-foreground`, `--border`, or `--code-background`.
+    Review light and dark mode after changing `--foreground`, `--muted-foreground`, `--border`, or
+    `--code-background`.
 </Aside>
 
 <Aside type="danger">
-    Do not judge a docs theme only by headings and paragraphs. Tabs, file trees, badges, and code frames need the same care.
+    Do not judge a docs theme only by headings and paragraphs. Tabs, file trees, badges, and code
+    frames need the same care.
 </Aside>
 
 ## Badges
@@ -94,32 +99,19 @@ Use this page as a regression checklist when changing tokens or component overri
 
 ## Code
 
-<Code code={themeSnippet} lang="css" title="src/styles/global.css" mark={['--code-background', '--foreground']} />
+<Code
+    code={themeSnippet}
+    lang="css"
+    title="src/styles/global.css"
+    mark={['--code-background', '--foreground']}
+/>
 
 ## File Tree
 
 <FileTree>
-    - docs
-        - src
-            - content
-                - docs
-                    - guides
-                        - getting-started.md
-                        - configuration.md
-                        - theming.md
-                    - showcase
-                        - **starlight-components.mdx**
-                        - splash-pages.mdx
-                        - typography.md
-        - astro.config.mjs
-    - packages
-        - lucode-starlight
-            - components
-                - custom
-                - overrides
-            - styles
-                - base.css
-                - theme.css
+    - docs - src - content - docs - guides - getting-started.md - configuration.md - theming.md -
+    showcase - **starlight-components.mdx** - splash-pages.mdx - typography.md - astro.config.mjs -
+    packages - lucode-starlight - components - custom - overrides - styles - base.css - theme.css
 </FileTree>
 
 ## Icons
@@ -138,7 +130,11 @@ Use this page as a regression checklist when changing tokens or component overri
 <LinkButton href="/lucode-starlight-theme/guides/theming/" variant="secondary">
     Customize
 </LinkButton>
-<LinkButton href="/lucode-starlight-theme/reference/components/" variant="minimal" icon="right-arrow">
+<LinkButton
+    href="/lucode-starlight-theme/reference/components/"
+    variant="minimal"
+    icon="right-arrow"
+>
     Theme Components
 </LinkButton>
 <LinkButton
@@ -157,40 +153,26 @@ Use this page as a regression checklist when changing tokens or component overri
 
     Add `lucode-starlight` to Starlight's `plugins` array.
 
-2. ### Extend the schema
+2.  ### Extend the schema
 
     Add `ExtendDocsSchema` if you want typed splash hero layouts and announcements.
 
-3. ### Tune the tokens
+3.  ### Tune the tokens
 
     Override CSS custom properties from your app stylesheet.
 
-4. ### Inspect the showcase
+4.  ### Inspect the showcase
 
-    Review this page and the typography page before shipping a custom palette.
-</Steps>
+        Review this page and the typography page before shipping a custom palette.
+
+    </Steps>
 
 ## Tabs
 
 <Tabs syncKey="package-manager">
-    <TabItem label="bun">
-        ```bash
-        bun add lucode-starlight
-        bun run docs
-        ```
-    </TabItem>
-    <TabItem label="npm">
-        ```bash
-        npm install lucode-starlight
-        npm run dev
-        ```
-    </TabItem>
-    <TabItem label="pnpm">
-        ```bash
-        pnpm add lucode-starlight
-        pnpm dev
-        ```
-    </TabItem>
+    <TabItem label="bun">```bash bun add lucode-starlight bun run docs ```</TabItem>
+    <TabItem label="npm">```bash npm install lucode-starlight npm run dev ```</TabItem>
+    <TabItem label="pnpm">```bash pnpm add lucode-starlight pnpm dev ```</TabItem>
 </Tabs>
 
 <Tabs syncKey="package-manager">
@@ -200,7 +182,5 @@ Use this page as a regression checklist when changing tokens or component overri
     <TabItem label="npm">
         The same tab stays selected here, which is useful on setup-heavy docs pages.
     </TabItem>
-    <TabItem label="pnpm">
-        The theme does not require a specific package manager.
-    </TabItem>
+    <TabItem label="pnpm">The theme does not require a specific package manager.</TabItem>
 </Tabs>

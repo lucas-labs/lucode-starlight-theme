@@ -31,7 +31,7 @@ Create reference when the reader already knows what they are looking for. Tables
 
 ## Inline Elements
 
-This paragraph includes **bold text**, *italic text*, `inline code`, and a [link to the theme configuration guide](/lucode-starlight-theme/guides/configuration/). It also includes a keyboard hint: press <kbd>Ctrl</kbd> + <kbd>K</kbd> to open search.
+This paragraph includes **bold text**, _italic text_, `inline code`, and a [link to the theme configuration guide](/lucode-starlight-theme/guides/configuration/). It also includes a keyboard hint: press <kbd>Ctrl</kbd> + <kbd>K</kbd> to open search.
 
 Use inline code for file names like `astro.config.mjs`, package names like `lucode-starlight`, and token names like `--code-background`.
 
@@ -51,32 +51,32 @@ import starlight from '@astrojs/starlight';
 import lucode from 'lucode-starlight';
 
 export default defineConfig({
-  integrations: [
-    starlight({
-      title: 'Acme Docs',
-      plugins: [lucode()],
-    }),
-  ],
+    integrations: [
+        starlight({
+            title: 'Acme Docs',
+            plugins: [lucode()],
+        }),
+    ],
 });
 ```
 
 ```css
 @layer lucode {
-  :root {
-    --radius: 0.5rem;
-    --container-max-width: 1440px;
-  }
+    :root {
+        --radius: 0.5rem;
+        --container-max-width: 1440px;
+    }
 }
 ```
 
 ## Tables
 
-| Page type | Primary job | Good fit |
-| --- | --- | --- |
-| Guide | Teach a workflow | Installation, setup, migration |
-| Reference | Describe an API | Options, props, exports |
-| Showcase | Expose visual states | Components, typography, splash layouts |
-| Concept | Explain a model | Architecture, design principles |
+| Page type | Primary job          | Good fit                               |
+| --------- | -------------------- | -------------------------------------- |
+| Guide     | Teach a workflow     | Installation, setup, migration         |
+| Reference | Describe an API      | Options, props, exports                |
+| Showcase  | Expose visual states | Components, typography, splash layouts |
+| Concept   | Explain a model      | Architecture, design principles        |
 
 ## Images
 

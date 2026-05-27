@@ -102,19 +102,19 @@ import starlight from '@astrojs/starlight';
 import lucode from 'lucode-starlight';
 
 export default defineConfig({
-  integrations: [
-    starlight({
-      title: 'My Docs',
-      plugins: [
-        lucode({
-          navLinks: [
-            { label: 'Docs', link: '/guides/getting-started/' },
-            { label: 'API', link: '/reference/plugin-api/' },
-          ],
+    integrations: [
+        starlight({
+            title: 'My Docs',
+            plugins: [
+                lucode({
+                    navLinks: [
+                        { label: 'Docs', link: '/guides/getting-started/' },
+                        { label: 'API', link: '/reference/plugin-api/' },
+                    ],
+                }),
+            ],
         }),
-      ],
-    }),
-  ],
+    ],
 });
 ```
 
@@ -132,10 +132,10 @@ import { docsSchema } from '@astrojs/starlight/schema';
 import { ExtendDocsSchema } from 'lucode-starlight/schema';
 
 export const collections = {
-  docs: defineCollection({
-    loader: docsLoader(),
-    schema: docsSchema({ extend: ExtendDocsSchema }),
-  }),
+    docs: defineCollection({
+        loader: docsLoader(),
+        schema: docsSchema({ extend: ExtendDocsSchema }),
+    }),
 };
 ```
 
@@ -149,17 +149,17 @@ title: My Product Docs
 description: Product documentation for teams that ship.
 template: splash
 hero:
-  layout: split-left
-  announcement:
-    text: New docs theme
-    link: /guides/getting-started/
-  actions:
-    - text: Start building
-      link: /guides/getting-started/
-      icon: right-arrow
-    - text: View components
-      link: /showcase/starlight-components/
-      variant: minimal
+    layout: split-left
+    announcement:
+        text: New docs theme
+        link: /guides/getting-started/
+    actions:
+        - text: Start building
+          link: /guides/getting-started/
+          icon: right-arrow
+        - text: View components
+          link: /showcase/starlight-components/
+          variant: minimal
 ---
 ```
 
