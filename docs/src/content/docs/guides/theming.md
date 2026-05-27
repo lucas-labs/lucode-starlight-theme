@@ -71,6 +71,30 @@ Define light and dark values separately with Starlight's `data-theme` attribute.
 }
 ```
 
+If you are using [tailwindcss](https://tailwindcss.com/), especially when you are using [shadcn/ui](https://ui.shadcn.com/) and other framework ports of shadcn, you will need to alter your `src/styles/global.css` file to support both Starlight and Lucode. You can do this be doing the following:
+
+```diff
+- @custom-variant dark (&:is(.dark *));
+
+- :root {
++ :root[data-theme='light'] {
+    --foreground: oklch(18% 0.015 250);
+    --background: oklch(99% 0.003 250);
+    --primary: oklch(24% 0.03 250);
+    --primary-foreground: white;
+    --border: oklch(88% 0.01 250);
+  }
+
+- .dark {
++ :root[data-theme='dark'] {
+    --foreground: oklch(97% 0.005 250);
+    --background: oklch(14% 0.015 250);
+    --primary: oklch(97% 0.005 250);
+    --primary-foreground: oklch(14% 0.015 250);
+    --border: oklch(28% 0.015 250);
+  }
+```
+
 ## Starlight Color Mapping
 
 Lucode maps Starlight's built-in colors to its own tokens:
