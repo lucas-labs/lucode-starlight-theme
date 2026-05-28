@@ -78,11 +78,11 @@ starlight({
     sidebar: [
         {
             label: 'Guides',
-            autogenerate: { directory: 'guides' },
+            items: [{ autogenerate: { directory: 'guides' } }],
         },
         {
             label: 'Reference',
-            autogenerate: { directory: 'reference' },
+            items: [{ autogenerate: { directory: 'reference' } }],
         },
     ],
 });
