@@ -1,9 +1,12 @@
 ---
 title: Customize the Theme
-description: Override Lucode Starlight tokens and extend the visual system without forking the package.
+description:
+    Override Lucode Starlight tokens and extend the visual system without forking the package.
 ---
 
-Lucode Starlight keeps most visual decisions in CSS custom properties. Override them from your app-level stylesheet, usually `src/styles/global.css`, and include that file in Starlight's `customCss`.
+Lucode Starlight keeps most visual decisions in CSS custom properties. Override them from your
+app-level stylesheet, usually `src/styles/global.css`, and include that file in Starlight's
+`customCss`.
 
 ## Add a Site Stylesheet
 
@@ -15,7 +18,8 @@ starlight({
 });
 ```
 
-The theme appends its own CSS after your custom CSS. Use cascade layers and matching selectors when you intentionally want to override Lucode tokens:
+The theme appends its own CSS after your custom CSS. Use cascade layers and matching selectors when
+you intentionally want to override Lucode tokens:
 
 ```css
 /* src/styles/global.css */
@@ -71,7 +75,10 @@ Define light and dark values separately with Starlight's `data-theme` attribute.
 }
 ```
 
-If you are using [tailwindcss](https://tailwindcss.com/), especially when you are using [shadcn/ui](https://ui.shadcn.com/) and other framework ports of shadcn, you will need to alter your `src/styles/global.css` file to support both Starlight and Lucode. You can do this be doing the following:
+If you are using [tailwindcss](https://tailwindcss.com/), especially when you are using
+[shadcn/ui](https://ui.shadcn.com/) and other framework ports of shadcn, you will need to alter your
+`src/styles/global.css` file to support both Starlight and Lucode. You can do this be doing the
+following:
 
 ```diff
 - @custom-variant dark (&:is(.dark *));
@@ -109,11 +116,13 @@ Lucode maps Starlight's built-in colors to its own tokens:
 --sl-color-gray-7: var(--gray-7);
 ```
 
-This means Starlight components, Markdown content, badges, asides, and custom theme chrome stay visually aligned when you update Lucode tokens.
+This means Starlight components, Markdown content, badges, asides, and custom theme chrome stay
+visually aligned when you update Lucode tokens.
 
 ## Typography
 
-The theme refines Starlight's default Markdown typography, but it does not force a font import. Set fonts globally from your app CSS:
+The theme refines Starlight's default Markdown typography, but it does not force a font import. Set
+fonts globally from your app CSS:
 
 ```css
 @layer lucode {
@@ -124,11 +133,13 @@ The theme refines Starlight's default Markdown typography, but it does not force
 }
 ```
 
-Use the [Typography](/lucode-starlight-theme/showcase/typography/) page to review headings, paragraphs, links, tables, lists, images, keyboard shortcuts, and code after changing fonts.
+Use the [Typography](/lucode-starlight-theme/showcase/typography/) page to review headings,
+paragraphs, links, tables, lists, images, keyboard shortcuts, and code after changing fonts.
 
 ## Adjust Component Surfaces
 
-Cards, tabs, file trees, code blocks, and asides use `--code-background` as their shared surface. For a lighter docs interface, keep it close to the page background:
+Cards, tabs, file trees, code blocks, and asides use `--code-background` as their shared surface.
+For a lighter docs interface, keep it close to the page background:
 
 ```css
 @layer lucode {
@@ -142,11 +153,13 @@ Cards, tabs, file trees, code blocks, and asides use `--code-background` as thei
 }
 ```
 
-For a more panelled interface, increase contrast between `--background`, `--secondary`, and `--code-background`.
+For a more panelled interface, increase contrast between `--background`, `--secondary`, and
+`--code-background`.
 
 ## Customize Splash Pages
 
-Splash pages are regular Starlight docs pages with `template: splash`. Lucode adds a `hero.layout` field:
+Splash pages are regular Starlight docs pages with `template: splash`. Lucode adds a `hero.layout`
+field:
 
 ```md
 ---
@@ -165,4 +178,5 @@ hero:
 ---
 ```
 
-Use [Splash Pages](/lucode-starlight-theme/showcase/splash-pages/) to compare each layout in context.
+Use [Splash Pages](/lucode-starlight-theme/showcase/splash-pages/) to compare each layout in
+context.

@@ -104,7 +104,8 @@ import { ExtendDocsSchema } from 'lucode-starlight/schema';
 import { ContainerSection, LinkButton } from 'lucode-starlight/components';
 ```
 
-The package also exports the internal Starlight override components and CSS files for advanced composition:
+The package also exports the internal Starlight override components and CSS files for advanced
+composition:
 
 - `lucode-starlight/styles/layers`
 - `lucode-starlight/styles/theme`
@@ -113,4 +114,5 @@ The package also exports the internal Starlight override components and CSS file
 - `lucode-starlight/components/overrides/Hero.astro`
 - `lucode-starlight/components/overrides/Footer.astro`
 
-Prefer the plugin for normal sites. Reach for direct exports only when you are building a custom integration or intentionally composing with one of the theme overrides.
+Prefer the plugin for normal sites. Reach for direct exports only when you are building a custom
+integration or intentionally composing with one of the theme overrides.

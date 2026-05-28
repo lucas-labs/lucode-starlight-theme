@@ -21,11 +21,15 @@ concurrency:
 jobs:
     deploy:
         name: Deploy PR preview
-        if: github.event.action != 'closed' && github.event.pull_request.head.repo.full_name == github.repository
+        if:
+            github.event.action != 'closed' && github.event.pull_request.head.repo.full_name ==
+            github.repository
         runs-on: ubuntu-latest
         env:
             PREVIEW_PATH: previews/pr-${{ github.event.pull_request.number }}
-            PREVIEW_URL: https://lucas-labs.github.io/lucode-starlight-theme/previews/pr-${{ github.event.pull_request.number }}/
+            PREVIEW_URL:
+                https://lucas-labs.github.io/lucode-starlight-theme/previews/pr-${{
+                github.event.pull_request.number }}/
         steps:
             - name: Checkout pull request head
               uses: actions/checkout@v6
@@ -96,7 +100,9 @@ jobs:
 
     cleanup:
         name: Remove PR preview
-        if: github.event.action == 'closed' && github.event.pull_request.head.repo.full_name == github.repository
+        if:
+            github.event.action == 'closed' && github.event.pull_request.head.repo.full_name ==
+            github.repository
         runs-on: ubuntu-latest
         steps:
             - name: Checkout repository
