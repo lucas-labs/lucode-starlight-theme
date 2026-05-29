@@ -1,197 +1,178 @@
 ---
 import type { HTMLAttributes } from 'astro/types';
 
-type ButtonVariants =
-  | 'primary'
-  | 'secondary'
-  | 'minimal'
-  | 'default'
-  | 'outline'
-  | 'ghost'
-  | 'destructive'
-  | 'link';
-
-type ButtonSizes =
-  | '2xs'
-  | 'xs'
-  | 'sm'
-  | 'md'
-  | 'lg'
-  | 'icon-sm'
-  | 'icon-md'
-  | 'icon-lg';
-
 type AnchorProps = Omit<HTMLAttributes<'a'>, 'href'> & {
-  href: string | URL;
+    href: string | URL;
 };
 
 type NativeButtonProps = HTMLAttributes<'button'> & {
-  href?: string | URL | null | undefined;
+    href?: string | URL | null | undefined;
 };
 
 type Props = (AnchorProps | NativeButtonProps) & {
-  variant?: ButtonVariants;
-  size?: ButtonSizes;
+    variant?:
+        | 'primary'
+        | 'secondary'
+        | 'minimal'
+        | 'default'
+        | 'outline'
+        | 'ghost'
+        | 'destructive'
+        | 'link';
+    size?: '2xs' | 'xs' | 'sm' | 'md' | 'lg' | 'icon-sm' | 'icon-md' | 'icon-lg';
 };
 
-const props = Astro.props as Props;
-
-const {
-  class: className,
-  variant = 'primary',
-  size = 'md',
-  ...attrs
-} = props;
+const { class: className, variant = 'primary', size = 'md', ...attrs } = Astro.props;
 
 const Tag = attrs.href ? 'a' : 'button';
 ---
 
 <Tag
-  data-slot="button"
-  data-variant={variant}
-  data-size={size}
-  class:list={['link-button', className]}
-  {...attrs as any}
+    data-slot="button"
+    data-variant={variant}
+    data-size={size}
+    class:list={['link-button', className]}
+    {...attrs as any}
 >
-  <slot />
+    <slot />
 </Tag>
 
 <style>
-  [data-slot="button"] {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    white-space: nowrap;
-    gap: 0.5rem;
-    font-weight: 500;
-    border: none;
-    text-decoration: inherit;
-    transition:
-      color 0.15s,
-      background-color 0.15s,
-      border-color 0.15s,
-      text-decoration-color 0.15s,
-      fill 0.15s,
-      stroke 0.15s;
-    border-radius: var(--button-radius, var(--radius));
-    height: var(--button-height, calc(var(--spacing) * 8));
-    width: var(--button-width, auto);
-    padding-left: var(--button-padding-l, calc(var(--spacing) * 2.5));
-    padding-right: var(--button-padding-r, calc(var(--spacing) * 2.5));
-    font-size: var(--button-font-size, 0.875rem);
-    line-height: var(--button-line-height, 1rem);
-  }
+    [data-slot='button'] {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        white-space: nowrap;
+        gap: 0.5rem;
+        font-weight: 500;
+        border: none;
+        text-decoration: inherit;
+        transition:
+            color 0.15s,
+            background-color 0.15s,
+            border-color 0.15s,
+            text-decoration-color 0.15s,
+            fill 0.15s,
+            stroke 0.15s;
+        border-radius: var(--button-radius, var(--radius));
+        height: var(--button-height, calc(var(--spacing) * 8));
+        width: var(--button-width, auto);
+        padding-left: var(--button-padding-l, calc(var(--spacing) * 2.5));
+        padding-right: var(--button-padding-r, calc(var(--spacing) * 2.5));
+        font-size: var(--button-font-size, 0.875rem);
+        line-height: var(--button-line-height, 1rem);
+    }
 
-  [data-size="2xs"] {
-    --button-height: calc(var(--spacing) * 5.5);
-    --button-padding-l: calc(var(--spacing) * 2);
-    --button-padding-r: var(--spacing);
-    --button-font-size: 0.75rem;
-  }
+    [data-size='2xs'] {
+        --button-height: calc(var(--spacing) * 5.5);
+        --button-padding-l: calc(var(--spacing) * 2);
+        --button-padding-r: var(--spacing);
+        --button-font-size: 0.75rem;
+    }
 
-  [data-size="xs"] {
-    --button-height: calc(var(--spacing) * 6);
-    --button-padding-x: calc(var(--spacing) * 2);
-    --button-font-size: 0.75rem;
-  }
+    [data-size='xs'] {
+        --button-height: calc(var(--spacing) * 6);
+        --button-padding-x: calc(var(--spacing) * 2);
+        --button-font-size: 0.75rem;
+    }
 
-  [data-size="sm"] {
-    --button-height: calc(var(--spacing) * 7);
-    --button-padding-x: calc(var(--spacing) * 2.5);
-    --button-font-size: 0.8rem;
-  }
+    [data-size='sm'] {
+        --button-height: calc(var(--spacing) * 7);
+        --button-padding-x: calc(var(--spacing) * 2.5);
+        --button-font-size: 0.8rem;
+    }
 
-  [data-size="lg"] {
-    --button-height: calc(var(--spacing) * 8.5);
-    --button-padding-x: calc(var(--spacing) * 2.5);
-    --button-font-size: 0.875rem;
-  }
+    [data-size='lg'] {
+        --button-height: calc(var(--spacing) * 8.5);
+        --button-padding-x: calc(var(--spacing) * 2.5);
+        --button-font-size: 0.875rem;
+    }
 
-  [data-size="icon-sm"],
-  [data-size="icon-md"],
-  [data-size="icon-lg"] {
-    --button-padding-x: 0;
-    --button-font-size: 0;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-  }
+    [data-size='icon-sm'],
+    [data-size='icon-md'],
+    [data-size='icon-lg'] {
+        --button-padding-x: 0;
+        --button-font-size: 0;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+    }
 
-  [data-size="icon-sm"] {
-    --button-height: calc(var(--spacing) * 6);
-    --button-width: calc(var(--spacing) * 6);
-  }
+    [data-size='icon-sm'] {
+        --button-height: calc(var(--spacing) * 6);
+        --button-width: calc(var(--spacing) * 6);
+    }
 
-  [data-size="icon-md"] {
-    --button-height: calc(var(--spacing) * 7);
-    --button-width: calc(var(--spacing) * 7);
-  }
+    [data-size='icon-md'] {
+        --button-height: calc(var(--spacing) * 7);
+        --button-width: calc(var(--spacing) * 7);
+    }
 
-  [data-size="icon-lg"] {
-    --button-height: calc(var(--spacing) * 8);
-    --button-width: calc(var(--spacing) * 8);
-  }
+    [data-size='icon-lg'] {
+        --button-height: calc(var(--spacing) * 8);
+        --button-width: calc(var(--spacing) * 8);
+    }
 
-  [data-variant="primary"] {
-    background: var(--primary);
-    color: var(--primary-foreground);
-  }
-  [data-variant="primary"]:hover {
-    background: color-mix(in oklab, var(--primary) 90%, transparent);
-  }
+    [data-variant='primary'] {
+        background: var(--primary);
+        color: var(--primary-foreground);
+    }
+    [data-variant='primary']:hover {
+        background: color-mix(in oklab, var(--primary) 90%, transparent);
+    }
 
-  [data-variant="secondary"] {
-    background: var(--secondary);
-    color: var(--secondary-foreground);
-  }
-  [data-variant="secondary"]:hover {
-    background: color-mix(in oklab, var(--secondary) 80%, transparent);
-  }
+    [data-variant='secondary'] {
+        background: var(--secondary);
+        color: var(--secondary-foreground);
+    }
+    [data-variant='secondary']:hover {
+        background: color-mix(in oklab, var(--secondary) 80%, transparent);
+    }
 
-  [data-variant="minimal"] {
-    background: transparent;
-    color: var(--accent-foreground);
-  }
-  [data-variant="minimal"]:hover {
-    background: var(--accent);
-  }
+    [data-variant='minimal'] {
+        background: transparent;
+        color: var(--accent-foreground);
+    }
+    [data-variant='minimal']:hover {
+        background: var(--accent);
+    }
 
-  [data-variant="default"] {
-    background: var(--primary);
-    color: var(--primary-foreground);
-  }
+    [data-variant='default'] {
+        background: var(--primary);
+        color: var(--primary-foreground);
+    }
 
-  [data-variant="outline"] {
-    border: 1px solid var(--border);
-    background: var(--background);
-    color: var(--foreground);
-  }
-  [data-variant="outline"]:hover {
-    background: var(--muted);
-  }
+    [data-variant='outline'] {
+        border: 1px solid var(--border);
+        background: var(--background);
+        color: var(--foreground);
+    }
+    [data-variant='outline']:hover {
+        background: var(--muted);
+    }
 
-  [data-variant="ghost"] {
-    background: transparent;
-    color: var(--foreground);
-  }
-  [data-variant="ghost"]:hover {
-    background: var(--muted);
-  }
+    [data-variant='ghost'] {
+        background: transparent;
+        color: var(--foreground);
+    }
+    [data-variant='ghost']:hover {
+        background: var(--muted);
+    }
 
-  [data-variant="destructive"] {
-    background: color-mix(in oklch, var(--destructive), transparent 90%);
-    color: var(--destructive);
-  }
-  [data-variant="destructive"]:hover {
-    background: color-mix(in oklch, var(--destructive), transparent 80%);
-  }
+    [data-variant='destructive'] {
+        background: color-mix(in oklch, var(--destructive), transparent 90%);
+        color: var(--destructive);
+    }
+    [data-variant='destructive']:hover {
+        background: color-mix(in oklch, var(--destructive), transparent 80%);
+    }
 
-  [data-variant="link"] {
-    background: none;
-    color: var(--primary);
-    text-underline-offset: 4px;
-  }
-  [data-variant="link"]:hover {
-    text-decoration: underline;
-  }
+    [data-variant='link'] {
+        background: none;
+        color: var(--primary);
+        text-underline-offset: 4px;
+    }
+    [data-variant='link']:hover {
+        text-decoration: underline;
+    }
 </style>
