@@ -1,3 +1,4 @@
+import type { StarlightIcon } from '@astrojs/starlight/types';
 import { z } from 'astro/zod';
 
 export const heroLayoutSchema = z
@@ -19,6 +20,29 @@ export const ExtendDocsSchema = z.object({
                     link: z.string(),
                 })
                 .optional(),
+            shadcn: z.object({
+                actions: z
+                    .object({
+                        text: z.string(),
+                        link: z.string(),
+                        variant: z
+                            .enum([
+                                'default',
+                                'link',
+                                'secondary',
+                                'outline',
+                                'ghost',
+                                'destructive',
+                            ])
+                            .default('default'),
+                        icon: z.string().optional(),
+                        attrs: z
+                            .record(z.string(), z.union([z.string(), z.number(), z.boolean()]))
+                            .optional(),
+                    })
+                    .array()
+                    .default([]),
+            }).optional(),
         })
         .optional(),
 });
