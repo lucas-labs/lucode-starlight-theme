@@ -36,6 +36,7 @@ The theme appends its own CSS after your custom CSS. Use cascade layers and matc
 | `--radius` | Shared radius for buttons, asides, tabs, and cards. |
 | `--header-height` | Sticky header height. |
 | `--sidebar-width` | Desktop sidebar width. |
+| `--content-max-width` | Maximum width for the main content area. |
 | `--container-max-width` | Maximum width for the top-level page container. |
 | `--foreground` | Primary text and high-contrast UI color. |
 | `--background` | Main page background. |
