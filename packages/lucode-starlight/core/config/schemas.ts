@@ -45,6 +45,7 @@ export const LucodeStarlightConfigSchema = z.object({
         })
         .optional()
         .default({ includeAiUtilities: false }),
+    warnOverrides: z.boolean().optional().default(true),
     footerText: z
         .string()
         .optional()

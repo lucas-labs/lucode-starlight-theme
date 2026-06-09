@@ -132,6 +132,10 @@ starlight({
     components: {
         Header: './src/components/Header.astro',
     },
-    plugins: [lucode()],
+    plugins: [
+        lucode({
+            warnOverride: false, // Disables the override warnings
+        }),
+    ],
 });
 ```
