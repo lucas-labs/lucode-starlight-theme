@@ -18,12 +18,21 @@ export const linkSchema = z.object({
      */
     badge: z.string().optional(),
     /**
-     * The topic label visible at the top of the sidebar.
+     * The link label.
      *
-     * The value can be a string, or for multilingual sites, an object with values for each different locale. When using
-     * the object form, the keys must be BCP-47 tags (e.g. en, fr, or zh-CN).
+     * - A string used as the default-locale label (pair with `translations` for other languages).
+     * - Or a locale map keyed by BCP-47 tags / locale paths (e.g. `en`, `es`).
+     *
+     * @see https://starlight.astro.build/guides/sidebar/#internationalization
      */
     label: z.union([z.string(), z.record(z.string(), z.string())]),
+    /**
+     * Optional labels for other languages when `label` is a string.
+     * Keys should be BCP-47 tags (e.g. `en`, `es`), matching Starlight sidebar translations.
+     *
+     * @see https://starlight.astro.build/guides/sidebar/#internationalization
+     */
+    translations: z.record(z.string(), z.string()).optional(),
     /**
      * The link to the topic’s content which an be a relative link to local files or the full URL of an external page.
      *
@@ -45,8 +54,14 @@ export const LucodeStarlightConfigSchema = z.object({
         })
         .optional()
         .default({ includeAiUtilities: false }),
+    /**
+     * Footer Markdown text. Can be a string, or for multilingual sites an object with values for
+     * each locale. Keys may be BCP-47 tags (e.g. `en`, `es`) or locale paths.
+     *
+     * @see https://starlight.astro.build/reference/configuration/#title
+     */
     footerText: z
-        .string()
+        .union([z.string(), z.record(z.string(), z.string())])
         .optional()
         .default(
             'Inspired by the [shadcn/ui](https://ui.shadcn.com/) documentation theme and based on [starlight-theme-black](https://github.com/adrian-ub/starlight-theme-black). Ported to Astro Starlight by [lucas-labs](https://github.com/lucas-labs).'
