@@ -12,7 +12,6 @@ const {
     image,
     announcement,
     actions,
-    shadcn,
 } = data.hero || {};
 
 const hasImage = !!image;
@@ -94,31 +93,6 @@ if (image) {
                                         {text}
                                         {icon?.name && <Icon name={icon?.name} size="16px" />}
                                         {icon?.html && <Fragment set:html={icon.html} />}
-                                    </LinkButton>
-                                )
-                            )}
-                        </div>
-                    )
-                }
-                {
-                    shadcn?.actions.length! > 0 && (
-                        <div class="actions">
-                            {shadcn?.actions.map(
-                                ({
-                                    attrs: { class: className, ...attrs } = {},
-                                    icon,
-                                    link: href,
-                                    text,
-                                    variant,
-                                }) => (
-                                    <LinkButton
-                                        {href}
-                                        {variant}
-                                        class:list={[className]}
-                                        {...attrs}
-                                    >
-                                        {text}
-                                        {icon && <i class={icon} />}
                                     </LinkButton>
                                 )
                             )}
