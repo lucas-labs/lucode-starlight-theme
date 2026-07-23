@@ -75,7 +75,7 @@ Define light and dark values separately with Starlight's `data-theme` attribute.
 }
 ```
 
-If you are using [tailwindcss](https://tailwindcss.com/), especially when you are using
+If you are using [Tailwindcss](https://tailwindcss.com/), especially when you are using
 [shadcn/ui](https://ui.shadcn.com/) and other framework ports of shadcn, you will need to alter your
 `src/styles/global.css` file to support both Starlight and Lucode. You can do this be doing the
 following:
