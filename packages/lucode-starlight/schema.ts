@@ -22,8 +22,6 @@ export const ExtendDocsSchema = z.object({
             actions: z
                 .array(
                     z.object({
-                        text: z.string(),
-                        link: z.string(),
                         variant: z
                             .enum([
                                 'default',
@@ -34,9 +32,6 @@ export const ExtendDocsSchema = z.object({
                                 'destructive',
                             ])
                             .default('default'),
-                        attrs: z
-                            .record(z.string(), z.union([z.string(), z.number(), z.boolean()]))
-                            .optional(),
                     })
                 )
                 .default([]),
