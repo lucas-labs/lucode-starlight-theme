@@ -10,15 +10,7 @@ type NativeButtonProps = HTMLAttributes<'button'> & {
 };
 
 type Props = (AnchorProps | NativeButtonProps) & {
-    variant?:
-        | 'primary'
-        | 'secondary'
-        | 'minimal'
-        | 'default'
-        | 'outline'
-        | 'ghost'
-        | 'destructive'
-        | 'link';
+    variant?: 'default' | 'link' | 'secondary' | 'outline' | 'ghost' | 'destructive';
     size?: '2xs' | 'xs' | 'sm' | 'md' | 'lg' | 'icon-sm' | 'icon-md' | 'icon-lg';
 };
 

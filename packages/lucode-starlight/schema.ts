@@ -34,7 +34,6 @@ export const ExtendDocsSchema = z.object({
                                 'destructive',
                             ])
                             .default('default'),
-                        icon: z.string().optional(),
                         attrs: z
                             .record(z.string(), z.union([z.string(), z.number(), z.boolean()]))
                             .optional(),
