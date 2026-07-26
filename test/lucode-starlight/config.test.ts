@@ -55,6 +55,60 @@ describe('LucodeStarlightConfigSchema', () => {
             },
         ]);
     });
+
+    it('accepts nav link translations and localized footerText', () => {
+        const result = LucodeStarlightConfigSchema.parse({
+            navLinks: [
+                {
+                    label: 'Docs',
+                    link: '/getting-started/',
+                    translations: {
+                        en: 'Docs',
+                        es: 'Documentación',
+                    },
+                },
+            ],
+            footerText: {
+                es: 'Hecho con Astro.',
+                en: 'Built with Astro.',
+            },
+        });
+
+        expect(result.navLinks).toEqual([
+            {
+                label: 'Docs',
+                link: '/getting-started/',
+                translations: {
+                    en: 'Docs',
+                    es: 'Documentación',
+                },
+                attrs: {},
+            },
+        ]);
+        expect(result.footerText).toEqual({
+            es: 'Hecho con Astro.',
+            en: 'Built with Astro.',
+        });
+    });
+
+    it('accepts locale-map nav labels (BCP-47 keys)', () => {
+        const result = LucodeStarlightConfigSchema.parse({
+            navLinks: [
+                {
+                    link: '/getting-started/',
+                    label: {
+                        en: 'Docs',
+                        es: 'Documentación',
+                    },
+                },
+            ],
+        });
+
+        expect(result.navLinks?.[0]?.label).toEqual({
+            en: 'Docs',
+            es: 'Documentación',
+        });
+    });
 });
 
 describe('vitePlugin', () => {

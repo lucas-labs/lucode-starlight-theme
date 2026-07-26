@@ -86,13 +86,14 @@ export const collections = {
 ```ts
 type LucodeStarlightUserConfig = {
   navLinks?: Link[];
-  footerText?: string;
+  footerText?: string | Record<string, string>;
 };
 
 type Link = {
-  label: string | Record<string, string>;
   link: string;
   badge?: string;
+  translations?: Record<string, string>;
+  label: string | Record<string, string>;
   attrs?: Record<string, string | number | boolean | undefined>;
 };
 ```
@@ -102,11 +103,23 @@ Example:
 ```js
 lucode({
   navLinks: [
-    { label: 'Docs', link: '/guides/getting-started/' },
-    { label: 'GitHub', link: 'https://github.com/lucas-labs/lucode-starlight-theme' },
+    {
+      label: 'Docs',
+      link: '/guides/getting-started/',
+      translations: { es: 'Documentación' },
+    },
+    {
+      link: '/guides/configuration/',
+      label: {
+        en: 'Config',
+        es: 'Configuración',
+      },
+    },
   ],
-  footerText:
-    'Built with [Lucode Starlight](https://github.com/lucas-labs/lucode-starlight-theme).',
+  footerText: {
+    es: 'Hecho con [Lucode Starlight](https://github.com/lucas-labs/lucode-starlight-theme).',
+    en: 'Built with [Lucode Starlight](https://github.com/lucas-labs/lucode-starlight-theme).',
+  },
 });
 ```
 

@@ -1,10 +1,19 @@
 ---
 import userConfig from 'virtual:lucode-starlight-config';
-import { getTranslation } from './NavBar.astro';
+import starlightConfig from 'virtual:starlight/user-config';
 import { getRelativeLocaleUrl } from 'astro:i18n';
-const { sidebar } = Astro.locals.starlightRoute;
+import { createLocaleLookup, resolveNavLabel } from '../../../core/i18n';
+
+const { sidebar, lang, locale } = Astro.locals.starlightRoute;
 
 const currentPath = Astro.url.pathname;
+
+const localeKeys = createLocaleLookup({
+    lang,
+    locale: Astro.currentLocale ?? locale,
+    defaultLang: starlightConfig.defaultLocale?.lang,
+    defaultLocale: starlightConfig.defaultLocale?.locale,
+});
 ---
 
 <div popover="auto" id="drawer">
@@ -25,10 +34,7 @@ const currentPath = Astro.url.pathname;
                             !absoluteLinkRegex.test(nav.link) && Astro.currentLocale
                                 ? getRelativeLocaleUrl(Astro.currentLocale, nav.link)
                                 : nav.link;
-                        const label =
-                            typeof nav.label === 'string'
-                                ? nav.label
-                                : getTranslation(nav.label, nav.link, 'label');
+                        const label = resolveNavLabel(nav.label, nav.translations, localeKeys);
 
                         return (
                             <a href={link} {...nav.attrs}>

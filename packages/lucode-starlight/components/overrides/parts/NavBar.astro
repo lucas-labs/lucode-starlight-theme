@@ -1,36 +1,19 @@
 ---
-import { AstroError } from 'astro/errors';
 import userConfig from 'virtual:lucode-starlight-config';
 import starlightConfig from 'virtual:starlight/user-config';
 import { getRelativeLocaleUrl } from 'astro:i18n';
+import { createLocaleLookup, resolveNavLabel } from '../../../core/i18n';
 
 const currentPath = Astro.url.pathname;
 
-const defaultLang =
-    starlightConfig.defaultLocale?.lang || starlightConfig.defaultLocale?.locale || 'en';
+const { lang, locale } = Astro.locals.starlightRoute;
 
-export function getTranslation(
-    translations: Record<string, string>,
-    link: string,
-    description: string
-) {
-    const defaultTranslation = translations[defaultLang];
-
-    if (!defaultTranslation) {
-        throw new AstroError(
-            `The ${description} for "${link}" must have a key for the default language "${defaultLang}".`,
-            'Update the Starlight config to include a topic label for the default language.'
-        );
-    }
-
-    let translation = defaultTranslation;
-
-    if (Astro.currentLocale) {
-        translation = translations[Astro.currentLocale] ?? defaultTranslation;
-    }
-
-    return translation;
-}
+const localeKeys = createLocaleLookup({
+    lang,
+    locale: Astro.currentLocale ?? locale,
+    defaultLang: starlightConfig.defaultLocale?.lang,
+    defaultLocale: starlightConfig.defaultLocale?.locale,
+});
 ---
 
 <nav class="nav-bar">
@@ -42,10 +25,8 @@ export function getTranslation(
                 !absoluteLinkRegex.test(nav.link) && Astro.currentLocale
                     ? getRelativeLocaleUrl(Astro.currentLocale, nav.link)
                     : nav.link;
-            const label =
-                typeof nav.label === 'string'
-                    ? nav.label
-                    : getTranslation(nav.label, nav.link, 'label');
+
+            const label = resolveNavLabel(nav.label, nav.translations, localeKeys);
 
             return (
                 <a class:list={[{ active: currentPath === link }]} href={link} {...nav.attrs}>

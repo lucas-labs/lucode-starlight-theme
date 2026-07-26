@@ -1,9 +1,30 @@
 ---
+import { AstroError } from 'astro/errors';
 import { marked } from 'marked';
 import userConfig from 'virtual:lucode-starlight-config';
+import starlightConfig from 'virtual:starlight/user-config';
+import { createLocaleLookup, resolveLocalizedString } from '../../core/i18n';
 import Drawer from './parts/Drawer.astro';
 
-const { hasSidebar } = Astro.locals.starlightRoute;
+const { hasSidebar, lang, locale } = Astro.locals.starlightRoute;
+
+const localeKeys = createLocaleLookup({
+    lang,
+    locale: Astro.currentLocale ?? locale,
+    defaultLang: starlightConfig.defaultLocale?.lang,
+    defaultLocale: starlightConfig.defaultLocale?.locale,
+});
+
+let footerText: string;
+
+try {
+    footerText = resolveLocalizedString(userConfig.footerText, localeKeys);
+} catch (error) {
+    throw new AstroError(
+        error instanceof Error ? error.message : 'Invalid footerText localization.',
+        'Update the Lucode config so footerText includes a key for the default language.'
+    );
+}
 ---
 
 <div data-slot="layout">
@@ -34,7 +55,7 @@ const { hasSidebar } = Astro.locals.starlightRoute;
     </main>
 
     <footer>
-        <div data-slot="footer-text" set:html={marked.parseInline(userConfig.footerText)} />
+        <div data-slot="footer-text" set:html={marked.parseInline(footerText)} />
     </footer>
 </div>
 
