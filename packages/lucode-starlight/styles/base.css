@@ -10,6 +10,7 @@
         --radius: 0.625rem;
         --header-height: calc(var(--spacing) * 14);
         --sidebar-width: 18rem;
+        --content-max-width: 40rem;
         --container-max-width: 1600px;
 
         /* starlight color mappings */
