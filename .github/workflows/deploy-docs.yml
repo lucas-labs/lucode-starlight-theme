@@ -28,7 +28,7 @@ jobs:
           ref: ${{ github.event.release.tag_name || inputs.ref || github.ref_name }}
 
       - name: Setup Node.js
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@v7
         with:
           node-version: 24
 
