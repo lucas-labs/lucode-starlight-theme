@@ -21,8 +21,8 @@ starlight({
 
 ```ts
 type LucodeStarlightUserConfig = {
-    navLinks?: Link[];
-    footerText?: string;
+  navLinks?: Link[];
+  footerText?: string | Record<string, string>;
 };
 ```
 
@@ -32,39 +32,56 @@ Header navigation links rendered by the theme.
 
 ```ts
 type Link = {
-    label: string | Record<string, string>;
-    link: string;
-    badge?: string;
-    attrs?: Record<string, string | number | boolean | undefined>;
+  link: string;
+  badge?: string;
+  translations?: Record<string, string>;
+  label: string | Record<string, string>;
+  attrs?: Record<string, string | number | boolean | undefined>;
 };
 ```
 
 ```js
 lucode({
-    navLinks: [
-        { label: 'Docs', link: '/guides/getting-started/' },
-        { label: 'API', link: '/reference/plugin-api/' },
-        {
-            label: 'GitHub',
-            link: 'https://github.com/lucas-labs/lucode-starlight-theme',
-            attrs: { target: '_blank', rel: 'noreferrer' },
-        },
-    ],
+  navLinks: [
+    {
+      label: 'Docs',
+      link: '/guides/getting-started/',
+      translations: {
+        es: 'Documentación',
+      },
+    },
+    {
+      link: '/reference/plugin-api/',
+      label: {
+        en: 'API',
+        es: 'API',
+      },
+    },
+    {
+      label: 'GitHub',
+      attrs: { target: '_blank', rel: 'noreferrer' },
+      link: 'https://github.com/lucas-labs/lucode-starlight-theme',
+    },
+  ],
 });
 ```
+
+Prefer Starlight sidebar style (`label` string + `translations`) or a locale map on `label`. Keys may be BCP-47 tags (`en`, `es`) or locale paths; Lucode tries both.
 
 ### `footerText`
 
-Markdown rendered in the footer text slot.
+Markdown rendered in the footer text slot. Accepts a string or a locale map (same shape as Starlight's `title`).
 
 ```js
 lucode({
-    footerText:
-        'Built with [Lucode Starlight](https://github.com/lucas-labs/lucode-starlight-theme).',
+  footerText: {
+    es: 'Hecho con [Lucode Starlight](https://github.com/lucas-labs/lucode-starlight-theme).',
+    en: 'Built with [Lucode Starlight](https://github.com/lucas-labs/lucode-starlight-theme).',
+  },
 });
 ```
 
-If omitted, the theme uses its built-in credit line.
+If omitted, the theme uses its built-in credit line. When using the object form, include a key for your default language.
 
 ## Frontmatter Extension
 

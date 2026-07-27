@@ -13,17 +13,17 @@ concurrency:
     cancel-in-progress: true
 
 jobs:
-    build:
-        name: Build docs against package
-        runs-on: ubuntu-latest
-        steps:
-            - name: Checkout repository
-              uses: actions/checkout@v6
+  build:
+    name: Build docs against package
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
 
-            - name: Setup Node.js
-              uses: actions/setup-node@v6
-              with:
-                  node-version: 24
+      - name: Setup Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: 24
 
             - name: Setup Bun
               uses: oven-sh/setup-bun@v2

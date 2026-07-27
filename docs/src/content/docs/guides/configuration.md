@@ -43,15 +43,55 @@ lucode({
 
 `navLinks` renders links in the custom header. Each item supports:
 
-| Option  | Type                   | Notes                                  |
-| ------- | ---------------------- | -------------------------------------- |
-| `label` | `string` or locale map | The visible link label.                |
-| `link`  | `string`               | Internal path or external URL.         |
-| `badge` | `string`               | Optional badge text beside the label.  |
-| `attrs` | HTML attributes        | Extra attributes passed to the anchor. |
+| Option | Type | Notes |
+| --- | --- | --- |
+| `label` | `string` or locale map | Default label, or a map keyed by BCP-47 / locale path. |
+| `translations` | locale map | Optional labels when `label` is a string (Starlight sidebar style). |
+| `link` | `string` | Internal path or external URL. |
+| `badge` | `string` | Optional badge text beside the label. |
+| `attrs` | HTML attributes | Extra attributes passed to the anchor. |
 
-`footerText` accepts Markdown. The default credits shadcn/ui for the documentation theme
-inspiration, starlight-theme-black as the Astro Starlight base, and lucas-labs for this package.
+`footerText` accepts Markdown as a string, or a locale map like Starlight's `title`. The default credits shadcn/ui for the documentation theme inspiration, starlight-theme-black as the Astro Starlight base, and lucas-labs for this package.
+
+### Multilingual examples
+
+Starlight sidebar style (`label` + `translations`):
+
+```js
+lucode({
+  navLinks: [
+    {
+      label: 'Docs',
+      link: '/getting-started/',
+      translations: {
+        es: 'Documentación',
+      },
+    },
+  ],
+  footerText: {
+    es: 'Hecho con [Astro](https://astro.build) y [Lucode](https://lucas-labs.github.io/lucode-starlight-theme/).',
+    en: 'Built with [Astro](https://astro.build) and [Lucode](https://lucas-labs.github.io/lucode-starlight-theme/).',
+  },
+});
+```
+
+Locale map style (same shape as Starlight `title`):
+
+```js
+lucode({
+  navLinks: [
+    {
+      link: '/getting-started/',
+      label: {
+        en: 'Docs',
+        es: 'Documentación',
+      },
+    },
+  ],
+});
+```
+
+Lookup tries the active `lang` (BCP-47), then the locale path, then the default locale — including a case-insensitive fallback — so keys like `en` / `es` stay aligned with your Starlight `locales` config.
 
 ## Recommended Starlight Config
 

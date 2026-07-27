@@ -34,22 +34,23 @@ you intentionally want to override Lucode tokens:
 
 ## Core Tokens
 
-| Token                   | Purpose                                                     |
-| ----------------------- | ----------------------------------------------------------- |
-| `--spacing`             | Base spacing unit used by the layout and custom components. |
-| `--radius`              | Shared radius for buttons, asides, tabs, and cards.         |
-| `--header-height`       | Sticky header height.                                       |
-| `--sidebar-width`       | Desktop sidebar width.                                      |
-| `--container-max-width` | Maximum width for the top-level page container.             |
-| `--foreground`          | Primary text and high-contrast UI color.                    |
-| `--background`          | Main page background.                                       |
-| `--primary`             | Primary button background.                                  |
-| `--secondary`           | Secondary surfaces and quiet controls.                      |
-| `--muted`               | Low-emphasis backgrounds.                                   |
-| `--muted-foreground`    | Secondary text.                                             |
-| `--accent`              | Hover and active backgrounds.                               |
-| `--border`              | Borders and separators.                                     |
-| `--code-background`     | Code blocks, cards, tabs, and file trees.                   |
+| Token | Purpose |
+| --- | --- |
+| `--spacing` | Base spacing unit used by the layout and custom components. |
+| `--radius` | Shared radius for buttons, asides, tabs, and cards. |
+| `--header-height` | Sticky header height. |
+| `--sidebar-width` | Desktop sidebar width. |
+| `--content-max-width` | Maximum width for the main content area. |
+| `--container-max-width` | Maximum width for the top-level page container. |
+| `--foreground` | Primary text and high-contrast UI color. |
+| `--background` | Main page background. |
+| `--primary` | Primary button background. |
+| `--secondary` | Secondary surfaces and quiet controls. |
+| `--muted` | Low-emphasis backgrounds. |
+| `--muted-foreground` | Secondary text. |
+| `--accent` | Hover and active backgrounds. |
+| `--border` | Borders and separators. |
+| `--code-background` | Code blocks, cards, tabs, and file trees. |
 
 ## Color Modes
 

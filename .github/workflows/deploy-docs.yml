@@ -18,43 +18,43 @@ concurrency:
     cancel-in-progress: false
 
 jobs:
-    deploy:
-        name: Deploy latest release docs
-        runs-on: ubuntu-latest
-        steps:
-            - name: Checkout release tag
-              uses: actions/checkout@v6
-              with:
-                  ref: ${{ github.event.release.tag_name || inputs.ref || github.ref_name }}
+  deploy:
+    name: Deploy latest release docs
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout release tag
+        uses: actions/checkout@v7
+        with:
+          ref: ${{ github.event.release.tag_name || inputs.ref || github.ref_name }}
 
-            - name: Setup Node.js
-              uses: actions/setup-node@v6
-              with:
-                  node-version: 24
+      - name: Setup Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: 24
 
-            - name: Setup Bun
-              uses: oven-sh/setup-bun@v2
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
 
-            - name: Install dependencies
-              run: bun install --frozen-lockfile
+      - name: Install dependencies
+        run: bun install --frozen-lockfile
 
-            - name: Build release docs
-              env:
-                  DOCS_BASE_PATH: /lucode-starlight-theme
-              run: bun run docs:build
+      - name: Build release docs
+        env:
+          DOCS_BASE_PATH: /lucode-starlight-theme
+        run: bun run docs:build
 
-            - name: Add Pages marker
-              shell: bash
-              run: touch docs/dist/.nojekyll
+      - name: Add Pages marker
+        shell: bash
+        run: touch docs/dist/.nojekyll
 
-            - name: Publish release docs
-              uses: JamesIves/github-pages-deploy-action@v4
-              with:
-                  branch: gh-pages
-                  folder: docs/dist
-                  clean: true
-                  clean-exclude: |
-                      previews
-                  force: false
-                  git-config-name: github-actions[bot]
-                  git-config-email: 41898282+github-actions[bot]@users.noreply.github.com
+      - name: Publish release docs
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          branch: gh-pages
+          folder: docs/dist
+          clean: true
+          clean-exclude: |
+            previews
+          force: false
+          git-config-name: github-actions[bot]
+          git-config-email: 41898282+github-actions[bot]@users.noreply.github.com
