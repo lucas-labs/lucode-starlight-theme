@@ -20,13 +20,13 @@ const parseConfig = (userConfig?: LucodeStarlightUserConfig): LucodeStarlightCon
     return parsedConfig.data;
 };
 
-const plugin = (userConfig?: LucodeStarlightUserConfig): StarlightPlugin =>
+const plugin = (userConfig: LucodeStarlightUserConfig = {}): StarlightPlugin =>
     ({
         name: 'lucode-starlight',
         hooks: {
             'config:setup': ({ config, logger, updateConfig, addIntegration }) => {
                 updateConfig({
-                    components: override(config, COMPONENT_OVERRIDES, logger),
+                    components: override(config, userConfig, COMPONENT_OVERRIDES, logger),
                     customCss: [
                         ...(config.customCss ?? []),
                         'lucode-starlight/styles/layers',

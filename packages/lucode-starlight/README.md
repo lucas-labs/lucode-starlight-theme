@@ -13,14 +13,17 @@
 
 # lucode-starlight
 
-Lucode Starlight is a theme plugin for Astro Starlight inspired by [shadcn/ui](https://ui.shadcn.com/).
+Lucode Starlight is a theme plugin for Astro Starlight inspired by
+[shadcn/ui](https://ui.shadcn.com/).
 
 ## Features
 
 - Starlight plugin API integration.
-- Custom overrides for header, sidebar, page frame, hero, footer, search, table of contents, pagination, and Markdown content.
+- Custom overrides for header, sidebar, page frame, hero, footer, search, table of contents,
+  pagination, and Markdown content.
 - Token-based, layered CSS theme with light and dark mode values.
-- Styled built-in Starlight components including hero splashes, cards, link cards, asides, badges, tabs, steps, file trees, and link buttons.
+- Styled built-in Starlight components including hero splashes, cards, link cards, asides, badges,
+  tabs, steps, file trees, and link buttons.
 
 ## Installation
 
@@ -45,22 +48,24 @@ import starlight from '@astrojs/starlight';
 import lucode from 'lucode-starlight';
 
 export default defineConfig({
-  integrations: [
-    starlight({
-      title: 'My Docs',
-      plugins: [lucode()],
-    }),
-  ],
+    integrations: [
+        starlight({
+            title: 'My Docs',
+            plugins: [lucode()],
+        }),
+    ],
 });
 ```
 
-The plugin automatically registers Lucode component overrides, appends the theme CSS files, and configures Expressive Code.
+The plugin automatically registers Lucode component overrides, appends the theme CSS files, and
+configures Expressive Code.
 
 ## Attribution
 
 This theme recreates the design of the documentation site for [shadcn/ui](https://ui.shadcn.com/).
 
-I used [adrian-ub/starlight-theme-black](https://github.com/adrian-ub/starlight-theme-black) as a base, which brought an earlier shadcn/ui-inspired design to Astro Starlight.
+I used [adrian-ub/starlight-theme-black](https://github.com/adrian-ub/starlight-theme-black) as a
+base, which brought an earlier shadcn/ui-inspired design to Astro Starlight.
 
 ## Docs Schema
 
@@ -74,10 +79,10 @@ import { docsSchema } from '@astrojs/starlight/schema';
 import { ExtendDocsSchema } from 'lucode-starlight/schema';
 
 export const collections = {
-  docs: defineCollection({
-    loader: docsLoader(),
-    schema: docsSchema({ extend: ExtendDocsSchema }),
-  }),
+    docs: defineCollection({
+        loader: docsLoader(),
+        schema: docsSchema({ extend: ExtendDocsSchema }),
+    }),
 };
 ```
 
@@ -85,16 +90,16 @@ export const collections = {
 
 ```ts
 type LucodeStarlightUserConfig = {
-  navLinks?: Link[];
-  footerText?: string | Record<string, string>;
+    navLinks?: Link[];
+    footerText?: string | Record<string, string>;
 };
 
 type Link = {
-  link: string;
-  badge?: string;
-  translations?: Record<string, string>;
-  label: string | Record<string, string>;
-  attrs?: Record<string, string | number | boolean | undefined>;
+    link: string;
+    badge?: string;
+    translations?: Record<string, string>;
+    label: string | Record<string, string>;
+    attrs?: Record<string, string | number | boolean | undefined>;
 };
 ```
 
@@ -102,24 +107,24 @@ Example:
 
 ```js
 lucode({
-  navLinks: [
-    {
-      label: 'Docs',
-      link: '/guides/getting-started/',
-      translations: { es: 'Documentación' },
+    navLinks: [
+        {
+            label: 'Docs',
+            link: '/guides/getting-started/',
+            translations: { es: 'Documentación' },
+        },
+        {
+            link: '/guides/configuration/',
+            label: {
+                en: 'Config',
+                es: 'Configuración',
+            },
+        },
+    ],
+    footerText: {
+        es: 'Hecho con [Lucode Starlight](https://github.com/lucas-labs/lucode-starlight-theme).',
+        en: 'Built with [Lucode Starlight](https://github.com/lucas-labs/lucode-starlight-theme).',
     },
-    {
-      link: '/guides/configuration/',
-      label: {
-        en: 'Config',
-        es: 'Configuración',
-      },
-    },
-  ],
-  footerText: {
-    es: 'Hecho con [Lucode Starlight](https://github.com/lucas-labs/lucode-starlight-theme).',
-    en: 'Built with [Lucode Starlight](https://github.com/lucas-labs/lucode-starlight-theme).',
-  },
 });
 ```
 
@@ -133,14 +138,14 @@ title: Developer Portal
 description: API docs, examples, and integration guides.
 template: splash
 hero:
-  layout: split-left
-  announcement:
-    text: Version 2.0 is ready
-    link: /guides/getting-started/
-  actions:
-    - text: Get started
-      link: /guides/getting-started/
-      icon: right-arrow
+    layout: split-left
+    announcement:
+        text: Version 2.0 is ready
+        link: /guides/getting-started/
+    actions:
+        - text: Get started
+          link: /guides/getting-started/
+          icon: right-arrow
 ---
 ```
 
@@ -199,7 +204,8 @@ Props:
 
 ### `Dropdown`
 
-Compound menu component exported as `Dropdown.Root`, `Dropdown.Trigger`, `Dropdown.Content`, `Dropdown.Item`, `Dropdown.Label`, `Dropdown.Separator`, and `Dropdown.Shortcut`.
+Compound menu component exported as `Dropdown.Root`, `Dropdown.Trigger`, `Dropdown.Content`,
+`Dropdown.Item`, `Dropdown.Label`, `Dropdown.Separator`, and `Dropdown.Shortcut`.
 
 Useful props:
 
@@ -215,9 +221,9 @@ Override theme tokens from your app CSS:
 
 ```css
 :root {
-  --radius: 0.5rem;
-  --sidebar-width: 17rem;
-  --container-max-width: 1440px;
+    --radius: 0.5rem;
+    --sidebar-width: 17rem;
+    --container-max-width: 1440px;
 }
 ```
 

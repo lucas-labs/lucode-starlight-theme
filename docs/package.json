@@ -12,8 +12,8 @@
         "astro": "astro"
     },
     "dependencies": {
-        "@astrojs/starlight": "^0.39.0",
-        "astro": "^6.0.1",
+        "@astrojs/starlight": "^0.41.4",
+        "astro": "^7.1.3",
         "lucode-starlight": "workspace:*",
         "sharp": "^0.34.2"
     }

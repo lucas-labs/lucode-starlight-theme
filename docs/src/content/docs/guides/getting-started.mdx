@@ -10,7 +10,7 @@ import { Tabs, TabItem } from '@astrojs/starlight/components';
 Lucode Starlight is a theme plugin for existing Starlight sites. You need:
 
 - Astro with `@astrojs/starlight`.
-- `@astrojs/starlight` version `0.38.3` or newer.
+- `@astrojs/starlight` version `0.41.4` or newer.
 - A package manager. This repository uses Bun, but the theme works with npm, pnpm, yarn, or Bun.
 
 If you are starting from nothing, create a Starlight site first:
@@ -102,27 +102,29 @@ import starlight from '@astrojs/starlight';
 import lucode from 'lucode-starlight';
 
 export default defineConfig({
-  integrations: [
-    starlight({
-      title: 'My Docs',
-      plugins: [
-        lucode({
-          navLinks: [
-            { label: 'Docs', link: '/guides/getting-started/' },
-            { label: 'API', link: '/reference/plugin-api/' },
-          ],
+    integrations: [
+        starlight({
+            title: 'My Docs',
+            plugins: [
+                lucode({
+                    navLinks: [
+                        { label: 'Docs', link: '/guides/getting-started/' },
+                        { label: 'API', link: '/reference/plugin-api/' },
+                    ],
+                }),
+            ],
         }),
-      ],
-    }),
-  ],
+    ],
 });
 ```
 
-Lucode Starlight automatically adds its component overrides, CSS layers, theme tokens, base styles, and Expressive Code configuration.
+Lucode Starlight automatically adds its component overrides, CSS layers, theme tokens, base styles,
+and Expressive Code configuration.
 
 ## Extend the Docs Schema
 
-The theme adds frontmatter for splash hero layouts and announcement links. Extend Starlight's docs schema to use those fields with type checking.
+The theme adds frontmatter for splash hero layouts and announcement links. Extend Starlight's docs
+schema to use those fields with type checking.
 
 ```ts
 // src/content.config.ts
@@ -132,10 +134,10 @@ import { docsSchema } from '@astrojs/starlight/schema';
 import { ExtendDocsSchema } from 'lucode-starlight/schema';
 
 export const collections = {
-  docs: defineCollection({
-    loader: docsLoader(),
-    schema: docsSchema({ extend: ExtendDocsSchema }),
-  }),
+    docs: defineCollection({
+        loader: docsLoader(),
+        schema: docsSchema({ extend: ExtendDocsSchema }),
+    }),
 };
 ```
 
@@ -149,17 +151,17 @@ title: My Product Docs
 description: Product documentation for teams that ship.
 template: splash
 hero:
-  layout: split-left
-  announcement:
-    text: New docs theme
-    link: /guides/getting-started/
-  actions:
-    - text: Start building
-      link: /guides/getting-started/
-      icon: right-arrow
-    - text: View components
-      link: /showcase/starlight-components/
-      variant: minimal
+    layout: split-left
+    announcement:
+        text: New docs theme
+        link: /guides/getting-started/
+    actions:
+        - text: Start building
+          link: /guides/getting-started/
+          icon: right-arrow
+        - text: View components
+          link: /showcase/starlight-components/
+          variant: secondary
 ---
 ```
 
@@ -207,7 +209,11 @@ bun run dev
 
 ## Next Steps
 
-- Read [Configuration](/lucode-starlight-theme/guides/configuration/) for plugin options and recommended Starlight settings.
-- Read [Customize the Theme](/lucode-starlight-theme/guides/theming/) for CSS tokens and component override strategy.
-- Visit [Starlight Components](/lucode-starlight-theme/showcase/starlight-components/) to inspect the full component surface.
-- Browse [Splash Pages](/lucode-starlight-theme/showcase/splash-pages/) to choose a landing-page layout.
+- Read [Configuration](/lucode-starlight-theme/guides/configuration/) for plugin options and
+  recommended Starlight settings.
+- Read [Customize the Theme](/lucode-starlight-theme/guides/theming/) for CSS tokens and component
+  override strategy.
+- Visit [Starlight Components](/lucode-starlight-theme/showcase/starlight-components/) to inspect
+  the full component surface.
+- Browse [Splash Pages](/lucode-starlight-theme/showcase/splash-pages/) to choose a landing-page
+  layout.

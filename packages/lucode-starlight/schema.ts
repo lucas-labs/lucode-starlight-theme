@@ -19,6 +19,22 @@ export const ExtendDocsSchema = z.object({
                     link: z.string(),
                 })
                 .optional(),
+            actions: z
+                .array(
+                    z.object({
+                        variant: z
+                            .enum([
+                                'default',
+                                'link',
+                                'secondary',
+                                'outline',
+                                'ghost',
+                                'destructive',
+                            ])
+                            .default('default'),
+                    })
+                )
+                .default([]),
         })
         .optional(),
 });

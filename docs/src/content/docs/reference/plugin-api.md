@@ -13,7 +13,7 @@ Use the default export inside Starlight's `plugins` array:
 
 ```js
 starlight({
-  plugins: [lucode()],
+    plugins: [lucode()],
 });
 ```
 
@@ -21,8 +21,8 @@ starlight({
 
 ```ts
 type LucodeStarlightUserConfig = {
-  navLinks?: Link[];
-  footerText?: string | Record<string, string>;
+    navLinks?: Link[];
+    footerText?: string | Record<string, string>;
 };
 ```
 
@@ -32,56 +32,59 @@ Header navigation links rendered by the theme.
 
 ```ts
 type Link = {
-  link: string;
-  badge?: string;
-  translations?: Record<string, string>;
-  label: string | Record<string, string>;
-  attrs?: Record<string, string | number | boolean | undefined>;
+    link: string;
+    badge?: string;
+    translations?: Record<string, string>;
+    label: string | Record<string, string>;
+    attrs?: Record<string, string | number | boolean | undefined>;
 };
 ```
 
 ```js
 lucode({
-  navLinks: [
-    {
-      label: 'Docs',
-      link: '/guides/getting-started/',
-      translations: {
-        es: 'Documentación',
-      },
-    },
-    {
-      link: '/reference/plugin-api/',
-      label: {
-        en: 'API',
-        es: 'API',
-      },
-    },
-    {
-      label: 'GitHub',
-      attrs: { target: '_blank', rel: 'noreferrer' },
-      link: 'https://github.com/lucas-labs/lucode-starlight-theme',
-    },
-  ],
+    navLinks: [
+        {
+            label: 'Docs',
+            link: '/guides/getting-started/',
+            translations: {
+                es: 'Documentación',
+            },
+        },
+        {
+            link: '/reference/plugin-api/',
+            label: {
+                en: 'API',
+                es: 'API',
+            },
+        },
+        {
+            label: 'GitHub',
+            attrs: { target: '_blank', rel: 'noreferrer' },
+            link: 'https://github.com/lucas-labs/lucode-starlight-theme',
+        },
+    ],
 });
 ```
 
-Prefer Starlight sidebar style (`label` string + `translations`) or a locale map on `label`. Keys may be BCP-47 tags (`en`, `es`) or locale paths; Lucode tries both.
+Prefer Starlight sidebar style (`label` string + `translations`) or a locale map on `label`. Keys
+may be BCP-47 tags (`en`, `es`) or locale paths; Lucode tries both.
 
 ### `footerText`
 
-Markdown rendered in the footer text slot. Accepts a string or a locale map (same shape as Starlight's `title`).
+Markdown rendered in the footer text slot. Accepts a string or a locale map (same shape as
+Starlight's `title`).
 
 ```js
 lucode({
-  footerText: {
-    es: 'Hecho con [Lucode Starlight](https://github.com/lucas-labs/lucode-starlight-theme).',
-    en: 'Built with [Lucode Starlight](https://github.com/lucas-labs/lucode-starlight-theme).',
-  },
+    footerText: {
+        es: 'Hecho con [Lucode Starlight](https://github.com/lucas-labs/lucode-starlight-theme).',
+        en: 'Built with [Lucode Starlight](https://github.com/lucas-labs/lucode-starlight-theme).',
+    },
 });
 ```
 
-If omitted, the theme uses its built-in credit line. When using the object form, include a key for your default language.
+If omitted, the theme uses its built-in credit line. When using the object form, include a key for
+your default language.
 
 ## Frontmatter Extension
 
@@ -97,17 +100,17 @@ The extension adds:
 
 ```ts
 type LucodeDocsFrontmatter = {
-  links?: {
-    doc?: string;
-    api?: string;
-  };
-  hero?: {
-    layout?: 'centered' | 'centered-top' | 'split-left' | 'split-right' | 'banner';
-    announcement?: {
-      text: string;
-      link: string;
+    links?: {
+        doc?: string;
+        api?: string;
     };
-  };
+    hero?: {
+        layout?: 'centered' | 'centered-top' | 'split-left' | 'split-right' | 'banner';
+        announcement?: {
+            text: string;
+            link: string;
+        };
+    };
 };
 ```
 
@@ -121,7 +124,8 @@ import { ExtendDocsSchema } from 'lucode-starlight/schema';
 import { ContainerSection, LinkButton } from 'lucode-starlight/components';
 ```
 
-The package also exports the internal Starlight override components and CSS files for advanced composition:
+The package also exports the internal Starlight override components and CSS files for advanced
+composition:
 
 - `lucode-starlight/styles/layers`
 - `lucode-starlight/styles/theme`
@@ -130,4 +134,5 @@ The package also exports the internal Starlight override components and CSS file
 - `lucode-starlight/components/overrides/Hero.astro`
 - `lucode-starlight/components/overrides/Footer.astro`
 
-Prefer the plugin for normal sites. Reach for direct exports only when you are building a custom integration or intentionally composing with one of the theme overrides.
+Prefer the plugin for normal sites. Reach for direct exports only when you are building a custom
+integration or intentionally composing with one of the theme overrides.
