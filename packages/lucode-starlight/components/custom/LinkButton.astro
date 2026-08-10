@@ -9,19 +9,42 @@ type NativeButtonProps = HTMLAttributes<'button'> & {
     href?: string | URL | null | undefined;
 };
 
+export type ButtonVariant =
+    | 'default'
+    | 'link'
+    | 'secondary'
+    | 'outline'
+    | 'ghost'
+    | 'destructive';
+
+/**
+ * Starlight's own hero action variants. Kept as aliases of their shadcn equivalents so existing
+ * frontmatter and `<LinkButton>` usage keeps working.
+ */
+export type LegacyButtonVariant = 'primary' | 'minimal';
+
+const LEGACY_VARIANTS = {
+    primary: 'default',
+    minimal: 'ghost',
+} as const satisfies Record<LegacyButtonVariant, ButtonVariant>;
+
 type Props = (AnchorProps | NativeButtonProps) & {
-    variant?: 'default' | 'link' | 'secondary' | 'outline' | 'ghost' | 'destructive';
+    variant?: ButtonVariant | LegacyButtonVariant;
     size?: '2xs' | 'xs' | 'sm' | 'md' | 'lg' | 'icon-sm' | 'icon-md' | 'icon-lg';
 };
 
-const { class: className, variant = 'primary', size = 'md', ...attrs } = Astro.props;
+const { class: className, variant = 'default', size = 'md', ...attrs } = Astro.props;
+
+// Normalise so the stylesheet only ever has to know about the canonical variant names.
+const resolvedVariant: ButtonVariant =
+    LEGACY_VARIANTS[variant as LegacyButtonVariant] ?? (variant as ButtonVariant);
 
 const Tag = attrs.href ? 'a' : 'button';
 ---
 
 <Tag
     data-slot="button"
-    data-variant={variant}
+    data-variant={resolvedVariant}
     data-size={size}
     class:list={['link-button', className]}
     {...attrs as any}
@@ -30,7 +53,13 @@ const Tag = attrs.href ? 'a' : 'button';
 </Tag>
 
 <style>
-    [data-slot='button'] {
+    /*
+     * `.link-button` is matched as well as `[data-slot='button']` because consumers such as
+     * `DropdownTrigger` spread their own `data-slot` over ours, which would otherwise leave the
+     * element with no base styling at all.
+     */
+    [data-slot='button'],
+    .link-button {
         display: inline-flex;
         align-items: center;
         justify-content: center;
@@ -49,8 +78,8 @@ const Tag = attrs.href ? 'a' : 'button';
         border-radius: var(--button-radius, var(--radius));
         height: var(--button-height, calc(var(--spacing) * 8));
         width: var(--button-width, auto);
-        padding-left: var(--button-padding-l, calc(var(--spacing) * 2.5));
-        padding-right: var(--button-padding-r, calc(var(--spacing) * 2.5));
+        padding-left: var(--button-padding-l, var(--button-padding-x, calc(var(--spacing) * 2.5)));
+        padding-right: var(--button-padding-r, var(--button-padding-x, calc(var(--spacing) * 2.5)));
         font-size: var(--button-font-size, 0.875rem);
         line-height: var(--button-line-height, 1rem);
     }
@@ -63,6 +92,7 @@ const Tag = attrs.href ? 'a' : 'button';
     }
 
     [data-size='xs'] {
+        --button-radius: calc(var(--radius) - 2px);
         --button-height: calc(var(--spacing) * 6);
         --button-padding-x: calc(var(--spacing) * 2);
         --button-font-size: 0.75rem;
@@ -91,26 +121,36 @@ const Tag = attrs.href ? 'a' : 'button';
     }
 
     [data-size='icon-sm'] {
+        --button-radius: calc(var(--radius) - 3px);
         --button-height: calc(var(--spacing) * 6);
         --button-width: calc(var(--spacing) * 6);
+
+        svg {
+            width: 1rem;
+            height: 1rem;
+        }
     }
 
     [data-size='icon-md'] {
+        --button-radius: calc(var(--radius) - 2px);
         --button-height: calc(var(--spacing) * 7);
         --button-width: calc(var(--spacing) * 7);
+
+        svg {
+            width: 1.25rem;
+            height: 1.25rem;
+        }
     }
 
     [data-size='icon-lg'] {
+        --button-radius: calc(var(--radius) - 1px);
         --button-height: calc(var(--spacing) * 8);
         --button-width: calc(var(--spacing) * 8);
-    }
 
-    [data-variant='primary'] {
-        background: var(--primary);
-        color: var(--primary-foreground);
-    }
-    [data-variant='primary']:hover {
-        background: color-mix(in oklab, var(--primary) 90%, transparent);
+        svg {
+            width: 1.5rem;
+            height: 1.5rem;
+        }
     }
 
     [data-variant='secondary'] {
@@ -121,17 +161,12 @@ const Tag = attrs.href ? 'a' : 'button';
         background: color-mix(in oklab, var(--secondary) 80%, transparent);
     }
 
-    [data-variant='minimal'] {
-        background: transparent;
-        color: var(--accent-foreground);
-    }
-    [data-variant='minimal']:hover {
-        background: var(--accent);
-    }
-
     [data-variant='default'] {
         background: var(--primary);
         color: var(--primary-foreground);
+    }
+    [data-variant='default']:hover {
+        background: color-mix(in oklab, var(--primary) 90%, transparent);
     }
 
     [data-variant='outline'] {

@@ -22,13 +22,13 @@ import { ContainerSection, Dropdown, LinkButton } from 'lucode-starlight/compone
 A compact anchor styled like the theme's buttons. Use it for calls to action inside custom MDX
 sections.
 
-<LinkButton href="/lucode-starlight-theme/guides/getting-started/" variant="primary">
+<LinkButton href="/lucode-starlight-theme/guides/getting-started/" variant="default">
     Get Started
 </LinkButton>
 <LinkButton href="/lucode-starlight-theme/guides/theming/" variant="secondary">
     Customize
 </LinkButton>
-<LinkButton href="/lucode-starlight-theme/showcase/starlight-components/" variant="minimal">
+<LinkButton href="/lucode-starlight-theme/showcase/starlight-components/" variant="ghost">
     Showcase
 </LinkButton>
 
@@ -37,17 +37,17 @@ sections.
 import { LinkButton } from 'lucode-starlight/components';
 ---
 
-<LinkButton href="/lucode-starlight-theme/guides/getting-started/" variant="primary" size="md">
+<LinkButton href="/lucode-starlight-theme/guides/getting-started/" variant="default" size="md">
   Get Started
 </LinkButton>
 ```
 
-| Prop                    | Type                                                                             | Default     | Notes                                                                     |
-| ----------------------- | -------------------------------------------------------------------------------- | ----------- | ------------------------------------------------------------------------- |
-| `href`                  | `string`, `URL`, `null`, or `undefined`                                          | Required    | Passed to the underlying anchor.                                          |
-| `variant`               | `'default'`, `'link'`, `'secondary'`, `'outline'`, `'ghost'`, or `'destructive'` | `'default'` | Controls color and hover treatment.                                       |
-| `size`                  | `'2xs'`, `'xs'`, `'sm'`, `'md'`, or `'lg'`                                       | `'md'`      | Controls height, font size, and padding.                                  |
-| Other anchor attributes | Astro `HTMLAttributes<'a'>`                                                      | -           | `target`, `rel`, `aria-*`, `class`, and similar attributes are forwarded. |
+| Prop                    | Type                                                                             | Default     | Notes                                                                                                                             |
+| ----------------------- | -------------------------------------------------------------------------------- | ----------- | --------------------------------------------------------------------------------------------------------------------------------- |
+| `href`                  | `string`, `URL`, `null`, or `undefined`                                          | Required    | Passed to the underlying anchor.                                                                                                  |
+| `variant`               | `'default'`, `'link'`, `'secondary'`, `'outline'`, `'ghost'`, or `'destructive'` | `'default'` | Controls color and hover treatment. Starlight's `'primary'` and `'minimal'` are accepted as aliases of `'default'` and `'ghost'`. |
+| `size`                  | `'2xs'`, `'xs'`, `'sm'`, `'md'`, or `'lg'`                                       | `'md'`      | Controls height, font size, and padding.                                                                                          |
+| Other anchor attributes | Astro `HTMLAttributes<'a'>`                                                      | -           | `target`, `rel`, `aria-*`, `class`, and similar attributes are forwarded.                                                         |
 
 ## ContainerSection
 
@@ -142,7 +142,7 @@ import { Dropdown } from 'lucode-starlight/components';
 | `Dropdown.Root`    | `openOnHover`       | `boolean`                                                                         | `false`       |
 | `Dropdown.Root`    | `closeDelay`        | `number`                                                                          | `200`         |
 | `Dropdown.Trigger` | `asChild`           | `boolean`                                                                         | `false`       |
-| `Dropdown.Trigger` | `variant`           | `'primary'`, `'secondary'`, or `'minimal'`                                        | `'secondary'` |
+| `Dropdown.Trigger` | `variant`           | Same values as `LinkButton`'s `variant`                                           | `'secondary'` |
 | `Dropdown.Trigger` | `size`              | `'2xs'`, `'xs'`, `'sm'`, `'md'`, `'lg'`, `'icon-sm'`, `'icon-md'`, or `'icon-lg'` | `'sm'`        |
 | `Dropdown.Content` | `side`              | `'top'`, `'bottom'`, `'left'`, or `'right'`                                       | `'bottom'`    |
 | `Dropdown.Content` | `align`             | `'start'`, `'center'`, or `'end'`                                                 | `'start'`     |

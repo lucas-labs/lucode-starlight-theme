@@ -192,7 +192,8 @@ import { ContainerSection, Dropdown, LinkButton } from 'lucode-starlight/compone
 Props:
 
 - `href`: anchor destination.
-- `variant`: `primary`, `secondary`, or `minimal`.
+- `variant`: `default`, `link`, `secondary`, `outline`, `ghost`, or `destructive`. Starlight's
+  `primary` and `minimal` are accepted as aliases of `default` and `ghost`.
 - `size`: `2xs`, `xs`, `sm`, `md`, or `lg`.
 - Other anchor attributes are forwarded.
 

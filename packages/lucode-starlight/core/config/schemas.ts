@@ -55,7 +55,10 @@ export const LucodeStarlightConfigSchema = z.object({
         })
         .optional()
         .default({ includeAiUtilities: false }),
-    /** Disables the theme warning emitted when overriding components. */
+    /**
+     * Whether to warn when a component override defined in your Starlight configuration prevents
+     * the theme from applying its own. Set to `false` to silence those warnings.
+     */
     warnOverrides: z.boolean().optional().default(true),
     /**
      * Footer Markdown text. Can be a string, or for multilingual sites an object with values for
