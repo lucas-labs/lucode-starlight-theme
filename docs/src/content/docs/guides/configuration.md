@@ -3,7 +3,9 @@ title: Configuration
 description: Configure the Lucode Starlight plugin, Starlight options, and docs content schema.
 ---
 
-Lucode Starlight is configured inside the Starlight integration. The plugin handles theme wiring; your site still owns regular Starlight options like `title`, `logo`, `sidebar`, `social`, and `customCss`.
+Lucode Starlight is configured inside the Starlight integration. The plugin handles theme wiring;
+your site still owns regular Starlight options like `title`, `logo`, `sidebar`, `social`, and
+`customCss`.
 
 ## Minimal Config
 
@@ -41,15 +43,17 @@ lucode({
 
 `navLinks` renders links in the custom header. Each item supports:
 
-| Option | Type | Notes |
-| --- | --- | --- |
-| `label` | `string` or locale map | Default label, or a map keyed by BCP-47 / locale path. |
-| `translations` | locale map | Optional labels when `label` is a string (Starlight sidebar style). |
-| `link` | `string` | Internal path or external URL. |
-| `badge` | `string` | Optional badge text beside the label. |
-| `attrs` | HTML attributes | Extra attributes passed to the anchor. |
+| Option         | Type                   | Notes                                                               |
+| -------------- | ---------------------- | ------------------------------------------------------------------- |
+| `label`        | `string` or locale map | Default label, or a map keyed by BCP-47 / locale path.              |
+| `translations` | locale map             | Optional labels when `label` is a string (Starlight sidebar style). |
+| `link`         | `string`               | Internal path or external URL.                                      |
+| `badge`        | `string`               | Optional badge text beside the label.                               |
+| `attrs`        | HTML attributes        | Extra attributes passed to the anchor.                              |
 
-`footerText` accepts Markdown as a string, or a locale map like Starlight's `title`. The default credits shadcn/ui for the documentation theme inspiration, starlight-theme-black as the Astro Starlight base, and lucas-labs for this package.
+`footerText` accepts Markdown as a string, or a locale map like Starlight's `title`. The default
+credits shadcn/ui for the documentation theme inspiration, starlight-theme-black as the Astro
+Starlight base, and lucas-labs for this package.
 
 ### Multilingual examples
 
@@ -89,7 +93,9 @@ lucode({
 });
 ```
 
-Lookup tries the active `lang` (BCP-47), then the locale path, then the default locale — including a case-insensitive fallback — so keys like `en` / `es` stay aligned with your Starlight `locales` config.
+Lookup tries the active `lang` (BCP-47), then the locale path, then the default locale — including a
+case-insensitive fallback — so keys like `en` / `es` stay aligned with your Starlight `locales`
+config.
 
 ## Recommended Starlight Config
 
@@ -104,9 +110,7 @@ starlight({
     replacesTitle: true,
   },
   customCss: ['./src/styles/global.css'],
-  social: [
-    { icon: 'github', label: 'GitHub', href: 'https://github.com/acme/docs' },
-  ],
+  social: [{ icon: 'github', label: 'GitHub', href: 'https://github.com/acme/docs' }],
   plugins: [
     lucode({
       navLinks: [
@@ -118,11 +122,11 @@ starlight({
   sidebar: [
     {
       label: 'Guides',
-      autogenerate: { directory: 'guides' },
+      items: [{ autogenerate: { directory: 'guides' } }],
     },
     {
       label: 'Reference',
-      autogenerate: { directory: 'reference' },
+      items: [{ autogenerate: { directory: 'reference' } }],
     },
   ],
 });
@@ -130,7 +134,8 @@ starlight({
 
 ## Content Schema
 
-Add `ExtendDocsSchema` if you want the extra splash hero frontmatter used by this theme:
+Add `ExtendDocsSchema` if you want the extra splash hero frontmatter used by this theme — hero
+layouts, announcement links, and the theme's full set of button styles on hero actions:
 
 ```ts
 // src/content.config.ts
@@ -151,22 +156,31 @@ export const collections = {
 
 During Starlight config setup, Lucode Starlight:
 
-- Registers Lucode component overrides for the Starlight page frame, header, sidebar, hero, footer, search, table of contents, and markdown content.
-- Appends `lucode-starlight/styles/layers`, `lucode-starlight/styles/theme`, and `lucode-starlight/styles/base` to `customCss`.
+- Registers Lucode component overrides for the Starlight page frame, header, sidebar, hero, footer,
+  search, table of contents, and markdown content.
+- Appends `lucode-starlight/styles/layers`, `lucode-starlight/styles/theme`, and
+  `lucode-starlight/styles/base` to `customCss`.
 - Applies the package Expressive Code configuration.
-- Adds an Astro integration with the Vite plugin that receives the parsed `navLinks` and `footerText` config.
+- Adds an Astro integration with the Vite plugin that receives the parsed `navLinks` and
+  `footerText` config.
 
-If you already override one of the same Starlight components, the plugin leaves your override in place and logs a warning with the fallback component path.
+If you already override one of the same Starlight components, the plugin leaves your override in
+place and logs a warning with the fallback component path.
 
 ## Component Overrides
 
-You can still override Starlight components yourself. When you do, import or re-render the Lucode component you want to keep.
+You can still override Starlight components yourself. When you do, import or re-render the Lucode
+component you want to keep.
 
 ```js
 starlight({
   components: {
     Header: './src/components/Header.astro',
   },
-  plugins: [lucode()],
+  plugins: [
+    lucode({
+      warnOverride: false, // Disables the override warnings
+    }),
+  ],
 });
 ```

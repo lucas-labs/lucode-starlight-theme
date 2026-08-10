@@ -131,20 +131,26 @@ describe('vitePlugin', () => {
 });
 
 describe('override', () => {
-    it('adds package overrides without replacing existing ones', () => {
+    const starlightConfig = { components: { Header: './src/components/Header.astro' } };
+
+    function collectWarnings() {
         const warnings: string[] = [];
-        const logger = {
-            warn(message: string) {
-                warnings.push(message);
+        return {
+            warnings,
+            logger: {
+                warn(message: string) {
+                    warnings.push(message);
+                },
             },
         };
+    }
+
+    it('adds package overrides without replacing existing ones', () => {
+        const { warnings, logger } = collectWarnings();
 
         const components = override(
-            {
-                components: {
-                    Header: './src/components/Header.astro',
-                },
-            } as never,
+            starlightConfig as never,
+            LucodeStarlightConfigSchema.parse({}),
             ['Header', 'Footer'] as never,
             logger as never
         );
@@ -156,6 +162,23 @@ describe('override', () => {
         expect(warnings).toHaveLength(2);
         expect(warnings[0]).toContain('Header');
         expect(warnings[1]).toContain('lucode-starlight/components/overrides/Header.astro');
+    });
+
+    it('silences the warnings when `warnOverrides` is false', () => {
+        const { warnings, logger } = collectWarnings();
+
+        const components = override(
+            starlightConfig as never,
+            LucodeStarlightConfigSchema.parse({ warnOverrides: false }),
+            ['Header', 'Footer'] as never,
+            logger as never
+        );
+
+        expect(components).toEqual({
+            Header: './src/components/Header.astro',
+            Footer: 'lucode-starlight/components/overrides/Footer.astro',
+        });
+        expect(warnings).toHaveLength(0);
     });
 });
 
@@ -215,6 +238,37 @@ describe('schema exports', () => {
 
     it('rejects unsupported hero layouts', () => {
         expect(() => heroLayoutSchema.parse('stacked')).toThrow();
+    });
+
+    it('defaults the hero action variant to default', () => {
+        const result = ExtendDocsSchema.parse({ hero: { actions: [{}] } });
+
+        expect(result.hero?.actions?.[0]?.variant).toBe('default');
+    });
+
+    it.each(['default', 'link', 'secondary', 'outline', 'ghost', 'destructive'])(
+        'accepts the shadcn hero action variant %s',
+        (variant) => {
+            const result = ExtendDocsSchema.parse({ hero: { actions: [{ variant }] } });
+
+            expect(result.hero?.actions?.[0]?.variant).toBe(variant);
+        }
+    );
+
+    // Starlight's own variant names must keep parsing so existing frontmatter does not break.
+    it.each(['primary', 'secondary', 'minimal'])(
+        "accepts Starlight's hero action variant %s",
+        (variant) => {
+            const result = ExtendDocsSchema.parse({ hero: { actions: [{ variant }] } });
+
+            expect(result.hero?.actions?.[0]?.variant).toBe(variant);
+        }
+    );
+
+    it('rejects unsupported hero action variants', () => {
+        expect(() =>
+            ExtendDocsSchema.parse({ hero: { actions: [{ variant: 'fancy' }] } })
+        ).toThrow();
     });
 });
 

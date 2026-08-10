@@ -21,7 +21,10 @@
 
 ## Attribution
 
-This [Starlight](https://starlight.astro.build/) theme recreates the design of the documentation site for [shadcn/ui](https://ui.shadcn.com/) (as of April 2026). I used the great [adrian-ub/starlight-theme-black](https://github.com/adrian-ub/starlight-theme-black) as a base, which brought an earlier **shadcn/ui**-inspired design to Astro Starlight.
+This [Starlight](https://starlight.astro.build/) theme recreates the design of the documentation
+site for [shadcn/ui](https://ui.shadcn.com/) (as of April 2026). I used the great
+[adrian-ub/starlight-theme-black](https://github.com/adrian-ub/starlight-theme-black) as a base,
+which brought an earlier **shadcn/ui**-inspired design to Astro Starlight.
 
 ## This Repository
 
@@ -47,7 +50,8 @@ The repository contains:
 
 The package lives in `packages/lucode-starlight` and is published as `lucode-starlight` on npm.
 
-See [packages/lucode-starlight/README.md](packages/lucode-starlight/README.md) for details on the theme package.
+See [packages/lucode-starlight/README.md](packages/lucode-starlight/README.md) for details on the
+theme package.
 
 ## Documentation Site
 

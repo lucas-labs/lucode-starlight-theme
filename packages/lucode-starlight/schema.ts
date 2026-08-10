@@ -19,6 +19,32 @@ export const ExtendDocsSchema = z.object({
                     link: z.string(),
                 })
                 .optional(),
+            actions: z
+                .array(
+                    z.object({
+                        /**
+                         * Button style to use. Starlight's own `primary` and `minimal` are accepted
+                         * as aliases of `default` and `ghost` so existing frontmatter keeps working.
+                         *
+                         * Requires `@astrojs/starlight >= 0.41.4`, which is the first version whose
+                         * `docsSchema({ extend })` deep-merges instead of intersecting — an
+                         * intersection cannot widen an enum Starlight already declares.
+                         */
+                        variant: z
+                            .enum([
+                                'default',
+                                'link',
+                                'secondary',
+                                'outline',
+                                'ghost',
+                                'destructive',
+                                'primary',
+                                'minimal',
+                            ])
+                            .default('default'),
+                    })
+                )
+                .default([]),
         })
         .optional(),
 });

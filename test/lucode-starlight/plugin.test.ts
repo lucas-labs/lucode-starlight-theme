@@ -146,30 +146,20 @@ describe('plugin', () => {
     });
 
     it('throws when the user config is invalid', () => {
-        const addIntegration = vi.fn();
-
-        plugin({ docs: { includeAiUtilities: 'yes' } as never }).hooks['config:setup']?.({
-            config: {
-                components: {},
-                expressiveCode: true,
-            },
-            logger: {
-                warn: vi.fn(),
-            },
-            updateConfig: vi.fn(),
-            addIntegration,
-        } as never);
-
-        const integration = firstCallArg<{
-            hooks: {
-                'astro:config:setup'?: (context: {
-                    updateConfig: ReturnType<typeof vi.fn>;
-                }) => void;
-            };
-        }>(addIntegration);
-
+        // The config is validated once, up front, so an invalid config fails during
+        // `config:setup` rather than being deferred to the nested integration hook.
         expect(() =>
-            integration.hooks['astro:config:setup']?.({ updateConfig: vi.fn() } as never)
+            plugin({ docs: { includeAiUtilities: 'yes' } as never }).hooks['config:setup']?.({
+                config: {
+                    components: {},
+                    expressiveCode: true,
+                },
+                logger: {
+                    warn: vi.fn(),
+                },
+                updateConfig: vi.fn(),
+                addIntegration: vi.fn(),
+            } as never)
         ).toThrow(/invalid/);
     });
 });

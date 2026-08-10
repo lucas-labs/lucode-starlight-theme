@@ -47,6 +47,7 @@ export const linkSchema = z.object({
 export type Link = z.infer<typeof linkSchema>;
 
 export const LucodeStarlightConfigSchema = z.object({
+    /** Array of navigation links for the header/nav bar. */
     navLinks: z.array(linkSchema).optional(),
     docs: z
         .object({
@@ -54,6 +55,11 @@ export const LucodeStarlightConfigSchema = z.object({
         })
         .optional()
         .default({ includeAiUtilities: false }),
+    /**
+     * Whether to warn when a component override defined in your Starlight configuration prevents
+     * the theme from applying its own. Set to `false` to silence those warnings.
+     */
+    warnOverrides: z.boolean().optional().default(true),
     /**
      * Footer Markdown text. Can be a string, or for multilingual sites an object with values for
      * each locale. Keys may be BCP-47 tags (e.g. `en`, `es`) or locale paths.

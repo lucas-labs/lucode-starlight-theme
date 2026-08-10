@@ -1,6 +1,6 @@
 ---
 import type { HTMLAttributes } from 'astro/types';
-import LinkButton from '../LinkButton.astro';
+import LinkButton, { type ButtonVariant, type LegacyButtonVariant } from '../LinkButton.astro';
 
 type Props = Omit<HTMLAttributes<'button'>, 'role' | 'type'> & {
     /**
@@ -8,7 +8,7 @@ type Props = Omit<HTMLAttributes<'button'>, 'role' | 'type'> & {
      */
     asChild?: boolean;
 
-    variant?: 'primary' | 'secondary' | 'minimal';
+    variant?: ButtonVariant | LegacyButtonVariant;
     size?: '2xs' | 'xs' | 'sm' | 'md' | 'lg' | 'icon-sm' | 'icon-md' | 'icon-lg';
 };
 

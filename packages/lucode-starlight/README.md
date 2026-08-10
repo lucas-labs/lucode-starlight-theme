@@ -13,14 +13,17 @@
 
 # lucode-starlight
 
-Lucode Starlight is a theme plugin for Astro Starlight inspired by [shadcn/ui](https://ui.shadcn.com/).
+Lucode Starlight is a theme plugin for Astro Starlight inspired by
+[shadcn/ui](https://ui.shadcn.com/).
 
 ## Features
 
 - Starlight plugin API integration.
-- Custom overrides for header, sidebar, page frame, hero, footer, search, table of contents, pagination, and Markdown content.
+- Custom overrides for header, sidebar, page frame, hero, footer, search, table of contents,
+  pagination, and Markdown content.
 - Token-based, layered CSS theme with light and dark mode values.
-- Styled built-in Starlight components including hero splashes, cards, link cards, asides, badges, tabs, steps, file trees, and link buttons.
+- Styled built-in Starlight components including hero splashes, cards, link cards, asides, badges,
+  tabs, steps, file trees, and link buttons.
 
 ## Installation
 
@@ -54,13 +57,15 @@ export default defineConfig({
 });
 ```
 
-The plugin automatically registers Lucode component overrides, appends the theme CSS files, and configures Expressive Code.
+The plugin automatically registers Lucode component overrides, appends the theme CSS files, and
+configures Expressive Code.
 
 ## Attribution
 
 This theme recreates the design of the documentation site for [shadcn/ui](https://ui.shadcn.com/).
 
-I used [adrian-ub/starlight-theme-black](https://github.com/adrian-ub/starlight-theme-black) as a base, which brought an earlier shadcn/ui-inspired design to Astro Starlight.
+I used [adrian-ub/starlight-theme-black](https://github.com/adrian-ub/starlight-theme-black) as a
+base, which brought an earlier shadcn/ui-inspired design to Astro Starlight.
 
 ## Docs Schema
 
@@ -187,7 +192,8 @@ import { ContainerSection, Dropdown, LinkButton } from 'lucode-starlight/compone
 Props:
 
 - `href`: anchor destination.
-- `variant`: `primary`, `secondary`, or `minimal`.
+- `variant`: `default`, `link`, `secondary`, `outline`, `ghost`, or `destructive`. Starlight's
+  `primary` and `minimal` are accepted as aliases of `default` and `ghost`.
 - `size`: `2xs`, `xs`, `sm`, `md`, or `lg`.
 - Other anchor attributes are forwarded.
 
@@ -199,7 +205,8 @@ Props:
 
 ### `Dropdown`
 
-Compound menu component exported as `Dropdown.Root`, `Dropdown.Trigger`, `Dropdown.Content`, `Dropdown.Item`, `Dropdown.Label`, `Dropdown.Separator`, and `Dropdown.Shortcut`.
+Compound menu component exported as `Dropdown.Root`, `Dropdown.Trigger`, `Dropdown.Content`,
+`Dropdown.Item`, `Dropdown.Label`, `Dropdown.Separator`, and `Dropdown.Shortcut`.
 
 Useful props:
 
