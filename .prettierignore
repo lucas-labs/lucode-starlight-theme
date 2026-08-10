@@ -1,0 +1,5 @@
+bun.lock
+node_modules/
+docs/dist/
+docs/.astro/
+coverage/
