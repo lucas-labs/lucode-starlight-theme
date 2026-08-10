@@ -12,13 +12,20 @@
         "docs": "bun run --filter lucode-starlight-docs dev",
         "dev": "bun run --filter lucode-starlight-docs dev",
         "docs:build": "bun run --filter lucode-starlight-docs build",
-        "test": "vitest run --coverage"
+        "test": "vitest run --coverage",
+        "format": "prettier --write .",
+        "format:check": "prettier --check .",
+        "typecheck": "bun run --filter lucode-starlight-docs typecheck"
     },
     "devDependencies": {
         "@antfu/eslint-config": "^9.0.0",
+        "@astrojs/check": "^0.9.10",
         "@vitest/coverage-v8": "^4.1.7",
         "astro": "^7.1.3",
         "jsdom": "^29.1.1",
+        "prettier": "^3.9.6",
+        "prettier-plugin-astro": "^0.14.1",
+        "typescript": "^6.0.3",
         "vitest": "^4.1.7"
     }
 }
