@@ -1,12 +1,15 @@
 ---
+import { Icon } from '@astrojs/starlight/components';
+import SidebarRestorePoint from '@astrojs/starlight/components/SidebarRestorePoint.astro';
 import type { StarlightRouteData } from '@astrojs/starlight/route-data';
+import { isSidebarGroupOpen } from '../../../core/sidebar';
 
 interface Props {
     sublist: StarlightRouteData['sidebar'];
     nested?: boolean;
 }
 
-const { sublist } = Astro.props;
+const { sublist, nested = false } = Astro.props;
 ---
 
 {
@@ -14,7 +17,7 @@ const { sublist } = Astro.props;
         entry.type === 'link' ? (
             <a
                 href={entry.href}
-                aria-current={entry.isCurrent && 'page'}
+                aria-current={entry.isCurrent ? 'page' : undefined}
                 class:list={['entry-link', entry.attrs.class]}
                 {...entry.attrs}
             >
@@ -23,6 +26,20 @@ const { sublist } = Astro.props;
                     {entry.badge && <span class="entry-badge">{entry.badge.text}</span>}
                 </span>
             </a>
+        ) : nested ? (
+            <details class="entry-group" open={isSidebarGroupOpen(entry)}>
+                <summary class="entry-group-summary">
+                    <span class="entry-link-inner">
+                        {entry.label}
+                        {entry.badge && <span class="entry-badge">{entry.badge.text}</span>}
+                    </span>
+                    <Icon name="right-caret" class="entry-group-caret" size="1rem" />
+                </summary>
+                <SidebarRestorePoint />
+                <div class="container-group-link nested">
+                    <Astro.self sublist={entry.entries} nested />
+                </div>
+            </details>
         ) : (
             <div class="container-sidebar-entry">
                 <h4 class="entry-title">{entry.label}</h4>
@@ -60,6 +77,60 @@ const { sublist } = Astro.props;
         grid-auto-rows: max-content;
         grid-auto-flow: row;
         display: grid;
+    }
+
+    /*
+     * Nested levels are indented with a guide line rather than plain padding, so that a reader can
+     * follow which group a link belongs to once the tree is more than one level deep.
+     */
+    .container-group-link.nested {
+        margin-left: calc(var(--spacing) * 2);
+        padding-left: calc(var(--spacing) * 2);
+        border-left: 1px solid var(--border);
+    }
+
+    .entry-group {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+    }
+
+    .entry-group-summary {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: calc(var(--spacing) * 1);
+        height: 1.875rem;
+        cursor: pointer;
+        list-style: none;
+        color: var(--foreground);
+        font-size: 0.8rem;
+        line-height: 1.125rem;
+        border-radius: calc(var(--radius) - 2px);
+        transition:
+            color 0.15s,
+            background-color 0.15s;
+    }
+
+    /* Safari still paints its own marker without this. */
+    .entry-group-summary::-webkit-details-marker {
+        display: none;
+    }
+
+    .entry-group-summary:hover {
+        background-color: var(--secondary);
+        color: var(--secondary-foreground);
+    }
+
+    .entry-group-caret {
+        flex-shrink: 0;
+        margin-right: calc(var(--spacing) * 2);
+        color: var(--muted-foreground);
+        transition: transform 0.15s;
+    }
+
+    .entry-group[open] > .entry-group-summary .entry-group-caret {
+        transform: rotate(90deg);
     }
 
     .entry-link {
