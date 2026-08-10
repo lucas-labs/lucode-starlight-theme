@@ -1,4 +1,5 @@
 ---
+import SidebarPersister from '@astrojs/starlight/components/SidebarPersister.astro';
 import SidebarSublist from './parts/SidebarSublist.astro';
 
 const { sidebar } = Astro.locals.starlightRoute;
@@ -10,7 +11,10 @@ const { sidebar } = Astro.locals.starlightRoute;
     <div class="sidebar-fade-top"></div>
     <div class="container-sidebar">
         <div class="sidebar-entries">
-            <SidebarSublist sublist={sidebar} />
+            {/* Keeps collapsed groups open and the scroll position across navigations. */}
+            <SidebarPersister>
+                <SidebarSublist sublist={sidebar} />
+            </SidebarPersister>
         </div>
         <div class="sidebar-fade-bottom"></div>
     </div>
