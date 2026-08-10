@@ -2,10 +2,14 @@
 import { Icon } from '@astrojs/starlight/components';
 import { Image } from 'astro:assets';
 import { PAGE_TITLE_ID } from '../../core/config/constants';
+import { warnAboutMissingDocsSchemaOnce } from '../../core/config/docs-schema';
 import ContainerSection from '../custom/ContainerSection.astro';
 import LinkButton from '../custom/LinkButton.astro';
 
 const { data } = Astro.locals.starlightRoute.entry;
+
+warnAboutMissingDocsSchemaOnce(data.hero);
+
 const {
     title = data.title,
     tagline: heroTagline,

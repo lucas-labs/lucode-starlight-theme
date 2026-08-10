@@ -1,4 +1,9 @@
 import { z } from 'astro/zod';
+import { markDocsSchemaLoaded } from './core/config/docs-schema';
+
+// Lets `Hero.astro` tell "the user never wired up the schema" apart from "this page has no extra
+// hero fields", so it only warns in the first case. See `core/config/docs-schema.ts`.
+markDocsSchemaLoaded();
 
 export const heroLayoutSchema = z
     .enum(['centered', 'centered-top', 'split-left', 'split-right', 'banner'])

@@ -134,8 +134,10 @@ starlight({
 
 ## Content Schema
 
-Add `ExtendDocsSchema` if you want the extra splash hero frontmatter used by this theme — hero
-layouts, announcement links, and the theme's full set of button styles on hero actions:
+`ExtendDocsSchema` is **required** for the theme's extra hero frontmatter — hero layouts,
+announcement links, and the theme's full set of button styles on hero actions. Starlight validates
+frontmatter against its own schema and silently drops any key it does not recognise, so without this
+those fields have no effect and produce no error:
 
 ```ts
 // src/content.config.ts
@@ -151,6 +153,14 @@ export const collections = {
   }),
 };
 ```
+
+:::tip[Set `hero.layout` but the layout is ignored?]
+
+That is what a missing extension looks like: the page falls back to the `centered` layout because
+Starlight stripped the field before the theme could read it. The theme prints a warning in the dev
+server and build output when it detects this.
+
+:::
 
 ## What the Plugin Wires Up
 
