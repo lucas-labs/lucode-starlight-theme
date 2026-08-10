@@ -53,7 +53,12 @@ const { class: className, inset = false, disabled = false, as: Tag = 'div', ...r
             color: var(--accent-foreground);
         }
 
-        > svg {
+        /*
+         * `:global` because the icon is slotted in by the consumer, so it carries that component's
+         * scope class rather than this one's. Astro 7 scopes descendant selectors that Astro 6 left
+         * alone, which would otherwise leave slotted icons unsized.
+         */
+        > :global(svg) {
             width: 1rem;
             height: 1rem;
             flex-shrink: 0;

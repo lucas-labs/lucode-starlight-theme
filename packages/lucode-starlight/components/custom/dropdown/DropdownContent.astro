@@ -59,7 +59,7 @@ const {
 <style>
     div[data-slot='dropdown-content'] {
         background-color: var(--popover-background, var(--muted));
-        color: var(var(--popover-foreground), var(--foreground));
+        color: var(--popover-foreground, var(--foreground));
         z-index: 50;
         min-width: 9rem;
         overflow-x: hidden;
@@ -135,45 +135,46 @@ const {
             bottom: 0;
         }
 
-        /* animations */
-        @keyframes fade-in {
-            from {
-                opacity: 0;
-            }
-            to {
-                opacity: 1;
-            }
-        }
+    }
 
-        @keyframes fade-out {
-            from {
-                opacity: 1;
-            }
-            to {
-                opacity: 0;
-            }
+    /* animations */
+    @keyframes fade-in {
+        from {
+            opacity: 0;
         }
-
-        @keyframes zoom-in-95 {
-            from {
-                opacity: 0;
-                transform: scale(0.95);
-            }
-            to {
-                opacity: 1;
-                transform: scale(1);
-            }
+        to {
+            opacity: 1;
         }
+    }
 
-        @keyframes zoom-out-95 {
-            from {
-                opacity: 1;
-                transform: scale(1);
-            }
-            to {
-                opacity: 0;
-                transform: scale(0.95);
-            }
+    @keyframes fade-out {
+        from {
+            opacity: 1;
+        }
+        to {
+            opacity: 0;
+        }
+    }
+
+    @keyframes zoom-in-95 {
+        from {
+            opacity: 0;
+            transform: scale(0.95);
+        }
+        to {
+            opacity: 1;
+            transform: scale(1);
+        }
+    }
+
+    @keyframes zoom-out-95 {
+        from {
+            opacity: 1;
+            transform: scale(1);
+        }
+        to {
+            opacity: 0;
+            transform: scale(0.95);
         }
     }
 </style>

@@ -8,11 +8,14 @@ import LinkButton from '../custom/LinkButton.astro';
 const { data } = Astro.locals.starlightRoute.entry;
 const {
     title = data.title,
-    tagline = data.description,
+    tagline: heroTagline,
     image,
     announcement,
-    actions,
+    actions = [],
 } = data.hero || {};
+
+// Falls back on an empty tagline too, not just a missing one.
+const tagline = heroTagline || data.description;
 
 const hasImage = !!image;
 const imageAttrs = {
@@ -74,9 +77,9 @@ if (image) {
             <div class="hero-content-container">
                 {tagline && <div class="tagline" set:html={tagline} />}
                 {
-                    actions?.length! > 0 && (
+                    actions.length > 0 && (
                         <div class="actions">
-                            {actions?.map(
+                            {actions.map(
                                 ({
                                     attrs: { class: className, ...attrs } = {},
                                     icon,
@@ -91,8 +94,8 @@ if (image) {
                                         {...attrs}
                                     >
                                         {text}
-                                        {icon?.name && <Icon name={icon?.name} size="16px" />}
-                                        {icon?.html && <Fragment set:html={icon.html} />}
+                                        {icon?.type === 'icon' && <Icon name={icon.name} />}
+                                        {icon?.type === 'raw' && <Fragment set:html={icon.html} />}
                                     </LinkButton>
                                 )
                             )}
