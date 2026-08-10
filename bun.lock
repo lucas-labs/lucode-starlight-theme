@@ -28,7 +28,7 @@
     },
     "packages/lucode-starlight": {
       "name": "lucode-starlight",
-      "version": "0.2.0",
+      "version": "1.0.0",
       "dependencies": {
         "@pagefind/default-ui": "^1.5.2",
         "marked": "^18.0.2",
