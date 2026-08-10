@@ -1,7 +1,6 @@
 ---
 title: Customize the Theme
-description:
-  Override Lucode Starlight tokens and extend the visual system without forking the package.
+description: Override Lucode Starlight tokens and extend the visual system without forking the package.
 ---
 
 Lucode Starlight keeps most visual decisions in CSS custom properties. Override them from your
@@ -34,23 +33,29 @@ you intentionally want to override Lucode tokens:
 
 ## Core Tokens
 
-| Token                   | Purpose                                                     |
-| ----------------------- | ----------------------------------------------------------- |
-| `--spacing`             | Base spacing unit used by the layout and custom components. |
-| `--radius`              | Shared radius for buttons, asides, tabs, and cards.         |
-| `--header-height`       | Sticky header height.                                       |
-| `--sidebar-width`       | Desktop sidebar width.                                      |
-| `--content-max-width`   | Maximum width for the main content area.                    |
-| `--container-max-width` | Maximum width for the top-level page container.             |
-| `--foreground`          | Primary text and high-contrast UI color.                    |
-| `--background`          | Main page background.                                       |
-| `--primary`             | Primary button background.                                  |
-| `--secondary`           | Secondary surfaces and quiet controls.                      |
-| `--muted`               | Low-emphasis backgrounds.                                   |
-| `--muted-foreground`    | Secondary text.                                             |
-| `--accent`              | Hover and active backgrounds.                               |
-| `--border`              | Borders and separators.                                     |
-| `--code-background`     | Code blocks, cards, tabs, and file trees.                   |
+| Token                    | Purpose                                                     |
+| ------------------------ | ----------------------------------------------------------- |
+| `--spacing`              | Base spacing unit used by the layout and custom components. |
+| `--radius`               | Shared radius for buttons, asides, tabs, and cards.         |
+| `--header-height`        | Sticky header height.                                       |
+| `--sidebar-width`        | Desktop sidebar width.                                      |
+| `--content-max-width`    | Maximum width for the main content area.                    |
+| `--container-max-width`  | Maximum width for the top-level page container.             |
+| `--foreground`           | Primary text and high-contrast UI color.                    |
+| `--background`           | Main page background.                                       |
+| `--primary`              | Primary button background.                                  |
+| `--primary-foreground`   | Text on `--primary` surfaces.                               |
+| `--secondary`            | Secondary surfaces and quiet controls.                      |
+| `--secondary-foreground` | Text on `--secondary` surfaces.                             |
+| `--muted`                | Low-emphasis backgrounds.                                   |
+| `--muted-foreground`     | Secondary text.                                             |
+| `--accent`               | Hover and active backgrounds.                               |
+| `--accent-foreground`    | Text on `--accent` surfaces.                                |
+| `--destructive`          | Destructive button text and background tint.                |
+| `--border`               | Borders and separators.                                     |
+| `--input`                | Form control borders.                                       |
+| `--ring`                 | Focus ring color.                                           |
+| `--code-background`      | Code blocks, cards, tabs, and file trees.                   |
 
 ## Color Modes
 
@@ -76,10 +81,11 @@ Define light and dark values separately with Starlight's `data-theme` attribute.
 }
 ```
 
-If you are using [Tailwindcss](https://tailwindcss.com/), especially when you are using
-[shadcn/ui](https://ui.shadcn.com/) and other framework ports of shadcn, you will need to alter your
-`src/styles/global.css` file to support both Starlight and Lucode. You can do this be doing the
-following:
+If you are using [Tailwind CSS](https://tailwindcss.com/), especially with
+[shadcn/ui](https://ui.shadcn.com/) or one of its framework ports, you need to adjust your
+`src/styles/global.css` so the same tokens serve both Starlight and Lucode. shadcn keys its dark
+theme off a `.dark` class, while Starlight uses a `data-theme` attribute on the root element, so the
+selectors have to be rewritten:
 
 ```diff
 - @custom-variant dark (&:is(.dark *));
@@ -90,6 +96,7 @@ following:
     --background: oklch(99% 0.003 250);
     --primary: oklch(24% 0.03 250);
     --primary-foreground: white;
+    --destructive: oklch(58% 0.22 27);
     --border: oklch(88% 0.01 250);
   }
 
@@ -99,15 +106,20 @@ following:
     --background: oklch(14% 0.015 250);
     --primary: oklch(97% 0.005 250);
     --primary-foreground: oklch(14% 0.015 250);
+    --destructive: oklch(70% 0.19 22);
     --border: oklch(28% 0.015 250);
   }
 ```
+
+The `@custom-variant` line is dropped because Starlight already handles mode switching; leaving it
+in means your `dark:` utilities never match. Both token sets share the same names as shadcn's, so
+the components in this theme and any shadcn components you add stay visually consistent.
 
 ## Starlight Color Mapping
 
 Lucode maps Starlight's built-in colors to its own tokens:
 
-```css
+```scss
 --sl-color-bg: var(--background);
 --sl-color-text: var(--foreground);
 --sl-color-text-accent: var(--foreground);

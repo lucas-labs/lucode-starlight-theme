@@ -1,7 +1,6 @@
 ---
 title: Typography
-description:
-  A sample documentation page that shows how Markdown content renders with Lucode Starlight.
+description: A sample documentation page that shows how Markdown content renders with Lucode Starlight.
 ---
 
 This page is intentionally content-heavy. Use it to inspect the reading experience after changing

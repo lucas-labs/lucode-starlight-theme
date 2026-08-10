@@ -3,7 +3,7 @@ title: Theme Components
 description: Reference for the user-facing components exported by lucode-starlight.
 ---
 
-import { Card, CardGrid } from '@astrojs/starlight/components';
+import { Card, CardGrid, Icon } from '@astrojs/starlight/components';
 import { ContainerSection, Dropdown, LinkButton } from 'lucode-starlight/components';
 
 The theme exports a small component surface for docs authors. Most UI comes from Starlight component
@@ -42,12 +42,76 @@ import { LinkButton } from 'lucode-starlight/components';
 </LinkButton>
 ```
 
-| Prop                    | Type                                                                             | Default     | Notes                                                                                                                             |
-| ----------------------- | -------------------------------------------------------------------------------- | ----------- | --------------------------------------------------------------------------------------------------------------------------------- |
-| `href`                  | `string`, `URL`, `null`, or `undefined`                                          | Required    | Passed to the underlying anchor.                                                                                                  |
-| `variant`               | `'default'`, `'link'`, `'secondary'`, `'outline'`, `'ghost'`, or `'destructive'` | `'default'` | Controls color and hover treatment. Starlight's `'primary'` and `'minimal'` are accepted as aliases of `'default'` and `'ghost'`. |
-| `size`                  | `'2xs'`, `'xs'`, `'sm'`, `'md'`, or `'lg'`                                       | `'md'`      | Controls height, font size, and padding.                                                                                          |
-| Other anchor attributes | Astro `HTMLAttributes<'a'>`                                                      | -           | `target`, `rel`, `aria-*`, `class`, and similar attributes are forwarded.                                                         |
+| Prop                    | Type                                                                              | Default     | Notes                                                                                                                             |
+| ----------------------- | --------------------------------------------------------------------------------- | ----------- | --------------------------------------------------------------------------------------------------------------------------------- |
+| `href`                  | `string`, `URL`, `null`, or `undefined`                                           | Required    | Passed to the underlying anchor.                                                                                                  |
+| `variant`               | `'default'`, `'link'`, `'secondary'`, `'outline'`, `'ghost'`, or `'destructive'`  | `'default'` | Controls color and hover treatment. Starlight's `'primary'` and `'minimal'` are accepted as aliases of `'default'` and `'ghost'`. |
+| `size`                  | `'2xs'`, `'xs'`, `'sm'`, `'md'`, `'lg'`, `'icon-sm'`, `'icon-md'`, or `'icon-lg'` | `'md'`      | Controls height, font size, and padding. The `icon-*` sizes render a square button sized for a single icon.                       |
+| Other anchor attributes | Astro `HTMLAttributes<'a'>`                                                       | -           | `target`, `rel`, `aria-*`, `class`, and similar attributes are forwarded.                                                         |
+
+### Variants
+
+Every variant maps to the same token names shadcn/ui uses, so these stay consistent with any shadcn
+components you add to a page.
+
+<div style="display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center;">
+    <LinkButton href="#variants" variant="default">
+        default
+    </LinkButton>
+    <LinkButton href="#variants" variant="secondary">
+        secondary
+    </LinkButton>
+    <LinkButton href="#variants" variant="outline">
+        outline
+    </LinkButton>
+    <LinkButton href="#variants" variant="ghost">
+        ghost
+    </LinkButton>
+    <LinkButton href="#variants" variant="destructive">
+        destructive
+    </LinkButton>
+    <LinkButton href="#variants" variant="link">
+        link
+    </LinkButton>
+</div>
+
+### Sizes
+
+The text sizes scale height, font size, and padding. The `icon-*` sizes drop the horizontal padding
+and render a square button, so pass a single icon as the only child.
+
+<div style="display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center;">
+    <LinkButton href="#sizes" variant="secondary" size="2xs">
+        2xs
+    </LinkButton>
+    <LinkButton href="#sizes" variant="secondary" size="xs">
+        xs
+    </LinkButton>
+    <LinkButton href="#sizes" variant="secondary" size="sm">
+        sm
+    </LinkButton>
+    <LinkButton href="#sizes" variant="secondary" size="md">
+        md
+    </LinkButton>
+    <LinkButton href="#sizes" variant="secondary" size="lg">
+        lg
+    </LinkButton>
+    <LinkButton href="#sizes" variant="secondary" size="icon-sm">
+        <Icon name="right-arrow" />
+    </LinkButton>
+    <LinkButton href="#sizes" variant="secondary" size="icon-md">
+        <Icon name="right-arrow" />
+    </LinkButton>
+    <LinkButton href="#sizes" variant="secondary" size="icon-lg">
+        <Icon name="right-arrow" />
+    </LinkButton>
+</div>
+
+```astro
+<LinkButton href="/reference/plugin-api/" variant="outline" size="icon-md">
+  <Icon name="right-arrow" />
+</LinkButton>
+```
 
 ## ContainerSection
 

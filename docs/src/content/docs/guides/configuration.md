@@ -134,7 +134,8 @@ starlight({
 
 ## Content Schema
 
-Add `ExtendDocsSchema` if you want the extra splash hero frontmatter used by this theme:
+Add `ExtendDocsSchema` if you want the extra splash hero frontmatter used by this theme — hero
+layouts, announcement links, and the theme's full set of button styles on hero actions:
 
 ```ts
 // src/content.config.ts

@@ -6,7 +6,6 @@
     "trailingComma": "es5",
     "printWidth": 100,
     "arrowParens": "always",
-    "proseWrap": "always",
     "overrides": [
         {
             "files": ["*.yml", "*.yaml"],

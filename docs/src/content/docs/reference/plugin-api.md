@@ -23,6 +23,10 @@ starlight({
 type LucodeStarlightUserConfig = {
   navLinks?: Link[];
   footerText?: string | Record<string, string>;
+  warnOverrides?: boolean;
+  docs?: {
+    includeAiUtilities?: boolean;
+  };
 };
 ```
 
@@ -86,6 +90,30 @@ lucode({
 If omitted, the theme uses its built-in credit line. When using the object form, include a key for
 your default language.
 
+### `warnOverrides`
+
+Defaults to `true`. The theme installs its own component overrides, and skips any component you have
+already overridden in your Starlight configuration, warning you when it does so. Set this to `false`
+to silence those warnings if the overrides are intentional.
+
+```js
+lucode({
+  warnOverrides: false,
+});
+```
+
+### `docs.includeAiUtilities`
+
+Defaults to `false`. Set it to `true` to render an "AI tools" dropdown next to page titles, with
+links that open the current page in ChatGPT or Claude alongside a prompt asking the assistant to
+explain it.
+
+```js
+lucode({
+  docs: { includeAiUtilities: true },
+});
+```
+
 ## Frontmatter Extension
 
 Import `ExtendDocsSchema` from `lucode-starlight/schema` and pass it to Starlight's `docsSchema()`.
@@ -100,21 +128,55 @@ The extension adds:
 
 ```ts
 type LucodeDocsFrontmatter = {
-  links?: {
-    doc?: string;
-    api?: string;
-  };
   hero?: {
     layout?: 'centered' | 'centered-top' | 'split-left' | 'split-right' | 'banner';
     announcement?: {
       text: string;
       link: string;
     };
+    actions?: Array<{
+      variant?: 'default' | 'link' | 'secondary' | 'outline' | 'ghost' | 'destructive';
+    }>;
   };
 };
 ```
 
 `hero.layout` defaults to `centered`.
+
+### `hero.actions[].variant`
+
+Starlight already defines `hero.actions` with a `variant` limited to `primary`, `secondary`, and
+`minimal`. The extension widens that field to the theme's full button styles, so splash page actions
+can use any variant without overriding the `Hero` component:
+
+```md
+---
+title: Integration Platform
+template: splash
+hero:
+  actions:
+    - text: Start building
+      link: /guides/getting-started/
+      icon: right-arrow
+    - text: Read the API reference
+      link: /reference/plugin-api/
+      variant: outline
+---
+```
+
+Defaults to `default`. Starlight's `primary` and `minimal` are still accepted, as aliases of
+`default` and `ghost`, so existing frontmatter keeps working.
+
+The other keys — `text`, `link`, `icon`, and `attrs` — come from Starlight and are unchanged. `icon`
+takes either a built-in Starlight icon name or an inline `<svg>` string.
+
+:::caution
+
+Widening `variant` requires `@astrojs/starlight` 0.41.4 or newer. That is the first release whose
+`docsSchema({ extend })` deep-merges your schema over Starlight's; earlier versions build a Zod
+intersection, which cannot replace a field Starlight already declares.
+
+:::
 
 ## Package Exports
 
