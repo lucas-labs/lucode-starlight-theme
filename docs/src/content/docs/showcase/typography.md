@@ -1,7 +1,7 @@
 ---
 title: Typography
 description:
-    A sample documentation page that shows how Markdown content renders with Lucode Starlight.
+  A sample documentation page that shows how Markdown content renders with Lucode Starlight.
 ---
 
 This page is intentionally content-heavy. Use it to inspect the reading experience after changing
@@ -62,21 +62,21 @@ import starlight from '@astrojs/starlight';
 import lucode from 'lucode-starlight';
 
 export default defineConfig({
-    integrations: [
-        starlight({
-            title: 'Acme Docs',
-            plugins: [lucode()],
-        }),
-    ],
+  integrations: [
+    starlight({
+      title: 'Acme Docs',
+      plugins: [lucode()],
+    }),
+  ],
 });
 ```
 
 ```css
 @layer lucode {
-    :root {
-        --radius: 0.5rem;
-        --container-max-width: 1440px;
-    }
+  :root {
+    --radius: 0.5rem;
+    --container-max-width: 1440px;
+  }
 }
 ```
 

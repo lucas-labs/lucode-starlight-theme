@@ -13,7 +13,7 @@ Use the default export inside Starlight's `plugins` array:
 
 ```js
 starlight({
-    plugins: [lucode()],
+  plugins: [lucode()],
 });
 ```
 
@@ -21,8 +21,8 @@ starlight({
 
 ```ts
 type LucodeStarlightUserConfig = {
-    navLinks?: Link[];
-    footerText?: string | Record<string, string>;
+  navLinks?: Link[];
+  footerText?: string | Record<string, string>;
 };
 ```
 
@@ -32,37 +32,37 @@ Header navigation links rendered by the theme.
 
 ```ts
 type Link = {
-    link: string;
-    badge?: string;
-    translations?: Record<string, string>;
-    label: string | Record<string, string>;
-    attrs?: Record<string, string | number | boolean | undefined>;
+  link: string;
+  badge?: string;
+  translations?: Record<string, string>;
+  label: string | Record<string, string>;
+  attrs?: Record<string, string | number | boolean | undefined>;
 };
 ```
 
 ```js
 lucode({
-    navLinks: [
-        {
-            label: 'Docs',
-            link: '/guides/getting-started/',
-            translations: {
-                es: 'Documentación',
-            },
-        },
-        {
-            link: '/reference/plugin-api/',
-            label: {
-                en: 'API',
-                es: 'API',
-            },
-        },
-        {
-            label: 'GitHub',
-            attrs: { target: '_blank', rel: 'noreferrer' },
-            link: 'https://github.com/lucas-labs/lucode-starlight-theme',
-        },
-    ],
+  navLinks: [
+    {
+      label: 'Docs',
+      link: '/guides/getting-started/',
+      translations: {
+        es: 'Documentación',
+      },
+    },
+    {
+      link: '/reference/plugin-api/',
+      label: {
+        en: 'API',
+        es: 'API',
+      },
+    },
+    {
+      label: 'GitHub',
+      attrs: { target: '_blank', rel: 'noreferrer' },
+      link: 'https://github.com/lucas-labs/lucode-starlight-theme',
+    },
+  ],
 });
 ```
 
@@ -76,10 +76,10 @@ Starlight's `title`).
 
 ```js
 lucode({
-    footerText: {
-        es: 'Hecho con [Lucode Starlight](https://github.com/lucas-labs/lucode-starlight-theme).',
-        en: 'Built with [Lucode Starlight](https://github.com/lucas-labs/lucode-starlight-theme).',
-    },
+  footerText: {
+    es: 'Hecho con [Lucode Starlight](https://github.com/lucas-labs/lucode-starlight-theme).',
+    en: 'Built with [Lucode Starlight](https://github.com/lucas-labs/lucode-starlight-theme).',
+  },
 });
 ```
 
@@ -100,17 +100,17 @@ The extension adds:
 
 ```ts
 type LucodeDocsFrontmatter = {
-    links?: {
-        doc?: string;
-        api?: string;
+  links?: {
+    doc?: string;
+    api?: string;
+  };
+  hero?: {
+    layout?: 'centered' | 'centered-top' | 'split-left' | 'split-right' | 'banner';
+    announcement?: {
+      text: string;
+      link: string;
     };
-    hero?: {
-        layout?: 'centered' | 'centered-top' | 'split-left' | 'split-right' | 'banner';
-        announcement?: {
-            text: string;
-            link: string;
-        };
-    };
+  };
 };
 ```
 

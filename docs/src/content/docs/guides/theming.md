@@ -1,7 +1,7 @@
 ---
 title: Customize the Theme
 description:
-    Override Lucode Starlight tokens and extend the visual system without forking the package.
+  Override Lucode Starlight tokens and extend the visual system without forking the package.
 ---
 
 Lucode Starlight keeps most visual decisions in CSS custom properties. Override them from your
@@ -13,8 +13,8 @@ app-level stylesheet, usually `src/styles/global.css`, and include that file in 
 ```js
 // astro.config.mjs
 starlight({
-    customCss: ['./src/styles/global.css'],
-    plugins: [lucode()],
+  customCss: ['./src/styles/global.css'],
+  plugins: [lucode()],
 });
 ```
 
@@ -24,11 +24,11 @@ you intentionally want to override Lucode tokens:
 ```css
 /* src/styles/global.css */
 @layer lucode {
-    :root {
-        --radius: 0.5rem;
-        --sidebar-width: 17rem;
-        --container-max-width: 1440px;
-    }
+  :root {
+    --radius: 0.5rem;
+    --sidebar-width: 17rem;
+    --container-max-width: 1440px;
+  }
 }
 ```
 
@@ -58,21 +58,21 @@ Define light and dark values separately with Starlight's `data-theme` attribute.
 
 ```css
 @layer lucode {
-    :root[data-theme='light'] {
-        --foreground: oklch(18% 0.015 250);
-        --background: oklch(99% 0.003 250);
-        --primary: oklch(24% 0.03 250);
-        --primary-foreground: white;
-        --border: oklch(88% 0.01 250);
-    }
+  :root[data-theme='light'] {
+    --foreground: oklch(18% 0.015 250);
+    --background: oklch(99% 0.003 250);
+    --primary: oklch(24% 0.03 250);
+    --primary-foreground: white;
+    --border: oklch(88% 0.01 250);
+  }
 
-    :root[data-theme='dark'] {
-        --foreground: oklch(97% 0.005 250);
-        --background: oklch(14% 0.015 250);
-        --primary: oklch(97% 0.005 250);
-        --primary-foreground: oklch(14% 0.015 250);
-        --border: oklch(28% 0.015 250);
-    }
+  :root[data-theme='dark'] {
+    --foreground: oklch(97% 0.005 250);
+    --background: oklch(14% 0.015 250);
+    --primary: oklch(97% 0.005 250);
+    --primary-foreground: oklch(14% 0.015 250);
+    --border: oklch(28% 0.015 250);
+  }
 }
 ```
 
@@ -127,10 +127,10 @@ fonts globally from your app CSS:
 
 ```css
 @layer lucode {
-    :root {
-        --sl-font: Inter, ui-sans-serif, system-ui, sans-serif;
-        --sl-font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, monospace;
-    }
+  :root {
+    --sl-font: Inter, ui-sans-serif, system-ui, sans-serif;
+    --sl-font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, monospace;
+  }
 }
 ```
 
@@ -144,13 +144,13 @@ For a lighter docs interface, keep it close to the page background:
 
 ```css
 @layer lucode {
-    :root[data-theme='light'] {
-        --code-background: oklch(98% 0.006 250);
-    }
+  :root[data-theme='light'] {
+    --code-background: oklch(98% 0.006 250);
+  }
 
-    :root[data-theme='dark'] {
-        --code-background: oklch(18% 0.01 250);
-    }
+  :root[data-theme='dark'] {
+    --code-background: oklch(18% 0.01 250);
+  }
 }
 ```
 
@@ -168,14 +168,14 @@ title: Developer Portal
 description: API docs, examples, and integration guides.
 template: splash
 hero:
-    layout: banner
-    announcement:
-        text: Version 2.0 is ready
-        link: /guides/migration/
-    actions:
-        - text: Get started
-          link: /guides/getting-started/
-          icon: right-arrow
+  layout: banner
+  announcement:
+    text: Version 2.0 is ready
+    link: /guides/migration/
+  actions:
+    - text: Get started
+      link: /guides/getting-started/
+      icon: right-arrow
 ---
 ```
 
