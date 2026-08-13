@@ -46,7 +46,7 @@ export default defineConfig({
                 {
                     label: 'Start Here',
                     items: [
-                        { label: 'Getting Started', link: '/guides/getting-started/' },
+                        { label: 'Getting Started', link: '/guides/getting-started/', badge: {text: 'New', variant: 'tip'} },
                         { label: 'Configuration', link: '/guides/configuration/' },
                         { label: 'Customize the Theme', link: '/guides/theming/' },
                     ],
