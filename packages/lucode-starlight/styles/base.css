@@ -523,7 +523,8 @@
     }
 
     /* built-in Starlight Badges */
-    .sl-markdown-content .sl-badge {
+    .sl-markdown-content .sl-badge, 
+    .sidebar .sl-badge {
         --badge-background: var(--secondary);
         --badge-foreground: var(--secondary-foreground);
         --badge-border: transparent;
@@ -544,12 +545,14 @@
         vertical-align: middle;
     }
 
-    .sl-markdown-content .sl-badge.default {
+    .sl-markdown-content .sl-badge.default, 
+    .sidebar .sl-badge.default {
         --badge-background: var(--secondary);
         --badge-foreground: var(--secondary-foreground);
     }
 
-    .sl-markdown-content .sl-badge.note {
+    .sl-markdown-content .sl-badge.note, 
+    .sidebar .sl-badge.note {
         --badge-background: color-mix(
             in oklab,
             var(--sl-color-blue-low) 88%,
@@ -558,7 +561,8 @@
         --badge-foreground: var(--sl-color-blue-high);
     }
 
-    .sl-markdown-content .sl-badge.success {
+    .sl-markdown-content .sl-badge.success, 
+    .sidebar .sl-badge.success {
         --badge-background: color-mix(
             in oklab,
             var(--sl-color-green-low) 88%,
@@ -567,7 +571,8 @@
         --badge-foreground: var(--sl-color-green-high);
     }
 
-    .sl-markdown-content .sl-badge.tip {
+    .sl-markdown-content .sl-badge.tip, 
+    .sidebar .sl-badge.tip {
         --badge-background: color-mix(
             in oklab,
             var(--sl-color-purple-low) 88%,
@@ -576,7 +581,8 @@
         --badge-foreground: var(--sl-color-purple-high);
     }
 
-    .sl-markdown-content .sl-badge.caution {
+    .sl-markdown-content .sl-badge.caution, 
+    .sidebar .sl-badge.caution {
         --badge-background: color-mix(
             in oklab,
             var(--sl-color-orange-low) 90%,
@@ -585,7 +591,8 @@
         --badge-foreground: var(--sl-color-orange-high);
     }
 
-    .sl-markdown-content .sl-badge.danger {
+    .sl-markdown-content .sl-badge.danger, 
+    .sidebar .sl-badge.danger {
         --badge-background: color-mix(
             in oklab,
             var(--sl-color-red-low) 90%,
@@ -594,38 +601,30 @@
         --badge-foreground: var(--sl-color-red-high);
     }
 
-    .sl-markdown-content .sl-badge.small {
+    .sl-markdown-content .sl-badge.small, 
+    .sidebar .sl-badge.small {
         min-height: 1.25rem;
         padding-inline: calc(var(--spacing) * 2);
         font-size: 0.75rem;
     }
 
-    .sl-markdown-content .sl-badge.medium {
+    .sl-markdown-content .sl-badge.medium, 
+    .sidebar .sl-badge.medium {
         min-height: 1.375rem;
         padding-inline: calc(var(--spacing) * 2.5);
         font-size: 0.75rem;
     }
 
-    .sl-markdown-content .sl-badge.large {
+    .sl-markdown-content .sl-badge.large, 
+    .sidebar .sl-badge.large {
         min-height: 1.5rem;
         padding-inline: calc(var(--spacing) * 3);
         font-size: 0.8125rem;
     }
 
-    .sidebar-content .sl-badge {
-        font-family: inherit;
-        font-size: 0.6875rem;
-        font-weight: 500;
-        line-height: 1;
-        min-height: 1.125rem;
-        padding: 0.125rem 0.4375rem;
-        border-radius: 9999px;
-    }
-
-    .sidebar-content a[aria-current='page'] > .sl-badge {
-        background-color: color-mix(in oklab, currentColor 12%, transparent);
-        border-color: transparent;
-        color: inherit;
+    .sidebar a[aria-current='page'] .sl-badge {
+        border-color: color-mix(in oklab, var(--badge-foreground) 22%, transparent);
+        box-shadow: 0 0 0 1px color-mix(in oklab, var(--background) 55%, transparent);
     }
 
     /* built-in Starlight LinkButtons */
