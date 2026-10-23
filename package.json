@@ -18,7 +18,7 @@
         "typecheck": "bun run --filter lucode-starlight-docs typecheck"
     },
     "devDependencies": {
-        "@antfu/eslint-config": "^9.0.0",
+        "@antfu/eslint-config": "^10.0.0",
         "@astrojs/check": "^0.9.10",
         "@vitest/coverage-v8": "^5.0.0",
         "astro": "^7.1.3",
